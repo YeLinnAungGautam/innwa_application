@@ -1,4 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/service/format_number.dart';
+import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/screen/product_detail/product_detail.dart';
 import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
 import 'package:innwa_mobile_dev/shared/discount_banner/discount_banner.dart';
@@ -6,11 +10,13 @@ import 'package:innwa_mobile_dev/shared/price_tag/price_tag.dart';
 import 'package:innwa_mobile_dev/shared/texts/product_title.dart';
 
 class ProductCard extends StatelessWidget {
-  String url;
-  String text;
-  String price;
-  ProductCard(
-      {super.key, required this.url, required this.text, required this.price});
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.imagePath,
+  });
+  final ProductModel product;
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +45,69 @@ class ProductCard extends StatelessWidget {
                   alignment: Alignment.topRight,
                   children: [
                     Container(
-                      child: Image(
-                        image: NetworkImage(url),
-                      ),
+                      child: CachedNetworkImage(
+                          imageUrl: imagePath + product.image),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: Color(0xFF4C53A5),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(6, 3),
-                              spreadRadius: -4,
-                              blurRadius: 10,
-                              color: Color.fromRGBO(229, 229, 229, 1),
+                    Column(
+                      children: [
+                        if (product.price.disPrice != null)
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF4C53A5),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(6, 3),
+                                    spreadRadius: -4,
+                                    blurRadius: 10,
+                                    color: Color.fromRGBO(229, 229, 229, 1),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: DiscountBanner(
+                                text:
+                                    "Discount - ${formatNumber(dbNumber: double.parse(product.price.disPrice!))} MMK"),
+                          ),
+                        if (product.price.cashback != null) 10.vertical,
+                        if (product.price.cashback != null)
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF4C53A5),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(6, 3),
+                                    spreadRadius: -4,
+                                    blurRadius: 10,
+                                    color: Color.fromRGBO(229, 229, 229, 1),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: DiscountBanner(
+                                text:
+                                    "Cashback - ${formatNumber(dbNumber: double.parse(product.price.cashback!))} MMK"),
+                          ),
+                        if (product.price.gift != null) 10.vertical,
+                        if (product.price.gift != null)
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.greenAccent,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(6, 3),
+                                    spreadRadius: -4,
+                                    blurRadius: 10,
+                                    color: Color.fromRGBO(229, 229, 229, 1),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: DiscountBanner(
+                              text: "Gift - ${product.price.gift!}",
                             ),
-                          ],
-                          borderRadius: BorderRadius.circular(5)),
-                      child: DiscountBanner(text: "Discount - 10,000 MMK"),
-                    ),
+                          ),
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -65,14 +115,37 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Container(
                     height: 46,
-                    padding: EdgeInsets.only(bottom: 4, left: 8.0, top: 8.0),
+                    padding:
+                        const EdgeInsets.only(bottom: 4, left: 8.0, top: 8.0),
                     alignment: Alignment.centerLeft,
-                    child: ProductTitle(text: text ),
+                    child: ProductTitle(text: product.enName),
                   ),
                   Container(
-                      padding: EdgeInsets.only(left: 8.0,bottom: 5.0),
-                      alignment: Alignment.centerLeft,
-                      child: PriceTag(text: "Price : 100000 MMK")),
+                    padding: const EdgeInsets.only(left: 8.0, bottom: 5.0),
+                    alignment: Alignment.centerLeft,
+                    child: Row(children: [
+                      PriceTag(
+                        text: "Price : ",
+                      ),
+                      Column(
+                        children: [
+                          PriceTag(
+                            haveDiscount: product.price.disPrice != null,
+                            text: formatNumber(dbNumber: product.price.amount),
+                          ),
+                          if (product.price.disPrice != null)
+                            PriceTag(
+                              text: formatNumber(
+                                  dbNumber: product.price.amount -
+                                      double.parse(product.price.disPrice!)),
+                            ),
+                        ],
+                      ),
+                      PriceTag(
+                        text: " MMK",
+                      ),
+                    ]),
+                  ),
                 ],
               ),
               AddToCard(

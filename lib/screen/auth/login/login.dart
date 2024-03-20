@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:innwa_mobile_dev/main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:innwa_mobile_dev/shared/custom_text_field/custom_text_form_field.dart';
 import 'package:innwa_mobile_dev/shared/image_container/image_container.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
 import 'package:innwa_mobile_dev/util/image_path/image_path.dart';
-
 
 class Login extends StatefulWidget {
   final Function? toggleView;
@@ -19,7 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _isObscure = true;
   ImagePath imaPath = ImagePath();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,6 @@ class _LoginState extends State<Login> {
           color: Colors.white,
           height: MediaQuery.of(context).size.height,
           child: Column(
-            
             children: [
               Expanded(
                 child: Container(
@@ -46,9 +43,9 @@ class _LoginState extends State<Login> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ImageContainer(
-                          isUrl: false,
+                            isUrl: false,
                             width: 205.0,
-                            height: 60.0,                          
+                            height: 60.0,
                             url: imaPath.path('innwa_logo.png')),
                       ),
                       Padding(
@@ -105,10 +102,12 @@ class _LoginState extends State<Login> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          () => Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyApp()),
-                              );
+                          () => {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(builder: (context) => MyApp(api: ,)),
+                                //   )
+                              };
                         },
                         child: Container(
                           width: 300,
@@ -148,7 +147,7 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ImageContainer(
-                                isUrl: false,
+                                  isUrl: false,
                                   width: 50,
                                   height: 50,
                                   url: imaPath.path('google_logo.png')),
@@ -201,7 +200,7 @@ class _LoginState extends State<Login> {
 
   Padding buildInputForm(String label, bool pass) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: TextFormField(
         obscureText: pass ? _isObscure : false,
         decoration: InputDecoration(

@@ -1,27 +1,34 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ImageBanner extends StatelessWidget {
   String url;
-  ImageBanner({super.key,required this.url});
+  final String? link;
+  ImageBanner({super.key, required this.url, this.link});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 5.0),
-      width: MediaQuery.of(context).size.width,
-      height: 150.0,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-            "https://mir-s3-cdn-cf.behance.net/project_modules/1400/385ff4114159083.606bf1d855df5.png",
-          
-          ),
-          fit: BoxFit.cover
-        
-        )
+    return GestureDetector(
+      onTap: () async {
+        if (link != null) {
+          try {
+            await launchUrlString(link!);
+          } catch (e) {
+            debugPrint("Can't Launch");
+          }
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        width: MediaQuery.of(context).size.width,
+        height: 150.0,
+        decoration: const BoxDecoration(),
+        child: CachedNetworkImage(
+          imageUrl: url,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
-
-  
 }

@@ -7,7 +7,7 @@ import 'package:innwa_mobile_dev/screen/product_detail/components/promotion.dart
 import 'package:innwa_mobile_dev/screen/product_detail/components/review.dart';
 import 'package:innwa_mobile_dev/screen/product_detail/components/review_lists.dart';
 import 'package:innwa_mobile_dev/screen/product_detail/components/specification.dart';
-import 'package:innwa_mobile_dev/screen/promotion/promotion.dart';
+import 'package:innwa_mobile_dev/promotion_product/view/promotion.dart';
 import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
 
 import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
