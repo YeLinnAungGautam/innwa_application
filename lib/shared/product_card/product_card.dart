@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/format_number.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
-import 'package:innwa_mobile_dev/screen/product_detail/product_detail.dart';
 import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
 import 'package:innwa_mobile_dev/shared/discount_banner/discount_banner.dart';
 import 'package:innwa_mobile_dev/shared/price_tag/price_tag.dart';
@@ -36,10 +37,13 @@ class ProductCard extends StatelessWidget {
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProductDetail()));
+                  RouterService.of(context).push(
+                      "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}",
+                      redirect: false);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const ProductDetail()));
                 },
                 child: Stack(
                   alignment: Alignment.topRight,
@@ -111,42 +115,56 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  Container(
-                    height: 46,
-                    padding:
-                        const EdgeInsets.only(bottom: 4, left: 8.0, top: 8.0),
-                    alignment: Alignment.centerLeft,
-                    child: ProductTitle(text: product.enName),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 8.0, bottom: 5.0),
-                    alignment: Alignment.centerLeft,
-                    child: Row(children: [
-                      PriceTag(
-                        text: "Price : ",
-                      ),
-                      Column(
-                        children: [
-                          PriceTag(
-                            haveDiscount: product.price.disPrice != null,
-                            text: formatNumber(dbNumber: product.price.amount),
-                          ),
-                          if (product.price.disPrice != null)
+              GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  RouterService.of(context).push(
+                      "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}",
+                      redirect: false);
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 46,
+                      padding:
+                          const EdgeInsets.only(bottom: 4, left: 8.0, top: 8.0),
+                      alignment: Alignment.centerLeft,
+                      child: ProductTitle(text: product.enName),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 8.0, bottom: 5.0),
+                      alignment: Alignment.centerLeft,
+                      child: Row(children: [
+                        PriceTag(
+                          text: "Price : ",
+                        ),
+                        Column(
+                          children: [
                             PriceTag(
-                              text: formatNumber(
-                                  dbNumber: product.price.amount -
-                                      double.parse(product.price.disPrice!)),
+                              haveDiscount: product.price.disPrice != null,
+                              text:
+                                  formatNumber(dbNumber: product.price.amount),
                             ),
-                        ],
-                      ),
-                      PriceTag(
-                        text: " MMK",
-                      ),
-                    ]),
-                  ),
-                ],
+                            if (product.price.disPrice != null)
+                              PriceTag(
+                                text: formatNumber(
+                                    dbNumber: product.price.amount -
+                                        double.parse(product.price.disPrice!) -
+                                        double.parse(
+                                            product.price.cashback ?? "0")),
+                              ),
+                          ],
+                        ),
+                        PriceTag(
+                          text: " MMK",
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
               AddToCard(
                 width: 180,

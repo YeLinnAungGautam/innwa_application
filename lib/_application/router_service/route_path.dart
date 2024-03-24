@@ -22,4 +22,8 @@ class RouterPath {
 
   final articleDetails =
       _PathMap("articleDetails", fullPath: "/articles/articleDetails");
+  final promotionsDertails =
+      _PathMap("promotionsDetails", fullPath: "/promotion/promotionsDetails");
+  final productDetails =
+      _PathMap("productDetails", fullPath: "/products/productDetails");
 }

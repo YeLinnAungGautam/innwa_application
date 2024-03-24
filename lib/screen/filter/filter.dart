@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:innwa_mobile_dev/screen/filter/filter_list.dart';
-import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
-import 'package:innwa_mobile_dev/shared/top_bar/topbar.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
-import 'package:multiselect/multiselect.dart';
 
 class FilterBy extends StatefulWidget {
   const FilterBy({super.key});
@@ -22,13 +19,11 @@ class _FilterByState extends State<FilterBy> {
   String selectedOption = '';
   String radioValue = "defult";
 
+  final GlobalKey<FilterListState> _childKey = GlobalKey<FilterListState>();
 
-  GlobalKey<FilterListState> _childKey = GlobalKey<FilterListState>();
-  
   void updateChildText() {
     _childKey.currentState?.updateText("default");
   }
-
 
   void setSelectedOption(String option) {
     setState(() {
@@ -71,26 +66,26 @@ class _FilterByState extends State<FilterBy> {
                           ),
                           Row(
                             children: [
-
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextButton(
-                                
-                                onPressed: () { 
-                                  updateChildText();
-                                },
-                              child: RobotoText(fontSize: 15.0, fontColor: Colors.blue, text: "Clear"),)
-                              
-                              ),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      updateChildText();
+                                    },
+                                    child: RobotoText(
+                                        fontSize: 15.0,
+                                        fontColor: Colors.blue,
+                                        text: "Clear"),
+                                  )),
                               Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                  onTap: () =>
-                                      Scaffold.of(context).closeEndDrawer(),
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 25,
-                                  )))
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onTap: () =>
+                                          Scaffold.of(context).closeEndDrawer(),
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 25,
+                                      )))
                             ],
                           )
                         ],
@@ -98,7 +93,9 @@ class _FilterByState extends State<FilterBy> {
                     ),
                     SizedBox(
                         height: MediaQuery.of(context).size.height / 1.5,
-                        child: FilterList(key: _childKey,)),
+                        child: FilterList(
+                          key: _childKey,
+                        )),
                     // Row(
                     //   children: [
                     //     Padding(

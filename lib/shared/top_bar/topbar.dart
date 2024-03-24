@@ -10,7 +10,13 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   bool? needBackButton;
   bool needMenu;
   String? title;
-  TopBar({super.key, this.needBackButton, required this.needMenu, this.title});
+  bool showAction;
+  TopBar(
+      {super.key,
+      this.needBackButton,
+      this.showAction = true,
+      required this.needMenu,
+      this.title});
 
   @override
   // TODO: implement preferredSize
@@ -87,7 +93,7 @@ class _TopBarState extends State<TopBar> {
                         )
                 ],
               ),
-              sideUtil(context)
+              if (widget.showAction) sideUtil(context)
             ],
           ),
         );

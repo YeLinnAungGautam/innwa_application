@@ -13,11 +13,17 @@ part 'article_list_state.dart';
 class ArticleListBloc extends Bloc<ArticleListEvent, ArticleListState> {
   ArticleListBloc(this._restAPI) : super(ArticleListState()) {
     on<GetArticleEvent>(_getArticleEvent);
+    on<RefreshEvent>(_refreshEvent);
   }
 
   final RestAPI _restAPI;
   final PagingController<int, ArticleListModel> artilePagingController =
       PagingController(firstPageKey: 1);
+
+  void _refreshEvent(RefreshEvent event, Emitter emit) async {
+    emit(state.clearNextPageUrl());
+    artilePagingController.refresh();
+  }
 
   Future<Map<String, dynamic>?> _getArticles({String? params}) async {
     Map<String, dynamic>? resData;
@@ -49,9 +55,6 @@ class ArticleListBloc extends Bloc<ArticleListEvent, ArticleListState> {
   }
 
   Future<void> _getArticleEvent(GetArticleEvent event, Emitter emit) async {
-    debugPrint(
-        "-----------name---------------------${Uri.parse("https://shop.innwa.com.mm/api/articles?page=1").queryParameters}--------------------------------");
-
     final resData = await _getArticles(
         params: state.nextPageUrl != null
             ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}"

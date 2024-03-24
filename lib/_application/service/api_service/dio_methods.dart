@@ -1,5 +1,5 @@
-
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/util.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/validation.dart';
@@ -47,10 +47,12 @@ class ApiMethods {
 
     // start to call api request
     try {
+      debugPrint(
+          "-----------data---------------------$data--------------------------------");
       final Response response = await _dioMethod(
         name: method,
         path: path,
-        data: isGetMethod ? null : data,
+        data: isGetMethod ? data : data,
       );
 
       if (isContent) {
@@ -105,7 +107,6 @@ class ApiMethods {
     return null;
   }
 
-
   void setConfig(
     String? basePath,
     String? contentType,
@@ -153,12 +154,12 @@ class ApiMethods {
     required String path,
     dynamic data,
   }) async {
-    final options = Options().copyWith(
-    );
+    final options = Options().copyWith();
     switch (name) {
       case "GET":
         return await dio.get(
           path,
+          data: data,
           options: options,
         );
       case "POST":

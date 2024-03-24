@@ -23,32 +23,38 @@ class Article extends StatelessWidget {
         articleListBloc.listenArticlePagingController(context: context);
         return BlocBuilder<ArticleListBloc, ArticleListState>(
           builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  floating: true,
-                  automaticallyImplyLeading: false,
-                  snap: true,
-                  pinned: true,
-                  centerTitle: false,
-                  title: Heading(text: "Articles"),
-                  actionsIconTheme: const IconThemeData(size: 0),
-                  actions: const [Text("")],
-                ),
-                SliverToBoxAdapter(
-                  child: 10.vertical,
-                ),
-                PagedSliverList(
-                  pagingController: articleListBloc.artilePagingController,
-                  builderDelegate: PagedChildBuilderDelegate<ArticleListModel>(
-                      itemBuilder: (context, item, index) {
-                    return ArticleItems(
-                      imagePrefix: state.imagePath!,
-                      article: item,
-                    );
-                  }),
-                )
-              ],
+            return RefreshIndicator(
+              onRefresh: () async {
+                articleListBloc.add(RefreshEvent(context: context));
+              },
+              child: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    floating: true,
+                    automaticallyImplyLeading: false,
+                    snap: true,
+                    pinned: true,
+                    centerTitle: false,
+                    title: Heading(text: "Articles"),
+                    actionsIconTheme: const IconThemeData(size: 0),
+                    actions: const [Text("")],
+                  ),
+                  SliverToBoxAdapter(
+                    child: 10.vertical,
+                  ),
+                  PagedSliverList(
+                    pagingController: articleListBloc.artilePagingController,
+                    builderDelegate:
+                        PagedChildBuilderDelegate<ArticleListModel>(
+                            itemBuilder: (context, item, index) {
+                      return ArticleItems(
+                        imagePrefix: state.imagePath!,
+                        article: item,
+                      );
+                    }),
+                  )
+                ],
+              ),
             );
           },
         );

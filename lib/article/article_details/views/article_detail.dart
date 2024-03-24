@@ -5,8 +5,13 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/article/article_details/bloc/article_details_bloc.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
+import 'package:innwa_mobile_dev/util/ui/back_btn.dart';
+import 'package:innwa_mobile_dev/util/ui/innwa_error.dart';
+import 'package:intl/intl.dart';
 
 class ArticleDetail extends StatelessWidget {
   const ArticleDetail({required this.slug, super.key});
@@ -38,12 +43,21 @@ class ArticleDetail extends StatelessWidget {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8),
-                              child: RobotoText(
-                                fontSize: 18.0,
-                                fontColor: Colors.black,
-                                text: state.artilce!.mmName ??
-                                    state.artilce!.enName,
-                                fontWeight: FontWeight.bold,
+                              child: Row(
+                                children: [
+                                  const BackBtn(),
+                                  Expanded(
+                                    child: Text(
+                                      state.artilce!.mmName ??
+                                          state.artilce!.enName,
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -75,8 +89,153 @@ class ArticleDetail extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SliverToBoxAdapter(
+                            child: 10.vertical,
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Wrap(
+                                children: [
+                                  ...state.newTags.map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 5,
+                                      ),
+                                      child: Text(
+                                        "#${e.mmName ?? e.enName} ${state.newTags.last.id != e.id ? "," : ""}",
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: 10.vertical,
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: RobotoText(
+                                fontSize: 16.0,
+                                fontColor: Colors.black,
+                                text: "Latest News",
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: 10.vertical,
+                          ),
+                          SliverPadding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            sliver: SliverGrid(
+                              delegate: SliverChildBuilderDelegate(
+                                childCount: state.latestArticles.length,
+                                (context, index) => GestureDetector(
+                                  onTap: () async {
+                                    RouterService.of(context).push(
+                                        "${RouterPath.I.articleDetails.fullPath}?slug=${state.latestArticles[index].slug}");
+                                  },
+                                  child: AbsorbPointer(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CachedNetworkImage(
+                                            imageUrl: state.imagePrefix +
+                                                state.latestArticles[index]
+                                                    .image),
+                                        10.vertical,
+                                        RobotoText(
+                                          fontSize: 15.0,
+                                          fontColor: Colors.black,
+                                          text: state.latestArticles[index]
+                                                  .mmName ??
+                                              state
+                                                  .latestArticles[index].enName,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        10.vertical,
+                                        RobotoText(
+                                          fontSize: 15.0,
+                                          fontColor: Colors.black,
+                                          text: DateFormat('dd/MM/yyyy').format(
+                                            DateTime.parse(state
+                                                .latestArticles[index]
+                                                .publisedAt),
+                                          ),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio:
+                                    MediaQuery.of(context).size.width <= 600
+                                        ? 0.6
+                                        : 0.65,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                crossAxisCount:
+                                    MediaQuery.of(context).size.width <= 600
+                                        ? 2
+                                        : 3,
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: 10.vertical,
+                          ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Wrap(
+                                children: [
+                                  ...state.tags.map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 5,
+                                      ),
+                                      child: Text(
+                                        "#${e.mmName ?? e.enName} ${state.tags.last.id != e.id ? "," : ""}",
+                                        style: const TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: 10.vertical,
+                          ),
                         ]
-                      : [],
+                      : [
+                          SliverToBoxAdapter(
+                            child: InnwaError(onClick: () {
+                              BlocProvider.of<ArticleDetailsBloc>(context).add(
+                                  GetArticleDetailsEvent(
+                                      context: context, slug: slug));
+                            }),
+                          ),
+                        ],
             ),
           ));
         },

@@ -10,6 +10,7 @@ import 'package:innwa_mobile_dev/shared/banner/image_banner.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
 import 'package:innwa_mobile_dev/shared/slider/innwa_slider.dart';
 import 'package:innwa_mobile_dev/shared/texts/heading.dart';
+import 'package:innwa_mobile_dev/util/ui/search_product_bar/view/product_search_app_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -22,9 +23,9 @@ class Home extends StatelessWidget {
       ),
       child: Builder(builder: (context) {
         BlocProvider.of<LatestPhoneBloc>(context)
-          ..add(GetLatestPhoneEvent(context: context))
           ..add(GetLatestComputerEvent(context: context))
-          ..add(GetLatestLaptopEvent(context: context));
+          ..add(GetLatestLaptopEvent(context: context))
+          ..add(GetLatestPhoneEvent(context: context));
         BlocProvider.of<HomeBannerBloc>(context)
           ..add(GetHomeSubBannerEvent(context: context))
           ..add(GetBrandEvent(context: context));
@@ -37,15 +38,16 @@ class Home extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: () async {
                 BlocProvider.of<LatestPhoneBloc>(context)
-                  ..add(GetLatestPhoneEvent(context: context))
                   ..add(GetLatestComputerEvent(context: context))
-                  ..add(GetLatestLaptopEvent(context: context));
+                  ..add(GetLatestLaptopEvent(context: context))
+                  ..add(GetLatestPhoneEvent(context: context));
                 BlocProvider.of<HomeBannerBloc>(context)
                   ..add(GetHomeSubBannerEvent(context: context))
                   ..add(GetBrandEvent(context: context));
               },
               child: CustomScrollView(
                 slivers: [
+                  const ProductSearchAppbar(),
                   const SliverToBoxAdapter(
                     child: InnwaSlider(),
                   ),

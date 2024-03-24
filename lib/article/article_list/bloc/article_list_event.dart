@@ -11,3 +11,7 @@ final class GetArticleEvent extends ArticleListEvent {
   const GetArticleEvent({required super.context, required this.pageKey});
   final int pageKey;
 }
+
+final class RefreshEvent extends ArticleListEvent {
+  const RefreshEvent({required super.context});
+}

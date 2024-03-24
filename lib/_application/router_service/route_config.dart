@@ -3,14 +3,16 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:innwa_mobile_dev/_application/application.dart";
 import "package:innwa_mobile_dev/_application/home_navbar.dart";
+import "package:innwa_mobile_dev/_application/product_list/views/products.dart";
 import "package:innwa_mobile_dev/_application/router_service/route_path.dart";
 import "package:innwa_mobile_dev/_application/router_service/router_observer.dart";
 import "package:innwa_mobile_dev/article/article_details/views/article_detail.dart";
 import 'package:innwa_mobile_dev/article/article_list/views/article.dart';
 import 'package:innwa_mobile_dev/home/home/home.dart';
-import 'package:innwa_mobile_dev/promotion_product/view/promotion.dart';
+import "package:innwa_mobile_dev/product_details/views/product_detail.dart";
+import "package:innwa_mobile_dev/promotion/promotion_details/view/promotion_details_screen.dart";
+import "package:innwa_mobile_dev/promotion/promotion_product/view/promotion.dart";
 import "package:innwa_mobile_dev/screen/aboutus/aboutus.dart";
-import "package:innwa_mobile_dev/screen/products/products.dart";
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "root");
@@ -75,9 +77,17 @@ final GoRouter routerConfig = GoRouter(
           navigatorKey: promotionKey,
           routes: <RouteBase>[
             GoRoute(
-              path: RouterPath.I.promotion.path,
-              builder: (context, state) => const Promotion(),
-            ),
+                path: RouterPath.I.promotion.path,
+                builder: (context, state) => const Promotion(),
+                routes: [
+                  GoRoute(
+                    path: RouterPath.I.promotionsDertails.path,
+                    builder: (context, state) => PromotionsDetailsScreen(
+                      slug: state.uri.queryParameters["slug"]!,
+                    ),
+                    routes: const [],
+                  ),
+                ]),
           ],
         ),
         // Live Chat
@@ -87,6 +97,15 @@ final GoRouter routerConfig = GoRouter(
             GoRoute(
               path: RouterPath.I.products.path,
               builder: (context, state) => const Products(),
+              routes: [
+                GoRoute(
+                  path: RouterPath.I.productDetails.path,
+                  builder: (context, state) => ProductDetail(
+                    slug: state.uri.queryParameters["slug"]!,
+                  ),
+                  routes: const [],
+                ),
+              ],
             ),
           ],
         ),

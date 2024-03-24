@@ -13,7 +13,12 @@ class ApiKey {
   static const brand = "/brand-slider";
   static const promotionProduct = "/promotion-product";
   static const articles = "/articles";
-  static const articleDetails = "//article-detail/";
+  static const articleDetails = "/article-detail";
+  static const productSearch = "/product-search";
+  static const promotions = "/promotions";
+  static const promotionDetails = "/promotion-detail";
+  static const productDetails = "/product-detail";
+  static const shop = "/shop";
 }
 
 enum ApiStatus {
