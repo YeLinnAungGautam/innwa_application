@@ -19,3 +19,58 @@ final class FilterProductEvent extends ProductListEvent {
 final class ShowFilterBottomsheetEvent extends ProductListEvent {
   const ShowFilterBottomsheetEvent({required super.context});
 }
+
+final class UpdateSelectedTitleEvent extends ProductListEvent {
+  const UpdateSelectedTitleEvent({required super.context, required this.data});
+  final int data;
+}
+
+final class UpdateSelectedCategoryTabEvent extends ProductListEvent {
+  const UpdateSelectedCategoryTabEvent(
+      {required super.context, required this.data});
+  final int data;
+}
+
+final class UpdateSelectedBrandsTabEvent extends ProductListEvent {
+  const UpdateSelectedBrandsTabEvent(
+      {required super.context, required this.data});
+  final int data;
+}
+
+final class UpdateSelectedSpecificationsTabEvent extends ProductListEvent {
+  const UpdateSelectedSpecificationsTabEvent({
+    required super.context,
+    required this.data,
+  });
+  final int data;
+}
+
+final class UpdateFilterSelectedCategoryEvent extends ProductListEvent {
+  const UpdateFilterSelectedCategoryEvent(
+      {required super.context, required this.slectedId});
+  final int slectedId;
+}
+
+final class UpdateFilterSelectedBrandEvent extends ProductListEvent {
+  const UpdateFilterSelectedBrandEvent(
+      {required super.context, required this.slectedId});
+  final int slectedId;
+}
+
+final class UpdateFilterSelectedSpecEvent extends ProductListEvent {
+  const UpdateFilterSelectedSpecEvent(
+      {required super.context, required this.slectedId});
+  final int slectedId;
+}
+
+final class ClickApplyBtnEvent extends ProductListEvent {
+  const ClickApplyBtnEvent({required super.context});
+}
+
+final class ClickClearBtnEvent extends ProductListEvent {
+  const ClickClearBtnEvent({required super.context});
+}
+
+final class SetUsedToSelectedEvent extends ProductListEvent {
+  const SetUsedToSelectedEvent({required super.context});
+}

@@ -24,37 +24,50 @@ class Products extends StatelessWidget {
           ..listenFilterPagingController(context: context);
         return BlocBuilder<ProductListBloc, ProductListState>(
           builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: 15.vertical,
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: const UnconstrainedBox(child: FilterButton()),
+            return RefreshIndicator(
+              onRefresh: () async {
+                productListBloc
+                  ..add(ClickClearBtnEvent(context: context))
+                  ..add(GetShopEvent(context: context))
+                  ..filterProductPagingController.refresh();
+              },
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: 15.vertical,
                   ),
-                ),
-                PagedSliverGrid(
-                  pagingController:
-                      productListBloc.filterProductPagingController,
-                  builderDelegate:
-                      PagedChildBuilderDelegate<SearchProductModel>(
-                    itemBuilder: (context, item, index) {
-                      return ProductCard(
-                        product: item,
-                        imagePath: state.imagePath,
-                      );
-                    },
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: UnconstrainedBox(child: FilterButton(
+                        onClick: () {
+                          productListBloc.add(
+                              ShowFilterBottomsheetEvent(context: context));
+                        },
+                      )),
+                    ),
                   ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio:
-                        MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-                    crossAxisCount:
-                        MediaQuery.of(context).size.width <= 600 ? 2 : 3,
+                  PagedSliverGrid(
+                    pagingController:
+                        productListBloc.filterProductPagingController,
+                    builderDelegate:
+                        PagedChildBuilderDelegate<SearchProductModel>(
+                      itemBuilder: (context, item, index) {
+                        return ProductCard(
+                          product: item,
+                          imagePath: state.imagePath,
+                        );
+                      },
+                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio:
+                          MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width <= 600 ? 2 : 3,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         );
@@ -63,7 +76,6 @@ class Products extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const FilterButton(),
           GridView.count(
             physics: const NeverScrollableScrollPhysics(),
             childAspectRatio:

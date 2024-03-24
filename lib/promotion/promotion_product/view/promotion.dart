@@ -4,7 +4,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
-import 'package:innwa_mobile_dev/_application/product_list/widgets/filter_button.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/bloc/promotion_product_bloc.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/view/widgets/promotion_items.dart';
@@ -127,11 +126,6 @@ class _PromotionState extends State<Promotion> {
             //         price: ""))
             //     .toList()),
             ImageBanner(url: "url"),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: FilterButton(),
-            ),
 
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,

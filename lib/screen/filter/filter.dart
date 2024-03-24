@@ -78,14 +78,16 @@ class _FilterByState extends State<FilterBy> {
                                         text: "Clear"),
                                   )),
                               Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: GestureDetector(
-                                      onTap: () =>
-                                          Scaffold.of(context).closeEndDrawer(),
-                                      child: const Icon(
-                                        Icons.close,
-                                        size: 25,
-                                      )))
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      Scaffold.of(context).closeEndDrawer(),
+                                  child: const Icon(
+                                    Icons.close,
+                                    size: 25,
+                                  ),
+                                ),
+                              )
                             ],
                           )
                         ],

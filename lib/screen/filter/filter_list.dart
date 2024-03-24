@@ -93,6 +93,7 @@ class FilterListState extends State<FilterList> {
                      
                 ],
               ),
+              
               Divider(height: 1, color: Colors.grey[300],)
             ],
           );
