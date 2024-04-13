@@ -15,10 +15,23 @@ class ApiKey {
   static const articles = "/articles";
   static const articleDetails = "/article-detail";
   static const productSearch = "/product-search";
+  static const productFilter = "/filter";
   static const promotions = "/promotions";
   static const promotionDetails = "/promotion-detail";
   static const productDetails = "/product-detail";
   static const shop = "/shop";
+  static const register = "/customer/register";
+  static const login = "/customer/login";
+  static const logout = "/customer/logout";
+  static const states = "/states";
+  static const township = "/get-township";
+  static const userUpdate = "/customer/profile";
+  static const addReview = "/customer/review";
+  static const addRemoveWishList = "/wishlist";
+  static const customerWishlist = "/customer/wishlist";
+  static const getServices = "/get-services";
+  static const bookAppointment = "/book-appointment";
+  static const customerOrder = "/customer/my-order";
 }
 
 enum ApiStatus {

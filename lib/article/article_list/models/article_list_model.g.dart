@@ -12,7 +12,7 @@ ArticleListModel _$ArticleListModelFromJson(Map<String, dynamic> json) =>
       enName: json['title_en'] as String,
       slug: json['slug'] as String,
       image: json['image'] as String,
-      enDesc: json['description_en'] as String,
+      enDesc: json['description_en'] as String?,
       publisedAt: json['published_at'] as String,
       mmName: json['title_mm'] as String?,
       mmDesc: json['description_mm'] as String?,

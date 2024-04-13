@@ -7,22 +7,29 @@ class ProductDetailsState extends Equatable {
     this.disImagePath = "",
     this.featureImagePath = "",
     this.productDetails,
-    this.canReview,
+    this.canReview = true,
     this.orderedProducts = const [],
     this.reviews = const [],
     this.relatedProducts = const [],
     this.selectedSpec,
+    this.ratingAddStatus = ApiStatus.completed,
+    this.rating = 4.0,
+    this.wishlistApiStatus = ApiStatus.completed,
   });
 
   final ApiStatus apiStatus;
   final ProductDetailsModel? productDetails;
   final String productImagepath;
   final String disImagePath;
-  final List reviews;
-  final String? canReview;
+  final List<ReviewModel> reviews;
+  final bool? canReview;
   final List<ProductModel> orderedProducts;
   final List<ProductModel> relatedProducts;
   final int? selectedSpec;
+  final double rating;
+  final ApiStatus? ratingAddStatus;
+
+  final ApiStatus wishlistApiStatus;
 
   final String featureImagePath;
   @override
@@ -37,6 +44,9 @@ class ProductDetailsState extends Equatable {
         orderedProducts,
         relatedProducts,
         selectedSpec,
+        ratingAddStatus,
+        rating,
+        wishlistApiStatus,
       ];
 
   ProductDetailsState copyWith({
@@ -45,11 +55,14 @@ class ProductDetailsState extends Equatable {
     String? productImagepath,
     String? disImagePath,
     String? featureImagePath,
-    List? reviews,
-    String? canReview,
+    List<ReviewModel>? reviews,
+    bool? canReview,
     List<ProductModel>? orderedProducts,
     List<ProductModel>? relatedProducts,
     int? selectedSpec,
+    ApiStatus? ratingAddStatus,
+    double? rating,
+    ApiStatus? wishlistApiStatus,
   }) {
     return ProductDetailsState(
       apiStatus: apiStatus ?? this.apiStatus,
@@ -63,6 +76,9 @@ class ProductDetailsState extends Equatable {
       orderedProducts: orderedProducts ?? this.orderedProducts,
       relatedProducts: relatedProducts ?? this.relatedProducts,
       selectedSpec: selectedSpec ?? this.selectedSpec,
+      ratingAddStatus: ratingAddStatus ?? this.ratingAddStatus,
+      rating: rating ?? this.rating,
+      wishlistApiStatus: wishlistApiStatus ?? this.wishlistApiStatus,
     );
   }
 }

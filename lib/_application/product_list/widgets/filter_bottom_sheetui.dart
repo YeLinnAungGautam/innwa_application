@@ -74,6 +74,7 @@ class FilterBottomSheetUi extends StatelessWidget {
               SliverAppBar(
                 centerTitle: false,
                 leading: const SizedBox(),
+                surfaceTintColor: Colors.transparent,
                 leadingWidth: 0,
                 title: RobotoText(
                   fontSize: 20.0,

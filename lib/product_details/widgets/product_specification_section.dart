@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:innwa_mobile_dev/_application/extension/color.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/product_details/model/product_details_model.dart';
@@ -22,11 +23,14 @@ class ProductSpecificationSection extends StatelessWidget {
                     fontColor: null,
                     fontWeight: FontWeight.w500,
                   ),
-                  RobotoText(
-                    fontSize: 16,
-                    text: e.specificationValue.value,
-                    fontColor: null,
-                    fontWeight: FontWeight.w500,
+                  Flexible(
+                    child: RobotoText(
+                      fontSize: 16,
+                      text: e.specificationValue.value,
+                      fontColor: null,
+                      maxLine: 1,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   if (e.specificationType.enName == "Color") 10.horizontal,
                   if (e.specificationType.enName == "Color")

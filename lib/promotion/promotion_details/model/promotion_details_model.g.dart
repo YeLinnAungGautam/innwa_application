@@ -14,9 +14,6 @@ PromotionDetailsModel _$PromotionDetailsModelFromJson(
       mmName: json['name_mm'] as String,
       slug: json['slug'] as String,
       featuredImage: json['featured_image'] as String,
-      products: (json['promotion_product'] as List<dynamic>)
-          .map((e) => PromotionProductModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       bannerImage: json['banner_image'] as String?,
       enDesc: json['description_en'] as String?,
       mmDesc: json['description_mm'] as String?,
@@ -33,23 +30,16 @@ Map<String, dynamic> _$PromotionDetailsModelToJson(
       'banner_image': instance.bannerImage,
       'description_en': instance.enDesc,
       'description_mm': instance.mmDesc,
-      'promotion_product': instance.products,
     };
 
-PromotionProductModel _$PromotionProductModelFromJson(
-        Map<String, dynamic> json) =>
-    PromotionProductModel(
-      id: json['id'] as int,
-      productPriceId: json['product_price_id'] as int,
-      promotionId: json['promotion_id'] as int,
-      productPrice: json['product_price'] as Map<String, dynamic>?,
+ProductDataModel _$ProductDataModelFromJson(Map<String, dynamic> json) =>
+    ProductDataModel(
+      data: (json['data'] as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
 
-Map<String, dynamic> _$PromotionProductModelToJson(
-        PromotionProductModel instance) =>
+Map<String, dynamic> _$ProductDataModelToJson(ProductDataModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'product_price_id': instance.productPriceId,
-      'promotion_id': instance.promotionId,
-      'product_price': instance.productPrice,
+      'data': instance.data,
     };

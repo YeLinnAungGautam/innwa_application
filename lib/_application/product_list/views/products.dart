@@ -7,6 +7,7 @@ import 'package:innwa_mobile_dev/_application/product_list/bloc/product_list_blo
 import 'package:innwa_mobile_dev/_application/product_list/widgets/filter_button.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
 import 'package:innwa_mobile_dev/util/ui/search_product_bar/model/search_product_model.dart';
+import 'package:innwa_mobile_dev/util/ui/search_product_bar/view/product_search_app_bar.dart';
 
 class Products extends StatelessWidget {
   const Products({super.key});
@@ -27,25 +28,32 @@ class Products extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: () async {
                 productListBloc
-                  ..add(ClickClearBtnEvent(context: context))
+                  ..add(ClearNextPageUrlEvent(context: context))
                   ..add(GetShopEvent(context: context))
                   ..filterProductPagingController.refresh();
               },
               child: CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(
-                    child: 15.vertical,
-                  ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: UnconstrainedBox(child: FilterButton(
+                  const ProductSearchAppbar(),
+                  SliverAppBar(
+                    leadingWidth: 0,
+                    leading: const SizedBox(),
+                    toolbarHeight: 60,
+                    pinned: true,
+                    centerTitle: true,
+                    surfaceTintColor: Colors.transparent,
+                    title: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: FilterButton(
                         onClick: () {
                           productListBloc.add(
                               ShowFilterBottomsheetEvent(context: context));
                         },
-                      )),
+                      ),
                     ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: 15.vertical,
                   ),
                   PagedSliverGrid(
                     pagingController:
@@ -72,22 +80,6 @@ class Products extends StatelessWidget {
           },
         );
       }),
-    );
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          GridView.count(
-            physics: const NeverScrollableScrollPhysics(),
-            childAspectRatio:
-                MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-            shrinkWrap: true,
-            crossAxisCount: MediaQuery.of(context).size.width <= 600 ? 2 : 3,
-            semanticChildCount: 4,
-            children: const [Text("Product Implement")],
-            // children: products_two.entries.map((e) => ProductCard(url: e.value["image"], text: e.value["name"], price: "")).toList()
-          ),
-        ],
-      ),
     );
   }
 }

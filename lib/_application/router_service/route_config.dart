@@ -8,11 +8,19 @@ import "package:innwa_mobile_dev/_application/router_service/route_path.dart";
 import "package:innwa_mobile_dev/_application/router_service/router_observer.dart";
 import "package:innwa_mobile_dev/article/article_details/views/article_detail.dart";
 import 'package:innwa_mobile_dev/article/article_list/views/article.dart';
+import "package:innwa_mobile_dev/authentication/login/views/login.dart";
+import "package:innwa_mobile_dev/authentication/register/views/register.dart";
+import "package:innwa_mobile_dev/cart/view/cart_screen.dart";
+import "package:innwa_mobile_dev/delivery_info/view/delivery_info_screen.dart";
 import 'package:innwa_mobile_dev/home/home/home.dart';
+import "package:innwa_mobile_dev/order/order_history/view/order_history_screen.dart";
 import "package:innwa_mobile_dev/product_details/views/product_detail.dart";
+import "package:innwa_mobile_dev/profile/profile_edit/views/profile_edit_screen.dart";
 import "package:innwa_mobile_dev/promotion/promotion_details/view/promotion_details_screen.dart";
 import "package:innwa_mobile_dev/promotion/promotion_product/view/promotion.dart";
 import "package:innwa_mobile_dev/screen/aboutus/aboutus.dart";
+import "package:innwa_mobile_dev/services/view/service_screen.dart";
+import "package:innwa_mobile_dev/wishlist/whishlist.dart";
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "root");
@@ -54,6 +62,62 @@ final GoRouter routerConfig = GoRouter(
       path: "/",
       builder: (context, state) {
         return const Application();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.register.path,
+      builder: (context, state) {
+        return const Register();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.editProfile.path,
+      builder: (context, state) {
+        return const ProfileEditScreen();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.login.path,
+      builder: (context, state) {
+        return const Login();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.wishList.path,
+      builder: (context, state) {
+        return const WishList();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.services.path,
+      builder: (context, state) {
+        return const ServiceScreen();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.orderHisotry.path,
+      builder: (context, state) {
+        return const OrderHistoryScreen();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.cartScreen.path,
+      builder: (context, state) {
+        return const CartScreen();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.deliveryInfo.path,
+      builder: (context, state) {
+        return const DeliveryInfoScreen();
       },
     ),
     StatefulShellRoute.indexedStack(

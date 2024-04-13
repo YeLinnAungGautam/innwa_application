@@ -74,3 +74,7 @@ final class ClickClearBtnEvent extends ProductListEvent {
 final class SetUsedToSelectedEvent extends ProductListEvent {
   const SetUsedToSelectedEvent({required super.context});
 }
+
+final class ClearNextPageUrlEvent extends ProductListEvent {
+  const ClearNextPageUrlEvent({required super.context});
+}

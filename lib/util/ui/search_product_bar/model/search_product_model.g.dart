@@ -14,9 +14,12 @@ SearchProductModel _$SearchProductModelFromJson(Map<String, dynamic> json) =>
       price: PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),
       image: json['feature_image'] as String,
       slug: json['slug'] as String,
-      category:
-          CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
-      brand: BrandModel.fromJson(json['brand'] as Map<String, dynamic>),
+      category: json['category'] == null
+          ? null
+          : CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
+      brand: json['brand'] == null
+          ? null
+          : BrandModel.fromJson(json['brand'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SearchProductModelToJson(SearchProductModel instance) =>

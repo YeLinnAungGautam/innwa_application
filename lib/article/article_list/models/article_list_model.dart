@@ -11,7 +11,7 @@ class ArticleListModel extends Equatable {
       required this.enName,
       required this.slug,
       required this.image,
-      required this.enDesc,
+      this.enDesc,
       required this.publisedAt,
       this.mmName,
       this.mmDesc});
@@ -24,7 +24,7 @@ class ArticleListModel extends Equatable {
   final String slug;
   final String image;
   @JsonKey(name: "description_en")
-  final String enDesc;
+  final String? enDesc;
   @JsonKey(name: "description_mm")
   final String? mmDesc;
   @JsonKey(name: "published_at")

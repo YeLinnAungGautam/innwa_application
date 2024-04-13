@@ -28,8 +28,8 @@ class BrandMarquee extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.all(4),
                         child: CachedNetworkImage(
-                            imageUrl:
-                                state.brandPath! + state.brands[index].image),
+                            imageUrl: state.brandPath! +
+                                (state.brands[index].image ?? "")),
                       );
                     },
                   ),

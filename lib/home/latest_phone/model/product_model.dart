@@ -55,7 +55,6 @@ class ProductModel extends Equatable {
 @JsonSerializable()
 class PriceModel extends Equatable {
   const PriceModel({
-    required this.id,
     required this.productId,
     required this.amount,
     this.disPrice,
@@ -65,7 +64,6 @@ class PriceModel extends Equatable {
     this.gift,
   });
 
-  final int id;
   @JsonKey(name: "product_id")
   final int productId;
   @JsonKey(name: "dis_price")
@@ -82,7 +80,6 @@ class PriceModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
         productId,
         disPrice,
         amount,
@@ -102,7 +99,6 @@ class PriceModel extends Equatable {
     String? gift,
   }) {
     return PriceModel(
-      id: id ?? this.id,
       productId: productId ?? this.productId,
       disPrice: disPrice ?? this.disPrice,
       amount: amount ?? this.amount,

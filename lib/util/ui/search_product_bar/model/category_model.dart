@@ -12,7 +12,8 @@ class CategoryModel extends Equatable {
   @JsonKey(name: "name_mm")
   final String? mmName;
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, enName, mmName];
+
   Map<String, dynamic> toJson() => _$CategoryModelToJson(this);
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>

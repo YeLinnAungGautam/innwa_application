@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
+import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/order/order_history/bloc/order_history_bloc.dart';
+import 'package:innwa_mobile_dev/order/order_history/model/order_history_model.dart';
+import 'package:innwa_mobile_dev/order/order_history/widgets/order_item.dart';
+import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
+import 'package:innwa_mobile_dev/util/ui/error_retry.dart';
+import 'package:intl/intl.dart';
+
+class OrderPending extends StatelessWidget {
+  const OrderPending({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(builder: (context) {
+      BlocProvider.of<OrderHistoryBloc>(context)
+          .add(GetPendingOrderEvent(context: context));
+      return BlocBuilder<OrderHistoryBloc, OrderHistoryState>(
+        builder: (context, state) {
+          return state.pendingStatus == ApiStatus.completed
+              ? state.orderPending.isNotEmpty
+                  ? SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      sliver: SliverList.builder(
+                        itemCount: state.orderPending.length,
+                        itemBuilder: (context, index) {
+                          final OrderHistoryModel order =
+                              state.orderPending[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: RobotoText(
+                                  fontSize: 18.0,
+                                  fontColor: Colors.black,
+                                  text: DateFormat('dd MMM yyyy')
+                                      .format(DateTime.parse(order.orderAt)),
+                                ),
+                              ),
+                              10.vertical,
+                              OrderItem(
+                                isHistory: false,
+                                orderNo: order.orderNo,
+                                subTotal: order.subTotal,
+                                orderStatus: order.orderStatus,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    )
+                  : SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      sliver: SliverToBoxAdapter(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: RobotoText(
+                            fontSize: 18,
+                            fontColor: Theme.of(context).colorScheme.primary,
+                            text: "No Order Found!",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    )
+              : state.pendingStatus == ApiStatus.processing
+                  ? const SliverFillRemaining(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : SliverFillRemaining(
+                      child: ErrorRetry(
+                        retryFun: () {
+                          BlocProvider.of<OrderHistoryBloc>(context)
+                              .add(GetPendingOrderEvent(context: context));
+                        },
+                      ),
+                    );
+        },
+      );
+    });
+  }
+}

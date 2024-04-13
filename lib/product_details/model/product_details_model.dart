@@ -13,7 +13,7 @@ class ProductDetailsModel extends Equatable {
       {required this.id,
       required this.enName,
       required this.mmName,
-      required this.enDesc,
+      this.enDesc,
       required this.category,
       required this.brand,
       required this.price,
@@ -28,7 +28,7 @@ class ProductDetailsModel extends Equatable {
   @JsonKey(name: "feature_image")
   final String? image;
   @JsonKey(name: "description_en")
-  final String enDesc;
+  final String? enDesc;
   @JsonKey(name: "description_mm")
   final String? mmDesc;
   final CategoryModel category;

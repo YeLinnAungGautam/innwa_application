@@ -11,7 +11,7 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String,
-      enDesc: json['description_en'] as String,
+      enDesc: json['description_en'] as String?,
       category:
           CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
       brand: BrandModel.fromJson(json['brand'] as Map<String, dynamic>),

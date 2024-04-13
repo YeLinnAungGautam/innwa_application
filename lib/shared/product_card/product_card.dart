@@ -4,6 +4,7 @@ import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/format_number.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
 import 'package:innwa_mobile_dev/shared/discount_banner/discount_banner.dart';
@@ -40,77 +41,101 @@ class ProductCard extends StatelessWidget {
                   RouterService.of(context).push(
                       "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}",
                       redirect: false);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const ProductDetail()));
                 },
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: [
-                    Container(
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10)),
                       child: CachedNetworkImage(
-                          imageUrl: imagePath + product.image),
+                        imageUrl: imagePath + product.image,
+                        height: 150,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    Column(
-                      children: [
-                        if (product.price.disPrice != null)
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF4C53A5),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    offset: Offset(6, 3),
-                                    spreadRadius: -4,
-                                    blurRadius: 10,
-                                    color: Color.fromRGBO(229, 229, 229, 1),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: DiscountBanner(
-                                text:
-                                    "Discount - ${formatNumber(dbNumber: double.parse(product.price.disPrice!))} MMK"),
-                          ),
-                        if (product.price.cashback != null) 10.vertical,
-                        if (product.price.cashback != null)
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF4C53A5),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    offset: Offset(6, 3),
-                                    spreadRadius: -4,
-                                    blurRadius: 10,
-                                    color: Color.fromRGBO(229, 229, 229, 1),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: DiscountBanner(
-                                text:
-                                    "Cashback - ${formatNumber(dbNumber: double.parse(product.price.cashback!))} MMK"),
-                          ),
-                        if (product.price.gift != null) 10.vertical,
-                        if (product.price.gift != null)
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.greenAccent,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    offset: Offset(6, 3),
-                                    spreadRadius: -4,
-                                    blurRadius: 10,
-                                    color: Color.fromRGBO(229, 229, 229, 1),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: DiscountBanner(
-                              text: "Gift - ${product.price.gift!}",
-                            ),
-                          ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, right: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          if (product.price.disPrice != null)
+                            LocalizationWidget(
+                                en: "Discount",
+                                mm: "လျှော့စျေး",
+                                child: (val) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.amber.shade800,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(6, 3),
+                                            spreadRadius: -4,
+                                            blurRadius: 10,
+                                            color: Color.fromRGBO(
+                                                229, 229, 229, 1),
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: DiscountBanner(
+                                        text:
+                                            "$val - ${formatNumber(dbNumber: double.parse(product.price.disPrice!))} MMK"),
+                                  );
+                                }),
+                          if (product.price.cashback != null) 10.vertical,
+                          if (product.price.cashback != null)
+                            LocalizationWidget(
+                                en: "Cashback",
+                                mm: "ပြန်အမ်းငွေ",
+                                child: (val) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF4C53A5),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(6, 3),
+                                            spreadRadius: -4,
+                                            blurRadius: 10,
+                                            color: Color.fromRGBO(
+                                                229, 229, 229, 1),
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: DiscountBanner(
+                                        text:
+                                            "$val - ${formatNumber(dbNumber: double.parse(product.price.cashback!))} MMK"),
+                                  );
+                                }),
+                          if (product.price.gift != null) 10.vertical,
+                          if (product.price.gift != null)
+                            LocalizationWidget(
+                                en: "Gift",
+                                mm: "လက်ဆောင်",
+                                child: (val) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            offset: Offset(6, 3),
+                                            spreadRadius: -4,
+                                            blurRadius: 10,
+                                            color: Color.fromRGBO(
+                                                229, 229, 229, 1),
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: DiscountBanner(
+                                      text: "$val - ${product.price.gift!}",
+                                    ),
+                                  );
+                                }),
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -127,42 +152,62 @@ class ProductCard extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    Container(
-                      height: 46,
-                      padding:
-                          const EdgeInsets.only(bottom: 4, left: 8.0, top: 8.0),
-                      alignment: Alignment.centerLeft,
-                      child: ProductTitle(text: product.enName),
+                    LocalizationWidget(
+                      en: product.enName,
+                      mm: product.mmName,
+                      child: (val) {
+                        return Container(
+                          height: 46,
+                          padding: const EdgeInsets.only(
+                              bottom: 4, left: 8.0, top: 8.0),
+                          alignment: Alignment.centerLeft,
+                          child: ProductTitle(
+                            text: val,
+                          ),
+                        );
+                      },
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 8.0, bottom: 5.0),
-                      alignment: Alignment.centerLeft,
-                      child: Row(children: [
-                        PriceTag(
-                          text: "Price : ",
-                        ),
-                        Column(
-                          children: [
-                            PriceTag(
-                              haveDiscount: product.price.disPrice != null,
-                              text:
-                                  formatNumber(dbNumber: product.price.amount),
-                            ),
-                            if (product.price.disPrice != null)
-                              PriceTag(
-                                text: formatNumber(
-                                    dbNumber: product.price.amount -
-                                        double.parse(product.price.disPrice!) -
-                                        double.parse(
-                                            product.price.cashback ?? "0")),
-                              ),
-                          ],
-                        ),
-                        PriceTag(
-                          text: " MMK",
-                        ),
-                      ]),
-                    ),
+                    LocalizationWidget(
+                        en: "Price",
+                        mm: "စျေးနှုန်း",
+                        child: (val) {
+                          return Container(
+                            height: 50,
+                            padding: const EdgeInsets.only(
+                                left: 8.0, bottom: 5.0, top: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PriceTag(
+                                    text: "$val : ",
+                                  ),
+                                  Column(
+                                    children: [
+                                      PriceTag(
+                                        haveDiscount:
+                                            product.price.disPrice != null,
+                                        text: formatNumber(
+                                            dbNumber: product.price.amount),
+                                      ),
+                                      if (product.price.disPrice != null)
+                                        PriceTag(
+                                          text: formatNumber(
+                                              dbNumber: product.price.amount -
+                                                  double.parse(
+                                                      product.price.disPrice!) -
+                                                  double.parse(
+                                                      product.price.cashback ??
+                                                          "0")),
+                                        ),
+                                    ],
+                                  ),
+                                  PriceTag(
+                                    text: " MMK",
+                                  ),
+                                ]),
+                          );
+                        }),
                   ],
                 ),
               ),

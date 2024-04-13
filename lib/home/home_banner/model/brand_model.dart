@@ -9,14 +9,14 @@ class BrandModel extends Equatable {
       {required this.id,
       required this.enName,
       required this.mmName,
-      required this.image});
+      this.image});
 
   final int id;
   @JsonKey(name: "name_en")
   final String enName;
   @JsonKey(name: "name_mm")
   final String mmName;
-  final String image;
+  final String? image;
 
   @override
   List<Object?> get props => [id, enName, mmName, image];

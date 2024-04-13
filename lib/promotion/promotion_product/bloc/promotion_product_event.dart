@@ -7,9 +7,6 @@ sealed class PromotionProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class GetPromotionProductEvent extends PromotionProductEvent {
-  const GetPromotionProductEvent({required super.context});
-}
 
 final class GetPromotionEvent extends PromotionProductEvent {
   const GetPromotionEvent({required super.context, required this.pageKey});

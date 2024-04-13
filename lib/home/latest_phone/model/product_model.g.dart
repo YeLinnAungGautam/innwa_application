@@ -26,7 +26,6 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     };
 
 PriceModel _$PriceModelFromJson(Map<String, dynamic> json) => PriceModel(
-      id: json['id'] as int,
       productId: json['product_id'] as int,
       amount: (json['price_mmk'] as num).toDouble(),
       disPrice: json['dis_price'] as String?,
@@ -38,7 +37,6 @@ PriceModel _$PriceModelFromJson(Map<String, dynamic> json) => PriceModel(
 
 Map<String, dynamic> _$PriceModelToJson(PriceModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'product_id': instance.productId,
       'dis_price': instance.disPrice,
       'price_mmk': instance.amount,

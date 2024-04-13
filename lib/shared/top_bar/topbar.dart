@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
-import 'package:innwa_mobile_dev/screen/cart/cart.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
+import 'package:innwa_mobile_dev/gen/assets.gen.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
 import 'package:innwa_mobile_dev/util/image_path/image_path.dart';
 
@@ -11,12 +13,15 @@ class TopBar extends StatefulWidget implements PreferredSizeWidget {
   bool needMenu;
   String? title;
   bool showAction;
-  TopBar(
-      {super.key,
-      this.needBackButton,
-      this.showAction = true,
-      required this.needMenu,
-      this.title});
+  bool showCart;
+  TopBar({
+    super.key,
+    this.needBackButton,
+    this.showAction = true,
+    required this.needMenu,
+    this.title,
+    this.showCart = true,
+  });
 
   @override
   // TODO: implement preferredSize
@@ -112,45 +117,53 @@ class _TopBarState extends State<TopBar> {
   Widget sideUtil(BuildContext context) {
     return Row(
       children: [
-        InkWell(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
+        if (widget.showCart)
+          InkWell(
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
 
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const Cart()));
-          },
-          child: const SizedBox(
+              RouterService.of(context).push(RouterPath.I.cartScreen.fullPath);
+            },
+            child: const SizedBox(
               width: 36,
               height: 36,
               child: Icon(
                 Icons.shopping_cart,
                 size: 20,
-              )),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  isMyanmar = !isMyanmar;
-                });
-              },
-              child: SizedBox(
-                width: 40,
-                height: 25,
-                child: Center(
-                    child: Text(
-                  isMyanmar ? 'MM' : 'EN',
-                  style: const TextStyle(
-                      fontFamily: "SanFrancisco",
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
-                )),
               ),
-            )),
+            ),
+          ),
+        ValueListenableBuilder(
+          valueListenable: BlocProvider.of<AppServiceBloc>(context).localiztion,
+          builder: (context, value, data) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: InkWell(
+                onTap: () {
+                  BlocProvider.of<AppServiceBloc>(context)
+                      .add(UpdateLocalizationEvent(
+                    context: context,
+                    data: value == "mm" ? "en" : "mm",
+                  ));
+                },
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: Image.asset(
+                    value == "mm"
+                        ? Assets.images.mmFlag.path
+                        : Assets.images.usFlag.path,
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ],
     );
   }

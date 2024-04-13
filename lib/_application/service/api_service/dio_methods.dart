@@ -52,7 +52,7 @@ class ApiMethods {
       final Response response = await _dioMethod(
         name: method,
         path: path,
-        data: isGetMethod ? data : data,
+        data: data,
       );
 
       if (isContent) {
@@ -81,30 +81,6 @@ class ApiMethods {
         await checkError(error: error, oldError: oldError);
       }
     }
-  }
-
-  Future<String?> download({
-    required String url,
-    required String savePath,
-    void Function()? onTimeOutErrorSync,
-    Future<void> Function()? onTimeOutError,
-    void Function()? onErrorSync,
-    Future<void> Function()? onError,
-  }) async {
-    try {
-      await dio.download(url, savePath);
-      return savePath;
-    } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionTimeout) {
-        await onTimeOutError?.call();
-        onTimeOutErrorSync?.call();
-      } else {
-        printError("Dio Excepition error -->");
-        await onError?.call();
-        onErrorSync?.call();
-      }
-    }
-    return null;
   }
 
   void setConfig(

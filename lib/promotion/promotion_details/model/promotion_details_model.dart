@@ -11,7 +11,6 @@ class PromotionDetailsModel extends Equatable {
       required this.mmName,
       required this.slug,
       required this.featuredImage,
-      required this.products,
       this.bannerImage,
       this.enDesc,
       this.mmDesc});
@@ -30,8 +29,6 @@ class PromotionDetailsModel extends Equatable {
   final String? enDesc;
   @JsonKey(name: "description_mm")
   final String? mmDesc;
-  @JsonKey(name: "promotion_product")
-  final List<PromotionProductModel> products;
 
   @override
   List<Object?> get props => [
@@ -43,7 +40,6 @@ class PromotionDetailsModel extends Equatable {
         bannerImage,
         enDesc,
         mmDesc,
-        products
       ];
   Map<String, dynamic> toJson() => _$PromotionDetailsModelToJson(this);
 
@@ -52,24 +48,13 @@ class PromotionDetailsModel extends Equatable {
 }
 
 @JsonSerializable()
-class PromotionProductModel extends Equatable {
-  const PromotionProductModel(
-      {required this.id,
-      required this.productPriceId,
-      required this.promotionId,
-      this.productPrice});
-  final int id;
-  @JsonKey(name: "product_price_id")
-  final int productPriceId;
-  @JsonKey(name: "promotion_id")
-  final int promotionId;
-  @JsonKey(name: "product_price")
-  final Map<String, dynamic>? productPrice;
+class ProductDataModel extends Equatable {
+  const ProductDataModel({required this.data});
+  final List<Map<String, dynamic>> data;
   @override
-  List<Object?> get props => [id, productPriceId, promotionId, productPrice];
+  List<Object?> get props => [data];
 
-  Map<String, dynamic> toJson() => _$PromotionProductModelToJson(this);
-
-  factory PromotionProductModel.fromJson(Map<String, dynamic> json) =>
-      _$PromotionProductModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductDataModelToJson(this);
+  factory ProductDataModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductDataModelFromJson(json);
 }

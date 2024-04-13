@@ -11,3 +11,8 @@ final class GetSitemodelEvent extends AppServiceEvent {
   const GetSitemodelEvent({required super.context, required this.completer});
   final Completer<bool> completer;
 }
+
+final class UpdateLocalizationEvent extends AppServiceEvent {
+  const UpdateLocalizationEvent({required super.context, required this.data});
+  final String data;
+}

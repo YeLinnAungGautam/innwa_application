@@ -11,6 +11,9 @@ class LatestPhoneState extends Equatable {
     this.latestLaptop = const [],
     this.laptopImagePath,
     this.laptopGetState = ApiStatus.processing,
+    this.productGetState = ApiStatus.processing,
+    this.productImagePath,
+    this.products = const [],
   });
 
   final ApiStatus getState;
@@ -22,6 +25,9 @@ class LatestPhoneState extends Equatable {
   final List<ProductModel> latestPhones;
   final List<ProductModel> latestComputer;
   final List<ProductModel> latestLaptop;
+  final ApiStatus productGetState;
+  final String? productImagePath;
+  final List<ProductModel> products;
 
   @override
   List<Object?> get props => [
@@ -34,6 +40,9 @@ class LatestPhoneState extends Equatable {
         latestLaptop,
         laptopImagePath,
         laptopGetState,
+        productGetState,
+        productImagePath,
+        products,
       ];
 
   LatestPhoneState copyWith({
@@ -46,6 +55,9 @@ class LatestPhoneState extends Equatable {
     List<ProductModel>? latestLaptop,
     String? laptopImagePath,
     ApiStatus? laptopGetState,
+    ApiStatus? productGetState,
+    String? productImagePath,
+    List<ProductModel>? products,
   }) {
     return LatestPhoneState(
       getState: getState ?? this.getState,
@@ -57,6 +69,9 @@ class LatestPhoneState extends Equatable {
       latestLaptop: latestLaptop ?? this.latestLaptop,
       laptopImagePath: laptopImagePath ?? this.laptopImagePath,
       laptopGetState: laptopGetState ?? this.laptopGetState,
+      productGetState: productGetState ?? this.productGetState,
+      productImagePath: productImagePath ?? this.productImagePath,
+      products: products ?? this.products,
     );
   }
 }

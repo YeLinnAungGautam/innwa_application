@@ -12,16 +12,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   final FocusScopeNode _node = FocusScopeNode();
   final TextEditingController _searchController = TextEditingController();
 
-   @override
+  @override
   void dispose() {
     _node.unfocus();
     _searchController.clear();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    
-    
     return Padding(
         padding: const EdgeInsets.all(1.0),
         child: Container(
@@ -29,25 +28,21 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           // Use a Material design search bar
           child: TextField(
             autofocus: false,
-            
             controller: _searchController,
             decoration: InputDecoration(
-              
               filled: true,
               fillColor: searchColor,
               focusColor: searchColor,
               border: InputBorder.none,
               hintText: 'Search Products',
               prefixIcon: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
+                icon: const Icon(Icons.search),
+                onPressed: () { 
                   // Perform the search here
                 },
               ),
-              
             ),
           ),
-        )
-    );
+        ));
   }
 }

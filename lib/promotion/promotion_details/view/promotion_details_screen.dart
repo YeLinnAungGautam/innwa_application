@@ -106,7 +106,9 @@ class PromotionsDetailsScreen extends StatelessWidget {
                             child: 15.vertical,
                           ),
                           SliverToBoxAdapter(
-                            child: Heading(text: "Promotion Products"),
+                            child: Heading(
+                                text:
+                                    "Promotion Products ${state.promotionsProducts.length}"),
                           ),
                           SliverToBoxAdapter(
                             child: 15.vertical,

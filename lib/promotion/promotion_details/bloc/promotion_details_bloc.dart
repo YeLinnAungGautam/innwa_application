@@ -38,21 +38,23 @@ class PromotionDetailsBloc
 
       final List<SearchProductModel> data = [];
 
-      for (var product in state.promotionDetails!.products) {
-        if (product.productPrice != null) {
-          final promotionProduct = SearchProductModel(
-              id: product.productPrice!["id"],
-              enName: product.productPrice!["product"]["name_en"],
-              mmName: product.productPrice!["product"]["name_mm"],
-              price: PriceModel.fromJson(product.productPrice!),
-              image: product.productPrice!["product"]["feature_image"],
-              slug: product.productPrice!["product"]["slug"],
-              category: CategoryModel.fromJson(
-                  product.productPrice!["product"]["category"]),
-              brand: BrandModel.fromJson(
-                  product.productPrice!["product"]["brand"]));
-          data.add(promotionProduct);
-        }
+      debugPrint(
+          "-----------data is---------------------${ProductDataModel.fromJson(resData["products"]).data}--------------------------------");
+
+      for (var product in ProductDataModel.fromJson(resData["products"]).data) {
+        debugPrint(
+            "-----------data is---------------------$product--------------------------------");
+
+        final promotionProduct = SearchProductModel(
+            id: product["product"]["id"],
+            enName: product["product"]["name_en"],
+            mmName: product["product"]["name_mm"],
+            price: PriceModel.fromJson(product),
+            image: product["product"]["feature_image"],
+            slug: product["product"]["slug"],
+            category: CategoryModel.fromJson(product["product"]["category"]),
+            brand: BrandModel.fromJson(product["product"]["brand"]));
+        data.add(promotionProduct);
       }
       emit(state.copyWith(promotionsProducts: data));
     } else {

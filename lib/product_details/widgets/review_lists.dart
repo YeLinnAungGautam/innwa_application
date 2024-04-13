@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/stars.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
@@ -7,57 +9,56 @@ class ReviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 230.0,
-      child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+    return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
+      builder: (context, state) {
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 230.0,
+          child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: state.reviews.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Icon(Icons.person_3_outlined),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RobotoText(
-                                    fontSize: 15.0,
-                                    fontColor: Colors.black,
-                                    text: "Kyaw Kyaw",
-                                    fontWeight: FontWeight.w500,
+                            Row(
+                              children: [
+                                const Icon(Icons.person_3_outlined),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Stars(count: state.reviews[index].star)
+                                    ],
                                   ),
-                                  Stars(count: 3)
-                                ],
-                              ),
-                            )
+                                )
+                              ],
+                            ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40.0, bottom: 5.0),
+                        child: RobotoText(
+                            fontSize: 14.0,
+                            fontColor: Colors.black,
+                            text: state.reviews[index].msg),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40.0, bottom: 5.0),
-                    child: RobotoText(
-                        fontSize: 14.0,
-                        fontColor: Colors.black,
-                        text: "I love this product"),
-                  ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
+        );
+      },
     );
   }
 }

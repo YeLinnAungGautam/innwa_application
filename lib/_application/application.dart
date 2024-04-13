@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
+import 'package:innwa_mobile_dev/_application/service/storage/storage_service.dart';
 import 'package:innwa_mobile_dev/gen/assets.gen.dart';
 import 'package:innwa_mobile_dev/home/home_banner/bloc/home_banner_bloc.dart';
+import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
+import 'package:innwa_mobile_dev/user/model/user_model.dart';
 import 'package:innwa_mobile_dev/util/ui/innwa_error.dart';
 
 class Application extends StatefulWidget {
@@ -21,6 +25,56 @@ class _ApplicationState extends State<Application> {
   Future<void> getDataInitState() async {
     final Completer<bool> sliderCompleter = Completer();
     final Completer<bool> siteCompleter = Completer();
+
+    final String? authToken = await StorageService.I
+        .readData(key: StorageService.I.authTokenStoreKey);
+    final String? loginData = await StorageService.I
+        .readData(key: StorageService.I.loginDataStoreKey);
+    final String? localize = await StorageService.I.readData(key: "localize");
+    final String? loginExpireTime =
+        await StorageService.I.readData(key: StorageService.I.loginExpireTime);
+
+    if (loginExpireTime != null) {
+      final parseDate = DateTime.parse(loginExpireTime);
+      parseDate.isAfter(DateTime.now());
+      if (!parseDate.isAfter(DateTime.now())) {
+        await Future.wait([
+          StorageService.I.deleteData(
+            key: StorageService.I.loginDataStoreKey,
+          ),
+          StorageService.I.deleteData(
+            key: StorageService.I.authTokenStoreKey,
+          ),
+          StorageService.I.deleteData(
+            key: StorageService.I.loginExpireTime,
+          ),
+        ]);
+      }
+    }
+
+    if (localize != null) {
+      BlocProvider.of<AppServiceBloc>(context)
+          .add(UpdateLocalizationEvent(context: context, data: localize));
+    }
+    final String? profileImagepath =
+        await StorageService.I.readData(key: StorageService.I.profileImagePath);
+
+    if (authToken != null) {
+      BlocProvider.of<AppServiceBloc>(context).api.api.myToken = authToken;
+    }
+    if (loginData != null) {
+      BlocProvider.of<UserBloc>(context)
+        ..add(
+          UpdateUserDataEvent(
+            context: context,
+            user: UserModel.fromJson(
+              jsonDecode(loginData),
+            ),
+          ),
+        )
+        ..add(UpdateProfileImagePathEvent(
+            context: context, data: "$profileImagepath/"));
+    }
     if (mounted) {
       BlocProvider.of<HomeBannerBloc>(context).add(
           GetHomeBannerEvent(context: context, completer: sliderCompleter));

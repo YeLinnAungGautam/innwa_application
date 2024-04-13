@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:innwa_mobile_dev/shared/drawer/filter_drawer.dart";
 import "package:innwa_mobile_dev/shared/top_bar/topbar.dart";
 import "package:innwa_mobile_dev/util/constants.dart";
 
@@ -55,12 +54,13 @@ class HomeScreenNavBar extends StatelessWidget {
             drawer: CustomDrawerWidget(
               onDrawerTap: () {},
             ),
-            endDrawer: const FilterDrawer(),
+            // endDrawer: const FilterDrawer(),
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               backgroundColor: backgroundColorLight,
               selectedFontSize: 10.0,
               unselectedFontSize: 10.0,
+              currentIndex: navigationShell.currentIndex,
               elevation: 0.0,
               selectedItemColor: selectedItemColor,
               unselectedItemColor: unSelectedItemColor,

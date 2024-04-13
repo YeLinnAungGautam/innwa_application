@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:innwa_mobile_dev/screen/cart/components/cart_item.dart';
+import 'package:innwa_mobile_dev/cart/widgets/cart_item.dart';
 import 'package:innwa_mobile_dev/screen/order/components/deli_info.dart';
 import 'package:innwa_mobile_dev/screen/payment_options/other_payment.dart';
 import 'package:innwa_mobile_dev/shared/bottom_sheet/bottom_sheet.dart';
-import 'package:innwa_mobile_dev/shared/custom_text_field/custom_text_form_field.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/shared/top_bar/topbar.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
@@ -79,9 +78,11 @@ class Order extends StatelessWidget {
                               "No. 154,Seikkanthar Road , Kamaryut Township, Yangon, Yangon Region",
                           isLongText: true),
 
-                      DeliInfo(leftText: "Note", rightText: "G&G ဆိုင်နား", isLongText: false),
-                      
-                     
+                      DeliInfo(
+                          leftText: "Note",
+                          rightText: "G&G ဆိုင်နား",
+                          isLongText: false),
+
                       const Padding(
                         padding: EdgeInsets.all(5.0),
                         child: Divider(
@@ -139,8 +140,8 @@ class Order extends StatelessWidget {
                         ],
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Divider(
                           color: dividerColor,
                           height: 4,
@@ -226,7 +227,7 @@ class Order extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => OtherPayment()),
+                              builder: (context) => const OtherPayment()),
                         )
                       },
                       child: Container(

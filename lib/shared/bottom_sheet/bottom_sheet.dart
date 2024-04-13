@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:innwa_mobile_dev/screen/cart/cart.dart';
-import 'package:innwa_mobile_dev/shared/bottom_sheet/component/price_confirm.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/shared/bottom_sheet/component/select_colors.dart';
 import 'package:innwa_mobile_dev/shared/bottom_sheet/component/select_storage.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
@@ -25,8 +25,8 @@ class CustomBottomSheet extends StatelessWidget {
 
   Padding PromoBottomSheet(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom),
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Wrap(
         children: [
           const Center(
@@ -114,7 +114,7 @@ class CustomBottomSheet extends StatelessWidget {
       children: [
         Column(
           children: [
-            Icon(
+            const Icon(
               Icons.minimize_rounded,
               color: Colors.black,
               size: 40,
@@ -187,11 +187,9 @@ class CustomBottomSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: GestureDetector(
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Cart()),
-                  )
+                onTap: () {
+                  RouterService.of(context)
+                      .push(RouterPath.I.cartScreen.fullPath);
                 },
                 child: Container(
                   width: 320,

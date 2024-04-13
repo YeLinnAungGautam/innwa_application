@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
+import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
 class FilterButton extends StatefulWidget {
   const FilterButton({required this.onClick, super.key});
@@ -31,10 +34,28 @@ class _FilterButtonState extends State<FilterButton> {
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
         ),
-        child: const Center(
+        child: Center(
             child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Icon(Icons.filter_alt_sharp), Text('Filter By')],
+          children: [
+            const Icon(
+              Icons.filter_alt_sharp,
+              size: 18,
+            ),
+            10.horizontal,
+            LocalizationWidget(
+              en: "Filter By",
+              mm: "စစ်ထုတ်ခြင်း",
+              child: (val) {
+                return RobotoText(
+                  fontSize: 18,
+                  fontColor: null,
+                  text: val,
+                  fontWeight: FontWeight.w500,
+                );
+              },
+            ),
+          ],
         )),
       ),
     );

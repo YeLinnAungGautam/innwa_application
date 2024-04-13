@@ -28,9 +28,14 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     on<ClickApplyBtnEvent>(_clickApplyBtn);
     on<ClickClearBtnEvent>(_clickClearBtn);
     on<SetUsedToSelectedEvent>(_setUsedToSlected);
+    on<ClearNextPageUrlEvent>(_clearNextpageUrl);
   }
 
   final RestAPI _restAPI;
+
+  void _clearNextpageUrl(ClearNextPageUrlEvent event, Emitter emit) async {
+    emit(state.clearNextPageUrl());
+  }
 
   final PagingController<int, SearchProductModel>
       filterProductPagingController = PagingController(firstPageKey: 1);
@@ -38,11 +43,6 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     "Categories",
     "Brands",
     "Specifications",
-  ];
-  final List<GlobalKey> keys = [
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey(),
   ];
 
   void _setUsedToSlected(SetUsedToSelectedEvent event, Emitter emit) async {
@@ -256,7 +256,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     );
     await _restAPI.api.query<Map<String, dynamic>>(
       method: "POST",
-      path: ApiKey.productSearch,
+      path: ApiKey.productFilter + params!,
       error: error,
       data: data,
       timeOutError: error,
@@ -281,9 +281,9 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
     final resData = await _searchProduct(
       params: state.nextPageUrl != null
           ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}"
-          : "",
+          : "?page=1",
       data: {
-        "category_id": state.filterUsedCategory,
+        "category_id": [...state.filterUsedCategory],
         "brand_id": state.filterUsedBrand,
         "spec_value_id": state.filterUsedSpec,
       },

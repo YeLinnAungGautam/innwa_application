@@ -18,6 +18,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/cod.png
   AssetGenImage get cod => const AssetGenImage('assets/images/cod.png');
 
+  /// File path: assets/images/file.png
+  AssetGenImage get file => const AssetGenImage('assets/images/file.png');
+
   /// File path: assets/images/google_logo.png
   AssetGenImage get googleLogo =>
       const AssetGenImage('assets/images/google_logo.png');
@@ -40,6 +43,14 @@ class $AssetsImagesGen {
   AssetGenImage get noInternet =>
       const AssetGenImage('assets/images/no-internet.png');
 
+  /// File path: assets/images/order-delivery.png
+  AssetGenImage get orderDelivery =>
+      const AssetGenImage('assets/images/order-delivery.png');
+
+  /// File path: assets/images/settings.png
+  AssetGenImage get settings =>
+      const AssetGenImage('assets/images/settings.png');
+
   /// File path: assets/images/shopping.jpg
   AssetGenImage get shopping =>
       const AssetGenImage('assets/images/shopping.jpg');
@@ -49,6 +60,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/visa.jpg
   AssetGenImage get visa => const AssetGenImage('assets/images/visa.jpg');
+
+  /// File path: assets/images/warning.png
+  AssetGenImage get warning => const AssetGenImage('assets/images/warning.png');
 
   /// File path: assets/images/worldmap.jpg
   AssetGenImage get worldmap =>
@@ -62,15 +76,19 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [
         ayapay,
         cod,
+        file,
         googleLogo,
         innwaLogo,
         logoInnwa,
         mmFlag,
         mpu,
         noInternet,
+        orderDelivery,
+        settings,
         shopping,
         usFlag,
         visa,
+        warning,
         worldmap,
         worldtravel
       ];

@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/home/brand_marqueer/brand_marquee.dart';
 import 'package:innwa_mobile_dev/home/home_banner/bloc/home_banner_bloc.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/bloc/latest_phone_bloc.dart';
 import 'package:innwa_mobile_dev/shared/banner/image_banner.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
 import 'package:innwa_mobile_dev/shared/slider/innwa_slider.dart';
-import 'package:innwa_mobile_dev/shared/texts/heading.dart';
+import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/util/ui/search_product_bar/view/product_search_app_bar.dart';
 
 class Home extends StatelessWidget {
@@ -25,7 +26,8 @@ class Home extends StatelessWidget {
         BlocProvider.of<LatestPhoneBloc>(context)
           ..add(GetLatestComputerEvent(context: context))
           ..add(GetLatestLaptopEvent(context: context))
-          ..add(GetLatestPhoneEvent(context: context));
+          ..add(GetLatestPhoneEvent(context: context))
+          ..add(GetPromotionProductEvent(context: context));
         BlocProvider.of<HomeBannerBloc>(context)
           ..add(GetHomeSubBannerEvent(context: context))
           ..add(GetBrandEvent(context: context));
@@ -40,7 +42,8 @@ class Home extends StatelessWidget {
                 BlocProvider.of<LatestPhoneBloc>(context)
                   ..add(GetLatestComputerEvent(context: context))
                   ..add(GetLatestLaptopEvent(context: context))
-                  ..add(GetLatestPhoneEvent(context: context));
+                  ..add(GetLatestPhoneEvent(context: context))
+                  ..add(GetPromotionProductEvent(context: context));
                 BlocProvider.of<HomeBannerBloc>(context)
                   ..add(GetHomeSubBannerEvent(context: context))
                   ..add(GetBrandEvent(context: context));
@@ -58,13 +61,27 @@ class Home extends StatelessWidget {
                     child: 15.vertical,
                   ),
                   SliverToBoxAdapter(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: Heading(text: "Latest Mobile Products"),
-                        ),
-                      ],
+                    child: LocalizationWidget(
+                      en: "Latest Mobile Products",
+                      mm: "နောက်ဆုံးပေါ် မိုဘိုင်းဖုန်းများ",
+                      child: (val) {
+                        return Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15.0,
+                                horizontal: 15,
+                              ),
+                              child: RobotoText(
+                                fontSize: 18,
+                                fontColor: null,
+                                fontWeight: FontWeight.w600,
+                                text: val,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -120,14 +137,27 @@ class Home extends StatelessWidget {
                     child: 15.vertical,
                   ),
                   SliverToBoxAdapter(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: Heading(text: "Latest Laptops"),
-                        ),
-                      ],
-                    ),
+                    child: LocalizationWidget(
+                        en: "Latest Laptops",
+                        mm: "နောက်ဆုံးပေါ် Laptop များ",
+                        child: (val) {
+                          return Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0,
+                                  horizontal: 15,
+                                ),
+                                child: RobotoText(
+                                  fontSize: 18,
+                                  fontColor: null,
+                                  fontWeight: FontWeight.w600,
+                                  text: val,
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
                   ),
                   SliverToBoxAdapter(
                     child: 15.vertical,
@@ -166,13 +196,27 @@ class Home extends StatelessWidget {
                     },
                   ),
                   SliverToBoxAdapter(
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: Heading(text: "Latest Computer Products"),
-                        ),
-                      ],
+                    child: LocalizationWidget(
+                      en: "Latest Computer Products",
+                      mm: "နောက်ဆုံးပေါ် ကွန်ပျူတာများ",
+                      child: (val) {
+                        return Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15.0,
+                                horizontal: 15,
+                              ),
+                              child: RobotoText(
+                                fontSize: 18,
+                                fontColor: null,
+                                fontWeight: FontWeight.w600,
+                                text: val,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -187,6 +231,66 @@ class Home extends StatelessWidget {
                                 (context, index) => ProductCard(
                                   product: state.latestComputer[index],
                                   imagePath: state.imagePath!,
+                                ),
+                              ),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio:
+                                    MediaQuery.of(context).size.width <= 600
+                                        ? 0.6
+                                        : 0.65,
+                                crossAxisCount:
+                                    MediaQuery.of(context).size.width <= 600
+                                        ? 2
+                                        : 3,
+                              ),
+                            )
+                          : const SliverToBoxAdapter(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(),
+                                ],
+                              ),
+                            );
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: LocalizationWidget(
+                      en: "Promotion Products",
+                      mm: "ပရိုမိုးရှင်းထုတ်ကုန်များ",
+                      child: (val) {
+                        return Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15.0,
+                                horizontal: 15,
+                              ),
+                              child: RobotoText(
+                                fontSize: 18,
+                                fontColor: null,
+                                fontWeight: FontWeight.w600,
+                                text: val,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: 15.vertical,
+                  ),
+                  BlocBuilder<LatestPhoneBloc, LatestPhoneState>(
+                    builder: (context, state) {
+                      return state.productGetState == ApiStatus.completed
+                          ? SliverGrid(
+                              delegate: SliverChildBuilderDelegate(
+                                childCount: state.products.length,
+                                (context, index) => ProductCard(
+                                  product: state.products[index],
+                                  imagePath: state.productImagePath!,
                                 ),
                               ),
                               gridDelegate:
@@ -234,100 +338,5 @@ class Home extends StatelessWidget {
         );
       }),
     );
-    // return SizedBox(
-    //     height: MediaQuery.of(context).size.height / 1.32,
-    //     child: SingleChildScrollView(
-    //       padding: EdgeInsets.zero,
-    //       child: Column(
-    //         children: [
-    //           const InnwaSlider(),
-    //           Row(
-    //             children: [
-    //               Heading(text: "Latest Products"),
-    //             ],
-    //           ),
-    //           GridView.count(
-    //               physics: const NeverScrollableScrollPhysics(),
-    //               childAspectRatio:
-    //                   MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-    //               shrinkWrap: true,
-    //               crossAxisCount:
-    //                   MediaQuery.of(context).size.width <= 600 ? 2 : 3,
-    //               semanticChildCount: 4,
-    //               children: products.entries
-    //                   .map((e) => ProductCard(
-    //                       url: e.value["image"],
-    //                       text: e.value["name"],
-    //                       price: ""))
-    //                   .toList()),
-    //           ImageBanner(url: "url"),
-    //           Row(
-    //             children: [
-    //               Padding(
-    //                 padding: const EdgeInsets.only(top: 10.0),
-    //                 child: Heading(text: "Latest Laptops"),
-    //               ),
-    //             ],
-    //           ),
-    //           GridView.count(
-    //               physics: const NeverScrollableScrollPhysics(),
-    //               childAspectRatio:
-    //                   MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-    //               shrinkWrap: true,
-    //               crossAxisCount:
-    //                   MediaQuery.of(context).size.width <= 600 ? 2 : 3,
-    //               semanticChildCount: 4,
-    //               children: products.entries
-    //                   .map((e) => ProductCard(
-    //                       url: e.value["image"],
-    //                       text: e.value["name"],
-    //                       price: ""))
-    //                   .toList()),
-    //           ImageBanner(url: "url"),
-    //           Row(
-    //             children: [
-    //               Padding(
-    //                 padding: const EdgeInsets.only(top: 15.0),
-    //                 child: Heading(text: "Latest Mobile Products"),
-    //               ),
-    //             ],
-    //           ),
-    //           GridView.count(
-    //               physics: const NeverScrollableScrollPhysics(),
-    //               childAspectRatio:
-    //                   MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-    //               shrinkWrap: true,
-    //               crossAxisCount:
-    //                   MediaQuery.of(context).size.width <= 600 ? 2 : 3,
-    //               semanticChildCount: 4,
-    //               children: products.entries
-    //                   .map((e) => ProductCard(
-    //                       url: e.value["image"],
-    //                       text: e.value["name"],
-    //                       price: ""))
-    //                   .toList()),
-    //           ImageBanner(url: "url"),
-    // Row(
-    //   children: [
-    //     Heading(text: "Latest Computer Products"),
-    //   ],
-    // ),
-    //           GridView.count(
-    //               physics: const NeverScrollableScrollPhysics(),
-    //               childAspectRatio:
-    //                   MediaQuery.of(context).size.width <= 600 ? 0.6 : 0.65,
-    //               shrinkWrap: true,
-    //               crossAxisCount:
-    //                   MediaQuery.of(context).size.width <= 600 ? 2 : 3,
-    //               semanticChildCount: 4,
-    //               children: products.entries
-    //                   .map((e) => ProductCard(
-    //                       url: e.value["image"],
-    //                       text: e.value["name"],
-    //                       price: ""))
-    //                   .toList()),
-    //         ],
-    //       ),
-    //     ));
   }
 }

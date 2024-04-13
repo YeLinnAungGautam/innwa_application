@@ -40,8 +40,7 @@ class ProductSearchBloc extends Bloc<ProductSearchEvent, ProductSearchState> {
     emit(state.copyWith(hasFocus: event.data));
   }
 
-  Future<Map<String, dynamic>?> _searchProduct(
-      {required Map<String, dynamic> data, String? params}) async {
+  Future<Map<String, dynamic>?> _searchProduct({String? params}) async {
     Map<String, dynamic>? resData;
     final CallBackConfig error = CallBackConfig(
       allowBoth: true,
@@ -51,9 +50,8 @@ class ProductSearchBloc extends Bloc<ProductSearchEvent, ProductSearchState> {
     );
     await _restAPI.api.query<Map<String, dynamic>>(
       method: "GET",
-      path: ApiKey.productSearch,
+      path: "${ApiKey.productSearch}$params",
       error: error,
-      data: data,
       timeOutError: error,
       isAlreadyToken: false,
       afterValidate: AfterCallBackConfig(
@@ -75,14 +73,13 @@ class ProductSearchBloc extends Bloc<ProductSearchEvent, ProductSearchState> {
       SearchProductEvent event, Emitter emit) async {
     final resData = await _searchProduct(
       params: state.nextPageUrl != null
-          ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}"
-          : "",
-      data: {"keywords": state.searchText},
+          ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}&keyword=${state.searchText}"
+          : "?keyword=${state.searchText}",
     );
 
     if (resData != null) {
       emit(state.copyWith(
-        imagePath: resData["product_feature_image_path"],
+        imagePath: resData["feature_image_path"],
         nextPageUrl: resData["products"]["next_page_url"],
       ));
 

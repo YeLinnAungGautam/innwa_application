@@ -19,6 +19,9 @@ class RouterPath {
   final products = _PathMap("/products", fullPath: "/products");
   final articles = _PathMap("/articles", fullPath: "/articles");
   final about = _PathMap("/about", fullPath: "/about");
+  final register = _PathMap("/register", fullPath: "/register");
+  final login = _PathMap("/login", fullPath: "/login");
+  final editProfile = _PathMap("/editProfile", fullPath: "/editProfile");
 
   final articleDetails =
       _PathMap("articleDetails", fullPath: "/articles/articleDetails");
@@ -26,4 +29,10 @@ class RouterPath {
       _PathMap("promotionsDetails", fullPath: "/promotion/promotionsDetails");
   final productDetails =
       _PathMap("productDetails", fullPath: "/products/productDetails");
+
+  final wishList = _PathMap("/wishlist", fullPath: "/wishlist");
+  final services = _PathMap("/services", fullPath: "/services");
+  final orderHisotry = _PathMap("/orderHistory", fullPath: "/orderHistory");
+  final cartScreen = _PathMap("/cartScreen", fullPath: "/cartScreen");
+  final deliveryInfo = _PathMap("/deliveryInfo", fullPath: "/deliveryInfo");
 }

@@ -10,7 +10,7 @@ BrandModel _$BrandModelFromJson(Map<String, dynamic> json) => BrandModel(
       id: json['id'] as int,
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String,
-      image: json['image'] as String,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$BrandModelToJson(BrandModel instance) =>

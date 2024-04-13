@@ -10,7 +10,6 @@ class RestApiData {
   static late ApiMethods methods;
 
   static String? token;
-  static bool? isOnline;
   static late bool isUseHttp2;
 }
 

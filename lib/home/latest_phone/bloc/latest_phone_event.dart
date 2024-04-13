@@ -18,3 +18,7 @@ final class GetLatestComputerEvent extends LatestPhoneEvent {
 final class GetLatestLaptopEvent extends LatestPhoneEvent {
   const GetLatestLaptopEvent({required super.context});
 }
+
+final class GetPromotionProductEvent extends LatestPhoneEvent {
+  const GetPromotionProductEvent({required super.context});
+}

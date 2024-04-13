@@ -13,6 +13,19 @@ final class GetProductDetailsEvent extends ProductDetailsEvent {
 }
 
 final class UpdateSelectedSpecEvent extends ProductDetailsEvent {
-  const UpdateSelectedSpecEvent({required super.context,required this.id});
+  const UpdateSelectedSpecEvent({required super.context, required this.id});
   final int id;
+}
+
+final class UpdateRatingEvent extends ProductDetailsEvent {
+  const UpdateRatingEvent({required super.context, required this.rating});
+  final double rating;
+}
+
+final class ClickAddReviewEvent extends ProductDetailsEvent {
+  const ClickAddReviewEvent({required super.context});
+}
+
+final class ClickWishlistBtnEvent extends ProductDetailsEvent {
+  const ClickWishlistBtnEvent({required super.context});
 }

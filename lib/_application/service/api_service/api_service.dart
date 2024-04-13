@@ -39,10 +39,6 @@ class ApiService {
     }
   }
 
-  void setIsOnline({bool? value}) {
-    RestApiData.isOnline = value;
-  }
-
   CallBackWithReturn? _onBeforeValidate;
 
   CallBack? _onAfterValidate;
@@ -146,7 +142,7 @@ class ApiService {
         try {
           final file = await MultipartFile.fromFile(i, filename: fileName);
           formData.files.add(
-            MapEntry(fileName, file),
+            MapEntry("image", file),
           );
         } on Exception catch (_) {
           printError("Error throwing in formData from file of $i");

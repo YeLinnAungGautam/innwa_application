@@ -14,12 +14,12 @@ class SearchProductModel extends ProductModel {
     required super.price,
     required super.image,
     required super.slug,
-    required this.category,
-    required this.brand,
+    this.category,
+    this.brand,
   });
 
-  final CategoryModel category;
-  final BrandModel brand;
+  final CategoryModel? category;
+  final BrandModel? brand;
 
   @override
   List<Object?> get props => [...super.props, category, brand];
