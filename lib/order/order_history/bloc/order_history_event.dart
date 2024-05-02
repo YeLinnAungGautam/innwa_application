@@ -20,3 +20,8 @@ final class GetOrderHistoryEvent extends OrderHistoryEvent {
 final class GetPendingOrderEvent extends OrderHistoryEvent {
   const GetPendingOrderEvent({required super.context});
 }
+
+final class SelectOrderStatusEvent extends OrderHistoryEvent {
+  const SelectOrderStatusEvent({required super.context, required this.data});
+  final Map<String, dynamic> data;
+}

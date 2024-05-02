@@ -10,7 +10,7 @@ class RestAPI {
       },
       onAfterValidate: (data) async {
         final value = data as Map<String, dynamic>;
-        if (value["status"] == "success") {
+        if (value["status"] == "success" || value["status"] == "error") {
           return true;
         } else {
           return false;

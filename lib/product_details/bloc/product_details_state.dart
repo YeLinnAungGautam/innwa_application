@@ -11,10 +11,12 @@ class ProductDetailsState extends Equatable {
     this.orderedProducts = const [],
     this.reviews = const [],
     this.relatedProducts = const [],
-    this.selectedSpec,
     this.ratingAddStatus = ApiStatus.completed,
     this.rating = 4.0,
     this.wishlistApiStatus = ApiStatus.completed,
+    this.specifications = const [],
+    this.selectedSpec = const [],
+    this.selectedPriceId,
   });
 
   final ApiStatus apiStatus;
@@ -25,9 +27,13 @@ class ProductDetailsState extends Equatable {
   final bool? canReview;
   final List<ProductModel> orderedProducts;
   final List<ProductModel> relatedProducts;
-  final int? selectedSpec;
   final double rating;
   final ApiStatus? ratingAddStatus;
+  final List<SelectSpecificationModel> specifications;
+
+  //Spec Select State;
+  final List<SpecificationvalueModel> selectedSpec;
+  final int? selectedPriceId;
 
   final ApiStatus wishlistApiStatus;
 
@@ -47,6 +53,8 @@ class ProductDetailsState extends Equatable {
         ratingAddStatus,
         rating,
         wishlistApiStatus,
+        specifications,
+        selectedPriceId,
       ];
 
   ProductDetailsState copyWith({
@@ -59,10 +67,12 @@ class ProductDetailsState extends Equatable {
     bool? canReview,
     List<ProductModel>? orderedProducts,
     List<ProductModel>? relatedProducts,
-    int? selectedSpec,
+    List<SpecificationvalueModel>? selectedSpec,
     ApiStatus? ratingAddStatus,
     double? rating,
     ApiStatus? wishlistApiStatus,
+    List<SelectSpecificationModel>? specifications,
+    int? selectedPriceId,
   }) {
     return ProductDetailsState(
       apiStatus: apiStatus ?? this.apiStatus,
@@ -79,6 +89,8 @@ class ProductDetailsState extends Equatable {
       ratingAddStatus: ratingAddStatus ?? this.ratingAddStatus,
       rating: rating ?? this.rating,
       wishlistApiStatus: wishlistApiStatus ?? this.wishlistApiStatus,
+      specifications: specifications ?? this.specifications,
+      selectedPriceId: selectedPriceId ?? this.selectedPriceId,
     );
   }
 }

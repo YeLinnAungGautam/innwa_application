@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:innwa_mobile_dev/shared/top_bar/topbar.dart";
 import "package:innwa_mobile_dev/util/constants.dart";
 
 import "../shared/drawer/drawer.dart";
@@ -45,16 +44,9 @@ class HomeScreenNavBar extends StatelessWidget {
         color: backgroundColorLight,
         child: SafeArea(
           child: Scaffold(
-            appBar: TopBar(
-              needBackButton: false,
-              needMenu: true,
-            ),
             key: _scaffoldKey,
             resizeToAvoidBottomInset: false,
-            drawer: CustomDrawerWidget(
-              onDrawerTap: () {},
-            ),
-            // endDrawer: const FilterDrawer(),
+           
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               backgroundColor: backgroundColorLight,

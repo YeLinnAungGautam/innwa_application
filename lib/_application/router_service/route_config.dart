@@ -3,22 +3,25 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:innwa_mobile_dev/_application/application.dart";
 import "package:innwa_mobile_dev/_application/home_navbar.dart";
-import "package:innwa_mobile_dev/_application/product_list/views/products.dart";
 import "package:innwa_mobile_dev/_application/router_service/route_path.dart";
 import "package:innwa_mobile_dev/_application/router_service/router_observer.dart";
+import "package:innwa_mobile_dev/about_us/view/about_us.dart";
 import "package:innwa_mobile_dev/article/article_details/views/article_detail.dart";
 import 'package:innwa_mobile_dev/article/article_list/views/article.dart';
+import "package:innwa_mobile_dev/authentication/forget_password/view/forget_password_screen.dart";
 import "package:innwa_mobile_dev/authentication/login/views/login.dart";
 import "package:innwa_mobile_dev/authentication/register/views/register.dart";
 import "package:innwa_mobile_dev/cart/view/cart_screen.dart";
 import "package:innwa_mobile_dev/delivery_info/view/delivery_info_screen.dart";
 import 'package:innwa_mobile_dev/home/home/home.dart';
 import "package:innwa_mobile_dev/order/order_history/view/order_history_screen.dart";
+import "package:innwa_mobile_dev/order_info/view/order_info_screen.dart";
+import "package:innwa_mobile_dev/payment_select/view/payment_select_screen.dart";
 import "package:innwa_mobile_dev/product_details/views/product_detail.dart";
+import "package:innwa_mobile_dev/product_list/views/products.dart";
 import "package:innwa_mobile_dev/profile/profile_edit/views/profile_edit_screen.dart";
 import "package:innwa_mobile_dev/promotion/promotion_details/view/promotion_details_screen.dart";
 import "package:innwa_mobile_dev/promotion/promotion_product/view/promotion.dart";
-import "package:innwa_mobile_dev/screen/aboutus/aboutus.dart";
 import "package:innwa_mobile_dev/services/view/service_screen.dart";
 import "package:innwa_mobile_dev/wishlist/whishlist.dart";
 
@@ -119,6 +122,32 @@ final GoRouter routerConfig = GoRouter(
       builder: (context, state) {
         return const DeliveryInfoScreen();
       },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.rootProductDetails.path,
+      builder: (context, state) => ProductDetail(
+        slug: state.uri.queryParameters["slug"]!,
+      ),
+      routes: const [],
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.forgetPassword.path,
+      builder: (context, state) => const ForgetPasswordScreen(),
+      routes: const [],
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.orderInfoScreen.path,
+      builder: (context, state) => const OrderInfoScreen(),
+      routes: const [],
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.paymentSelect.path,
+      builder: (context, state) => const PaymentSelectScreen(),
+      routes: const [],
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {

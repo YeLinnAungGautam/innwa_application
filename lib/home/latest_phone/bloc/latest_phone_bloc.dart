@@ -25,14 +25,21 @@ class LatestPhoneBloc extends Bloc<LatestPhoneEvent, LatestPhoneState> {
     emit(state.copyWith(productGetState: ApiStatus.processing));
     final resData = await _getProduct(path: ApiKey.promotionProduct);
     if (resData != null) {
-      final jsonData = resData["promotionProducts"] as List;
-      final List<ProductModel> data =
-          jsonData.map((e) => ProductModel.fromJson(e)).toList();
-      emit(state.copyWith(
-        productGetState: ApiStatus.completed,
-        products: data,
-        productImagePath: resData["image_path"],
-      ));
+      if (resData["promotionProducts"] != null) {
+        final jsonData = resData["promotionProducts"] as List;
+        final List<ProductModel> data =
+            jsonData.map((e) => ProductModel.fromJson(e)).toList();
+        emit(state.copyWith(
+          productGetState: ApiStatus.completed,
+          products: data,
+          productImagePath: resData["image_path"],
+        ));
+      } else {
+        emit(state.copyWith(
+          productGetState: ApiStatus.completed,
+          products: [],
+        ));
+      }
     } else {
       emit(state.copyWith(productGetState: ApiStatus.failure));
     }
@@ -72,14 +79,21 @@ class LatestPhoneBloc extends Bloc<LatestPhoneEvent, LatestPhoneState> {
     emit(state.copyWith(computerGetState: ApiStatus.processing));
     final resData = await _getlatest(path: ApiKey.latestLaptop);
     if (resData != null) {
-      final jsonData = resData["latestLaptops"] as List;
-      final List<ProductModel> data =
-          jsonData.map((e) => ProductModel.fromJson(e)).toList();
-      emit(state.copyWith(
-        laptopGetState: ApiStatus.completed,
-        latestLaptop: data,
-        laptopImagePath: resData["image_path"],
-      ));
+      if (resData["latestLaptops"] != null) {
+        final jsonData = resData["latestLaptops"] as List;
+        final List<ProductModel> data =
+            jsonData.map((e) => ProductModel.fromJson(e)).toList();
+        emit(state.copyWith(
+          laptopGetState: ApiStatus.completed,
+          latestLaptop: data,
+          laptopImagePath: resData["image_path"],
+        ));
+      } else {
+        emit(state.copyWith(
+          laptopGetState: ApiStatus.completed,
+          latestLaptop: [],
+        ));
+      }
     } else {
       emit(state.copyWith(laptopGetState: ApiStatus.failure));
     }
@@ -90,14 +104,21 @@ class LatestPhoneBloc extends Bloc<LatestPhoneEvent, LatestPhoneState> {
     emit(state.copyWith(computerGetState: ApiStatus.processing));
     final resData = await _getlatest(path: ApiKey.latestComputer);
     if (resData != null) {
-      final jsonData = resData["latestComputers"] as List;
-      final List<ProductModel> data =
-          jsonData.map((e) => ProductModel.fromJson(e)).toList();
-      emit(state.copyWith(
-        computerGetState: ApiStatus.completed,
-        latestComputer: data,
-        computeImagePath: resData["image_path"],
-      ));
+      if (resData["latestComputers"] != null) {
+        final jsonData = resData["latestComputers"] as List;
+        final List<ProductModel> data =
+            jsonData.map((e) => ProductModel.fromJson(e)).toList();
+        emit(state.copyWith(
+          computerGetState: ApiStatus.completed,
+          latestComputer: data,
+          computeImagePath: resData["image_path"],
+        ));
+      } else {
+        emit(state.copyWith(
+          computerGetState: ApiStatus.completed,
+          latestComputer: [],
+        ));
+      }
     } else {
       emit(state.copyWith(computerGetState: ApiStatus.failure));
     }
@@ -108,14 +129,21 @@ class LatestPhoneBloc extends Bloc<LatestPhoneEvent, LatestPhoneState> {
     emit(state.copyWith(getState: ApiStatus.processing));
     final resData = await _getlatest(path: ApiKey.latestPhone);
     if (resData != null) {
-      final jsonData = resData["latestPhones"] as List;
-      final List<ProductModel> data =
-          jsonData.map((e) => ProductModel.fromJson(e)).toList();
-      emit(state.copyWith(
-        getState: ApiStatus.completed,
-        latestPhones: data,
-        imagePath: resData["image_path"],
-      ));
+      if (resData["latestPhones"] != null) {
+        final jsonData = resData["latestPhones"] as List;
+        final List<ProductModel> data =
+            jsonData.map((e) => ProductModel.fromJson(e)).toList();
+        emit(state.copyWith(
+          getState: ApiStatus.completed,
+          latestPhones: data,
+          imagePath: resData["image_path"],
+        ));
+      } else {
+        emit(state.copyWith(
+          getState: ApiStatus.completed,
+          latestPhones: [],
+        ));
+      }
     } else {
       emit(state.copyWith(getState: ApiStatus.failure));
     }

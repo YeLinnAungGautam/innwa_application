@@ -12,6 +12,7 @@ class StorageService {
   final String loginDataStoreKey = "LoginData";
   final String profileImagePath = "ProfileImagePath";
   final String loginExpireTime = "LoginExpire";
+  final String userCart = "UserCart";
 
   StorageService._();
 

@@ -7,6 +7,11 @@ class OrderHistoryState extends Equatable {
     this.orderPending = const [],
     this.historyStatus = ApiStatus.processing,
     this.pendingStatus = ApiStatus.processing,
+    this.selectedType = const {
+      "value": "in-progress",
+      "key": "In Progress",
+      "mmkey": "လုပ်ဆောင်နေဆဲ",
+    },
   });
 
   final int selectedTab;
@@ -14,6 +19,7 @@ class OrderHistoryState extends Equatable {
   final List<OrderHistoryModel> orderHistory;
   final List<OrderHistoryModel> orderPending;
   final ApiStatus pendingStatus;
+  final Map<String, dynamic> selectedType;
 
   @override
   List<Object> get props => [
@@ -22,6 +28,7 @@ class OrderHistoryState extends Equatable {
         orderPending,
         historyStatus,
         pendingStatus,
+        selectedType,
       ];
 
   OrderHistoryState copyWith({
@@ -30,6 +37,7 @@ class OrderHistoryState extends Equatable {
     List<OrderHistoryModel>? orderPending,
     ApiStatus? historyStatus,
     ApiStatus? pendingStatus,
+    Map<String, dynamic>? selectedType,
   }) {
     return OrderHistoryState(
       selectedTab: selectedTab ?? this.selectedTab,
@@ -37,6 +45,7 @@ class OrderHistoryState extends Equatable {
       orderPending: orderPending ?? this.orderPending,
       historyStatus: historyStatus ?? this.historyStatus,
       pendingStatus: pendingStatus ?? this.pendingStatus,
+      selectedType: selectedType ?? this.selectedType,
     );
   }
 }

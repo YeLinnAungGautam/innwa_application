@@ -9,22 +9,23 @@ part 'product_details_model.g.dart';
 
 @JsonSerializable()
 class ProductDetailsModel extends Equatable {
-  const ProductDetailsModel(
-      {required this.id,
-      required this.enName,
-      required this.mmName,
-      this.enDesc,
-      required this.category,
-      required this.brand,
-      required this.price,
-      this.image,
-      this.mmDesc});
+  const ProductDetailsModel({
+    required this.id,
+    required this.enName,
+    this.mmName,
+    this.enDesc,
+    required this.category,
+    required this.brand,
+    required this.price,
+    this.image,
+    this.mmDesc,
+  });
 
   final int id;
   @JsonKey(name: "name_en")
   final String enName;
   @JsonKey(name: "name_mm")
-  final String mmName;
+  final String? mmName;
   @JsonKey(name: "feature_image")
   final String? image;
   @JsonKey(name: "description_en")

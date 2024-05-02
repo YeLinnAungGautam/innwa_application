@@ -32,6 +32,13 @@ class ApiKey {
   static const getServices = "/get-services";
   static const bookAppointment = "/book-appointment";
   static const customerOrder = "/customer/my-order";
+  static const branches = "/get-branches";
+  static const forgetPassword = "/forget-password";
+  static const orderFilter = "/customer/order-filter";
+  static const deliFee = "/get-deli-fee";
+  static const checkCoupon = "/check-coupon";
+  static const paymentMethod = "/get-payment";
+  static const order = "/customer/order";
 }
 
 enum ApiStatus {

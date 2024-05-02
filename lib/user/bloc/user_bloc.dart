@@ -18,9 +18,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UpdateUserDataEvent>(_updateUser);
     on<UpdateProfileImagePathEvent>(_updateProfileImagepath);
     on<LogoutEvent>(_logoutEvent);
+    on<UpdateWishListDataEvent>(_updateWishListData);
+    on<RemoveOrAddWishlistEvent>(_removeOrAddWishlist);
   }
 
   final RestAPI _restAPI;
+
+  void _removeOrAddWishlist(RemoveOrAddWishlistEvent event, Emitter emit) {
+    final bool contain = state.wishlistProductId.contains(event.id);
+    debugPrint(
+        "-----------contain---------------------$contain--------------------------------");
+
+    if (contain) {
+      debugPrint(
+          "-----------contain---------------------${state.wishlistProductId}-${event.id}-------------------------------");
+      final List<int> newList = [...state.wishlistProductId];
+      newList.removeWhere((element) => element == event.id);
+      debugPrint(
+          "-----------contain---------------------$newList--------------------------------");
+      emit(state.copyWith(wishlistProductId: newList));
+    } else {
+      emit(state
+          .copyWith(wishlistProductId: [...state.wishlistProductId, event.id]));
+    }
+  }
+
+  void _updateWishListData(UpdateWishListDataEvent event, Emitter emit) {
+    emit(state.copyWith(wishlistProductId: event.data));
+  }
 
   Future<void> _logoutEvent(LogoutEvent event, Emitter emit) async {
     await Future.wait([
@@ -39,9 +64,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       user: null,
     ));
     BlocProvider.of<AppServiceBloc>(event.context).api.api.myToken = null;
-    emit(state.copyWith(logoutStatus: ApiStatus.processing));
+    emit(state
+        .copyWith(logoutStatus: ApiStatus.processing, wishlistProductId: []));
     final resData = await _logout();
-    emit(state.copyWith(logoutStatus: ApiStatus.completed));
+    emit(state.copyWith(
+      logoutStatus: ApiStatus.completed,
+    ));
 
     if (resData != null) {
       showSnackBar(

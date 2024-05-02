@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
+import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
@@ -35,6 +36,7 @@ class _LoginState extends State<Login> {
           builder: (context, state) {
             return Scaffold(
               resizeToAvoidBottomInset: true,
+              appBar: AppBar(),
               body: SingleChildScrollView(
                 child: Form(
                   key: loginBloc.loginKey,
@@ -181,6 +183,36 @@ class _LoginState extends State<Login> {
                                     ),
                                   ],
                                 ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    LocalizationWidget(
+                                      en: "Forget Password?",
+                                      mm: "စကားဝှက်ကိုမေ့နေသလား",
+                                      child: (val) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 9.0),
+                                        child: TextButton(
+                                          onPressed: () async {
+                                            await RouterService.of(context)
+                                                .push(
+                                              RouterPath
+                                                  .I.forgetPassword.fullPath,
+                                            );
+                                          },
+                                          child: Text(
+                                            val,
+                                            style: GoogleFonts.roboto(
+                                                fontSize: 15.0,
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                10.vertical,
                                 GestureDetector(
                                   onTap: () {
                                     if (state.sendStatus ==

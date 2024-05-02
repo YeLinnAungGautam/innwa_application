@@ -49,7 +49,8 @@ class WishList extends StatelessWidget {
                             itemBuilder: (context, item, index) {
                               return ProductCard(
                                 product: item,
-                                imagePath: state.imagePath,
+                                imagePath: "${state.imagePath}/",
+                                isRoot: true,
                               );
                             },
                           ),

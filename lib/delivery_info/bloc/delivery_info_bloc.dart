@@ -2,11 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
 import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/profile/profile_edit/model/state_model.dart';
 import 'package:innwa_mobile_dev/profile/profile_edit/model/township_model.dart';
+import 'package:innwa_mobile_dev/util/ui/snack_bar.dart';
 
 part 'delivery_info_event.dart';
 part 'delivery_info_state.dart';
@@ -17,9 +20,36 @@ class DeliveryInfoBloc extends Bloc<DeliveryInfoEvent, DeliveryInfoState> {
     on<UpdateSelectedStateEvent>(_updateSelectedState);
     on<GetTownshipEvent>(_getTownshipEvent);
     on<UpdateSelectedTownshipEvent>(_updateSelectedTownship);
+    on<ClickNextBtnEvent>(_clickNextBtn);
   }
 
   final RestAPI _restAPI;
+
+  void _clickNextBtn(ClickNextBtnEvent event, Emitter emit) {
+    final CartBloc cartBloc = BlocProvider.of<CartBloc>(event.context);
+
+    final validate = BlocProvider.of<CartBloc>(event.context)
+        .formKey
+        .currentState!
+        .validate();
+    if (validate &&
+        cartBloc.state.selectedState != null &&
+        cartBloc.state.selectedTownship != null) {
+      RouterService.of(event.context)
+          .push(RouterPath.I.orderInfoScreen.fullPath);
+    } else if (cartBloc.state.selectedState == null ||
+        cartBloc.state.selectedTownship == null) {
+      showSnackBar(
+        message: "Please select state & township",
+        title: "State & Township",
+        context: event.context,
+        backgroundColor: Colors.amber,
+        titleColor: Colors.black,
+        messageColor: Colors.black,
+      );
+    }
+  }
+
   void _updateSelectedTownship(
     UpdateSelectedTownshipEvent event,
     Emitter emit,

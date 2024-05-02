@@ -38,14 +38,14 @@ class PromotionItems extends StatelessWidget {
             ],
           ),
           width: MediaQuery.of(context).size.width,
-          height: 150,
+          height: 200,
           child: Row(
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  width: 180,
-                  height: 150,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
@@ -98,41 +98,62 @@ class PromotionItems extends StatelessWidget {
                   //   ],
                   // ),
                   LocalizationWidget(
-                      en: promotion.enDesc,
-                      mm: promotion.mmDesc,
-                      child: (val) {
-                        return Row(
-                          children: [
-                            Builder(builder: (context) {
-                              final document = parse(val);
-                              final String parsedString =
-                                  parse(document.body!.text)
-                                      .documentElement!
-                                      .text;
-                              return SizedBox(
-                                width: MediaQuery.of(context).size.width <= 600
-                                    ? 160
-                                    : 400,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10.0, top: 8.0, bottom: 8.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 2.0),
-                                    margin: const EdgeInsets.only(bottom: 10.0),
-                                    child: RobotoText(
-                                      fontSize: 14,
-                                      fontColor: Colors.grey,
-                                      text: parsedString,
-                                      maxLine: 3,
-                                    ),
+                    en: promotion.enDesc,
+                    mm: promotion.mmDesc,
+                    child: (val) {
+                      return Row(
+                        children: [
+                          Builder(builder: (context) {
+                            final document = parse(val);
+                            final String parsedString =
+                                parse(document.body!.text)
+                                    .documentElement!
+                                    .text;
+                            return SizedBox(
+                              width: MediaQuery.of(context).size.width <= 600
+                                  ? 160
+                                  : 400,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, top: 8.0, bottom: 8.0),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 2.0),
+                                  margin: const EdgeInsets.only(bottom: 10.0),
+                                  child: RobotoText(
+                                    fontSize: 14,
+                                    fontColor: Colors.grey,
+                                    text: parsedString,
+                                    maxLine: 3,
                                   ),
                                 ),
-                              );
-                            }),
-                          ],
-                        );
-                      }),
+                              ),
+                            );
+                          }),
+                        ],
+                      );
+                    },
+                  ),
+                  const Expanded(child: SizedBox()),
+                  LocalizationWidget(
+                    en: "View More",
+                    mm: "ပိုမိုကြည့်ရှုရန်",
+                    child: (val) {
+                      return Container(
+                        height: 35,
+                        margin: const EdgeInsets.only(left: 5, bottom: 10),
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(),
+                          onPressed: () {
+                            RouterService.of(context).push(
+                                "${RouterPath.I.promotionsDertails.fullPath}?slug=${promotion.slug}");
+                          },
+                          child: Text(val),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               )
             ],

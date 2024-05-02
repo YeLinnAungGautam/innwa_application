@@ -8,7 +8,7 @@ class ProductModel extends Equatable {
   const ProductModel({
     required this.id,
     required this.enName,
-    required this.mmName,
+    this.mmName,
     required this.price,
     required this.image,
     required this.slug,
@@ -18,7 +18,7 @@ class ProductModel extends Equatable {
   @JsonKey(name: "name_en")
   final String enName;
   @JsonKey(name: "name_mm")
-  final String mmName;
+  final String? mmName;
   @JsonKey(name: "first_price")
   final PriceModel price;
   @JsonKey(name: "feature_image")

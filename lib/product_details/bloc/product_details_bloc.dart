@@ -4,11 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
+import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
+import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
+import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/product_details/model/product_details_model.dart';
 import 'package:innwa_mobile_dev/product_details/model/review_model.dart';
+import 'package:innwa_mobile_dev/product_details/model/select_specification_model.dart';
 import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
 import 'package:innwa_mobile_dev/util/ui/snack_bar.dart';
 
@@ -19,21 +23,112 @@ class ProductDetailsBloc
     extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   ProductDetailsBloc(this._restAPI) : super(const ProductDetailsState()) {
     on<GetProductDetailsEvent>(_getProductDetailsEvent);
-    on<UpdateSelectedSpecEvent>(_updateSelectedSpec);
     on<UpdateRatingEvent>(_updateRating);
     on<ClickAddReviewEvent>(_clickAddReviewEvent);
     on<ClickWishlistBtnEvent>(_wishListBtnClick);
+    on<SelectSpecEvent>(_selectSpec);
+    on<ClickSpecConfirmEvent>(_clickSpecConfirm);
   }
 
   final RestAPI _restAPI;
   final TextEditingController ratingTextController = TextEditingController();
   final GlobalKey<FormState> ratingForm = GlobalKey();
 
-  Future<void> _wishListBtnClick(ClickWishlistBtnEvent event, Emitter emit) async {
+  void _clickSpecConfirm(ClickSpecConfirmEvent event, Emitter emit) {
+    final UserBloc userBloc = BlocProvider.of<UserBloc>(event.context);
+    if (state.selectedSpec.length != state.specifications.length) {
+      showSnackBar(
+        message: "Please select other specifications!",
+        title: "Select Specification",
+        context: event.context,
+        titleColor: Colors.black,
+        messageColor: Colors.black,
+        backgroundColor: Colors.amber,
+      );
+    } else {
+      if (userBloc.state.user == null) {
+        RouterService.of(event.context).push(RouterPath.I.login.fullPath);
+      } else {
+        final prices = state.productDetails!.price
+            .where((element) => element.id == state.selectedPriceId);
+        if (prices.isNotEmpty) {
+          final price = prices.first;
+          final Map<String, dynamic> jsonData = price.toJson();
+          jsonData["product_specification"] =
+              price.productSpecifications.map((e) {
+            final jsonSpec = e.toJson();
+            jsonSpec["specification_type"] = e.specificationType.toJson();
+
+            jsonSpec["specification_value"] = e.specificationValue.toJson();
+            return jsonSpec;
+          }).toList();
+          jsonData["product_image"] =
+              price.productImage.map((e) => e.toJson()).toList();
+          BlocProvider.of<CartBloc>(event.context).add(UpdateUserCartEvent(
+            context: event.context,
+            data: {
+              "quantity": 1,
+              "image":
+                  state.featureImagePath + (state.productDetails!.image ?? ""),
+              "name_en": state.productDetails!.enName,
+              "name_mm": state.productDetails!.mmName,
+              "product_price": jsonData,
+            },
+          ));
+        }
+        RouterService.of(event.context).pop();
+        if (event.buyNow) {
+          RouterService.of(event.context)
+              .push(RouterPath.I.cartScreen.fullPath);
+        }
+      }
+    }
+  }
+
+  void _selectSpec(SelectSpecEvent event, Emitter emit) {
+    if (state.selectedPriceId == null) {
+      emit(
+        state.copyWith(
+          selectedPriceId: event.spec.productPrice?.first,
+          selectedSpec: [event.spec],
+        ),
+      );
+    } else {
+      final bool equalPriceId =
+          (event.spec.productPrice ?? []).contains(state.selectedPriceId);
+
+      if (equalPriceId) {
+        final List<SpecificationvalueModel> filterData = state.selectedSpec
+            .where((element) =>
+                element.specificationTypeId != event.spec.specificationTypeId)
+            .toList();
+        emit(state.copyWith(selectedSpec: [...filterData, event.spec]));
+      } else {
+        final List<SpecificationvalueModel> filterData = state.selectedSpec
+            .where(
+              (element) => element.productPrice!
+                  .contains(event.spec.productPrice?.first),
+            )
+            .toList();
+        emit(
+          state.copyWith(
+            selectedPriceId: event.spec.productPrice?.first,
+            selectedSpec: [...filterData, event.spec],
+          ),
+        );
+        //Remove That Doesn't Contain New Price Id & update new price id
+      }
+    }
+  }
+
+  Future<void> _wishListBtnClick(
+      ClickWishlistBtnEvent event, Emitter emit) async {
     emit(state.copyWith(wishlistApiStatus: ApiStatus.processing));
     final resData =
         await _addRemoveWishList(productId: state.productDetails!.id);
     emit(state.copyWith(wishlistApiStatus: ApiStatus.completed));
+    BlocProvider.of<UserBloc>(event.context).add(RemoveOrAddWishlistEvent(
+        context: event.context, id: state.productDetails!.id));
     if (resData != null) {
       showSnackBar(
         message: resData["message"],
@@ -147,10 +242,6 @@ class ProductDetailsBloc
     emit(state.copyWith(rating: event.rating));
   }
 
-  void _updateSelectedSpec(UpdateSelectedSpecEvent event, Emitter emit) {
-    emit(state.copyWith(selectedSpec: event.id));
-  }
-
   Future<void> _getProductDetailsEvent(
       GetProductDetailsEvent event, Emitter emit) async {
     emit(state.copyWith(apiStatus: ApiStatus.processing));
@@ -158,8 +249,36 @@ class ProductDetailsBloc
 
     if (resData != null) {
       final jsonReview = resData["reviews"] as List;
+      final jsonSpecs = resData["productSpecification"] as List;
+      List<SelectSpecificationModel> selectSpecs =
+          jsonSpecs.map((e) => SelectSpecificationModel.fromJson(e)).toList();
       final List<ReviewModel> data =
           jsonReview.map((e) => ReviewModel.fromJson(e)).toList();
+      final product = ProductDetailsModel.fromJson(resData["product"]);
+
+      //! When Backend Response Fix , Need To Fix This -> :)
+      selectSpecs = selectSpecs.map((specType) {
+        final specs = specType.specificationValues.map(
+          (spec) {
+            for (var price in product.price) {
+              final priceData = price.productSpecifications.where((priceSpec) =>
+                  priceSpec.specificationTypeId == spec.specificationTypeId &&
+                  priceSpec.specificationValueId == spec.id);
+              if (priceData.isNotEmpty) {
+                spec = spec.copyWith(
+                  productPrice: [
+                    ...spec.productPrice ?? [],
+                    priceData.first.productPriceId,
+                  ],
+                );
+              }
+            }
+            return spec;
+          },
+        ).toList();
+        specType = specType.copyWith(specificationValues: specs);
+        return specType;
+      }).toList();
 
       emit(
         state.copyWith(
@@ -167,8 +286,8 @@ class ProductDetailsBloc
           productImagepath: resData["product_image_path"],
           disImagePath: resData["dis_image_path"],
           featureImagePath: resData["product_feature_image_path"],
-          productDetails: () =>
-              ProductDetailsModel.fromJson(resData["product"]),
+          specifications: selectSpecs,
+          productDetails: () => product,
           reviews: data,
           canReview: data
               .where((element) =>

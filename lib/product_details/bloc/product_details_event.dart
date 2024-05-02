@@ -12,11 +12,6 @@ final class GetProductDetailsEvent extends ProductDetailsEvent {
   final String slug;
 }
 
-final class UpdateSelectedSpecEvent extends ProductDetailsEvent {
-  const UpdateSelectedSpecEvent({required super.context, required this.id});
-  final int id;
-}
-
 final class UpdateRatingEvent extends ProductDetailsEvent {
   const UpdateRatingEvent({required super.context, required this.rating});
   final double rating;
@@ -28,4 +23,14 @@ final class ClickAddReviewEvent extends ProductDetailsEvent {
 
 final class ClickWishlistBtnEvent extends ProductDetailsEvent {
   const ClickWishlistBtnEvent({required super.context});
+}
+
+final class SelectSpecEvent extends ProductDetailsEvent {
+  const SelectSpecEvent({required super.context, required this.spec});
+  final SpecificationvalueModel spec;
+}
+
+final class ClickSpecConfirmEvent extends ProductDetailsEvent {
+  const ClickSpecConfirmEvent({required super.context, required this.buyNow});
+  final bool buyNow;
 }

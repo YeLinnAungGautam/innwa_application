@@ -27,3 +27,7 @@ final class UpdateSelectedTownshipEvent extends DeliveryInfoEvent {
 final class GetTownshipEvent extends DeliveryInfoEvent {
   const GetTownshipEvent({required super.context});
 }
+
+final class ClickNextBtnEvent extends DeliveryInfoEvent {
+  const ClickNextBtnEvent({required super.context});
+}

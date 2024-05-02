@@ -15,6 +15,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/ayapay.png
   AssetGenImage get ayapay => const AssetGenImage('assets/images/ayapay.png');
 
+  /// File path: assets/images/chevron.png
+  AssetGenImage get chevron => const AssetGenImage('assets/images/chevron.png');
+
   /// File path: assets/images/cod.png
   AssetGenImage get cod => const AssetGenImage('assets/images/cod.png');
 
@@ -75,6 +78,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
         ayapay,
+        chevron,
         cod,
         file,
         googleLogo,

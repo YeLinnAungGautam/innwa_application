@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
+import 'package:innwa_mobile_dev/gen/assets.gen.dart';
 import 'package:innwa_mobile_dev/order/order_history/bloc/order_history_bloc.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
@@ -26,12 +28,21 @@ class OrderTab extends StatelessWidget {
                 10.vertical,
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
-                  child: RobotoText(
-                    fontSize: 25,
-                    fontColor: Theme.of(context).colorScheme.primary,
-                    text: state.selectedTab == 0 ? "My Order" : "Pending",
-                    fontWeight: FontWeight.w600,
-                  ),
+                  child: LocalizationWidget(
+                      en: state.selectedTab == 0
+                          ? "My Orders"
+                          : state.selectedType["key"],
+                      mm: state.selectedTab == 0
+                          ? "ကျွန်ုပ်၏ အော်ဒါများ"
+                          : state.selectedType["mmkey"],
+                      child: (val) {
+                        return RobotoText(
+                          fontSize: 25,
+                          fontColor: Theme.of(context).colorScheme.primary,
+                          text: val,
+                          fontWeight: FontWeight.w600,
+                        );
+                      }),
                 ),
                 10.vertical,
                 Row(
@@ -56,21 +67,26 @@ class OrderTab extends StatelessWidget {
                                 border:
                                     Border.all(width: 1, color: Colors.grey)),
                             alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 8.0,
-                                  bottom: 8.0,
-                                  left: 30.0,
-                                  right: 30.0),
-                              child: RobotoText(
-                                fontSize: 16.0,
-                                fontColor: state.selectedTab == 0
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontWeight: FontWeight.w600,
-                                text: "History",
-                              ),
-                            ),
+                            child: LocalizationWidget(
+                                en: "History",
+                                mm: "လုပ်ဆောင်ခဲ့သော အော်ဒါများ",
+                                child: (val) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0,
+                                        bottom: 8.0,
+                                        left: 30.0,
+                                        right: 30.0),
+                                    child: RobotoText(
+                                      fontSize: 16.0,
+                                      fontColor: state.selectedTab == 0
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontWeight: FontWeight.w600,
+                                      text: val,
+                                    ),
+                                  );
+                                }),
                           ),
                         ),
                       ),
@@ -100,13 +116,38 @@ class OrderTab extends StatelessWidget {
                                   bottom: 8.0,
                                   left: 30.0,
                                   right: 30.0),
-                              child: RobotoText(
-                                fontSize: 16.0,
-                                fontColor: state.selectedTab != 1
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Colors.white,
-                                fontWeight: FontWeight.w600,
-                                text: "Pending",
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  LocalizationWidget(
+                                    en: state.selectedType["key"],
+                                    mm: state.selectedType["mmkey"],
+                                    child: (val) {
+                                      return Flexible(
+                                        child: RobotoText(
+                                          fontSize: 16.0,
+                                          fontColor: state.selectedTab != 1
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                              : Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          text: val,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  5.horizontal,
+                                  Image.asset(
+                                    Assets.images.chevron.path,
+                                    width: 12,
+                                    height: 12,
+                                    color: state.selectedTab != 1
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Colors.white,
+                                  )
+                                ],
                               ),
                             ),
                           ),

@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/profile/profile.dart';
-import 'package:innwa_mobile_dev/shared/avatar/avatar.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/shared/utility_component/utility_component.dart';
 import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
@@ -67,13 +67,17 @@ class CustomDrawerWidget extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
-                              child: Avatar(
-                                image: state.user!.image == null
-                                    ? "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg"
-                                    : state.profileImagePath +
-                                        state.user!.image!,
-                                width: 60,
-                                height: 60,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachedNetworkImage(
+                                  imageUrl: state.user!.image == null
+                                      ? "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg"
+                                      : state.profileImagePath +
+                                          state.user!.image!,
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             Column(

@@ -10,7 +10,7 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
     ProductDetailsModel(
       id: json['id'] as int,
       enName: json['name_en'] as String,
-      mmName: json['name_mm'] as String,
+      mmName: json['name_mm'] as String?,
       enDesc: json['description_en'] as String?,
       category:
           CategoryModel.fromJson(json['category'] as Map<String, dynamic>),

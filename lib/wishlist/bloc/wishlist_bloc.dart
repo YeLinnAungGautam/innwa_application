@@ -29,7 +29,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
     if (resData != null) {
       emit(state.copyWith(
-        imagePath: resData["wishlist"]["path"],
+        imagePath: resData["image_path"],
         nextPageUrl: resData["wishlist"]["next_page_url"],
       ));
 

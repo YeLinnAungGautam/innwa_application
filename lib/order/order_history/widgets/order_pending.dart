@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/order/order_history/bloc/order_history_bloc.dart';
 import 'package:innwa_mobile_dev/order/order_history/model/order_history_model.dart';
 import 'package:innwa_mobile_dev/order/order_history/widgets/order_item.dart';
@@ -31,6 +32,7 @@ class OrderPending extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              10.vertical,
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: RobotoText(
@@ -57,12 +59,18 @@ class OrderPending extends StatelessWidget {
                       sliver: SliverToBoxAdapter(
                         child: Container(
                           alignment: Alignment.center,
-                          child: RobotoText(
-                            fontSize: 18,
-                            fontColor: Theme.of(context).colorScheme.primary,
-                            text: "No Order Found!",
-                            fontWeight: FontWeight.w600,
-                          ),
+                          child: LocalizationWidget(
+                              en: "No Order Found!",
+                              mm: "အော်ဒါများမတွေ့ပါ",
+                              child: (val) {
+                                return RobotoText(
+                                  fontSize: 18,
+                                  fontColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  text: val,
+                                  fontWeight: FontWeight.w600,
+                                );
+                              }),
                         ),
                       ),
                     )

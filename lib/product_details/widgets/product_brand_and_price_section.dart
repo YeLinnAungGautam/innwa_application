@@ -21,8 +21,8 @@ class ProductSpecAndPriceSelectSection extends StatelessWidget {
               ...state.productDetails!.price.map(
                 (e) => GestureDetector(
                   onTap: () {
-                    BlocProvider.of<ProductDetailsBloc>(context).add(
-                        UpdateSelectedSpecEvent(context: context, id: e.id));
+                    // BlocProvider.of<ProductDetailsBloc>(context).add(
+                    //     UpdateSelectedSpecEvent(context: context, id: e.id));
                   },
                   child: AbsorbPointer(
                     child: Padding(

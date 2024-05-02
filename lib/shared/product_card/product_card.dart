@@ -16,9 +16,11 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.product,
     required this.imagePath,
+    this.isRoot = false,
   });
   final ProductModel product;
   final String imagePath;
+  final bool isRoot;
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,12 @@ class ProductCard extends StatelessWidget {
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
+                  debugPrint(
+                      "-----------${!isRoot ? "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}" : "/${RouterPath.I.productDetails.path}?slug=${product.slug}"}----------------------------------------------------");
                   RouterService.of(context).push(
-                      "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}",
+                      !isRoot
+                          ? "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}"
+                          : "${RouterPath.I.rootProductDetails.fullPath}?slug=${product.slug}",
                       redirect: false);
                 },
                 child: Stack(
@@ -112,28 +118,29 @@ class ProductCard extends StatelessWidget {
                           if (product.price.gift != null) 10.vertical,
                           if (product.price.gift != null)
                             LocalizationWidget(
-                                en: "Gift",
-                                mm: "လက်ဆောင်",
-                                child: (val) {
-                                  return Container(
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            offset: Offset(6, 3),
-                                            spreadRadius: -4,
-                                            blurRadius: 10,
-                                            color: Color.fromRGBO(
-                                                229, 229, 229, 1),
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: DiscountBanner(
-                                      text: "$val - ${product.price.gift!}",
-                                    ),
-                                  );
-                                }),
+                              en: "Gift",
+                              mm: "လက်ဆောင်",
+                              child: (val) {
+                                return Container(
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          offset: Offset(6, 3),
+                                          spreadRadius: -4,
+                                          blurRadius: 10,
+                                          color:
+                                              Color.fromRGBO(229, 229, 229, 1),
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: DiscountBanner(
+                                    text: "$val - ${product.price.gift!}",
+                                  ),
+                                );
+                              },
+                            ),
                         ],
                       ),
                     )
@@ -174,7 +181,7 @@ class ProductCard extends StatelessWidget {
                           return Container(
                             height: 50,
                             padding: const EdgeInsets.only(
-                                left: 8.0, bottom: 5.0, top: 10),
+                                left: 6.0, bottom: 5.0, top: 10),
                             alignment: Alignment.centerLeft,
                             child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,8 +209,10 @@ class ProductCard extends StatelessWidget {
                                         ),
                                     ],
                                   ),
-                                  PriceTag(
-                                    text: " MMK",
+                                  Flexible(
+                                    child: PriceTag(
+                                      text: " MMK",
+                                    ),
                                   ),
                                 ]),
                           );
@@ -211,9 +220,24 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              AddToCard(
+              ViewMoreBtn(
                 width: 180,
                 height: 30,
+                onClick: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  if (!isRoot) {
+                    RouterService.of(context).push(
+                        "${RouterPath.I.productDetails.fullPath}?slug=${product.slug}",
+                        redirect: false);
+                  } else {
+                    RouterService.of(context).push(
+                        "${RouterPath.I.rootProductDetails.fullPath}?slug=${product.slug}",
+                        redirect: false);
+                  }
+                },
               )
             ],
           )

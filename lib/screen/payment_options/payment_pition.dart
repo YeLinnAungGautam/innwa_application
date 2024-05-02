@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:innwa_mobile_dev/screen/payment_options/other_payment.dart';
-
 import 'package:innwa_mobile_dev/shared/avatar/avatar.dart';
 import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
@@ -11,9 +9,9 @@ class PaymentOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawerWidget(onDrawerTap: () {
-        
-      },),
+      drawer: CustomDrawerWidget(
+        onDrawerTap: () {},
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -53,10 +51,10 @@ class PaymentOption extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: ()=>Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => OtherPayment()),
-                              ),
+                // onTap: () => Navigator.push(
+                //   context,
+                //   // MaterialPageRoute(builder: (context) => const OtherPayment()),
+                // ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
-import 'package:innwa_mobile_dev/shared/bottom_sheet/bottom_sheet.dart';
+import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
+import 'package:innwa_mobile_dev/product_details/widgets/spec_select_ui.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
 
 class BuyNow extends StatelessWidget {
@@ -27,10 +29,12 @@ class BuyNow extends StatelessWidget {
                 onPressed: () {
                   showModalBottomSheet(
                     context: context,
-                    builder: (context) {
-                      return CustomBottomSheet(
-                        text: "Lenovo Think Pad",
-                        isPromo: false,
+                    builder: (ctx) {
+                      return BlocProvider.value(
+                        value: BlocProvider.of<ProductDetailsBloc>(context),
+                        child: const SpecSelectUi(
+                          buyNow: true,
+                        ),
                       );
                     },
                   );

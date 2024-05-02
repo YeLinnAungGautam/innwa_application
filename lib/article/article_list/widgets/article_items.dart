@@ -44,7 +44,7 @@ class ArticleItems extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  width: 180,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   height: 200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -129,23 +129,24 @@ class ArticleItems extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   LocalizationWidget(
-                      en: "View More",
-                      mm: "ပိုမိုကြည့်ရှုရန်",
-                      child: (val) {
-                        return Container(
-                          height: 35,
-                          margin: const EdgeInsets.only(left: 5, bottom: 10),
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(),
-                            onPressed: () {
-                              RouterService.of(context).push(
-                                  "${RouterPath.I.articleDetails.fullPath}?slug=${article.slug}");
-                            },
-                            child: Text(val),
-                          ),
-                        );
-                      })
+                    en: "View More",
+                    mm: "ပိုမိုကြည့်ရှုရန်",
+                    child: (val) {
+                      return Container(
+                        height: 35,
+                        margin: const EdgeInsets.only(left: 5, bottom: 10),
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(),
+                          onPressed: () {
+                            RouterService.of(context).push(
+                                "${RouterPath.I.articleDetails.fullPath}?slug=${article.slug}");
+                          },
+                          child: Text(val),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],

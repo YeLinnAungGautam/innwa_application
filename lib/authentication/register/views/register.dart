@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
+import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/authentication/register/bloc/register_bloc.dart';
@@ -32,20 +33,20 @@ class _RegisterState extends State<Register> {
         return BlocBuilder<RegisterBloc, RegisterState>(
           builder: (context, state) {
             return Scaffold(
+              appBar: AppBar(),
               resizeToAvoidBottomInset: true,
               body: SafeArea(
                 child: Form(
                   key: registerBloc.registerKey,
-                  child: Container(
-                    color: Colors.white,
+                  child: SizedBox(
                     height: MediaQuery.of(context).size.height,
                     child: Column(
                       children: [
                         Expanded(
                           child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100.withOpacity(0.5),
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(10.0),
                                 topRight: Radius.circular(10.0),
                               ),
@@ -246,29 +247,7 @@ class _RegisterState extends State<Register> {
                                               );
                                             });
                                       }),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      LocalizationWidget(
-                                        en: "Forget Password?",
-                                        mm: "စကားဝှက်ကိုမေ့နေသလား",
-                                        child: (val) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 9.0),
-                                          child: TextButton(
-                                            onPressed: () => {},
-                                            child: Text(
-                                              val,
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 15.0,
-                                                  color: primaryColor,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                  20.vertical,
                                   GestureDetector(
                                     onTap: () {
                                       if (state.sendStatus ==
@@ -285,11 +264,11 @@ class _RegisterState extends State<Register> {
                                         color: primaryColor,
                                       ),
                                       child: LocalizationWidget(
-                                          en: " Sign Up",
-                                          mm: "စာရင်းသွင်းပါ",
-                                          child: (val) {
-                                            return Center(
-                                                child: Text(
+                                        en: " Sign Up",
+                                        mm: "စာရင်းသွင်းပါ",
+                                        child: (val) {
+                                          return Center(
+                                            child: Text(
                                               state.sendStatus ==
                                                       ApiStatus.processing
                                                   ? "Loading.."
@@ -298,8 +277,10 @@ class _RegisterState extends State<Register> {
                                                   fontSize: 20.0,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w600),
-                                            ));
-                                          }),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                   Padding(

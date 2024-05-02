@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
+import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/gen/assets.gen.dart';
+import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
 import 'package:innwa_mobile_dev/util/image_path/image_path.dart';
 
@@ -127,13 +129,46 @@ class _TopBarState extends State<TopBar> {
 
               RouterService.of(context).push(RouterPath.I.cartScreen.fullPath);
             },
-            child: const SizedBox(
-              width: 36,
-              height: 36,
-              child: Icon(
-                Icons.shopping_cart,
-                size: 20,
-              ),
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    const SizedBox(
+                      width: 36,
+                      height: 36,
+                      child: Icon(
+                        Icons.shopping_cart,
+                        size: 20,
+                      ),
+                    ),
+                    if (state.userCart.isNotEmpty)
+                      Positioned(
+                        top: -5,
+                        right: 0,
+                        child: UnconstrainedBox(
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            alignment: Alignment.center,
+                            constraints: const BoxConstraints(
+                              minWidth: 20,
+                              maxHeight: 20,
+                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: RobotoText(
+                              fontSize: 12,
+                              fontColor: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              text: "${state.userCart.length}",
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
             ),
           ),
         ValueListenableBuilder(

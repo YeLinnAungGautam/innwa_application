@@ -9,6 +9,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool pass;
   final bool needBackground;
   final String? initialData;
+  final Widget? prefix;
   const CustomTextFormField({
     super.key,
     required this.onSaved,
@@ -18,6 +19,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.needBackground,
     this.validator,
     this.initialData,
+    this.prefix,
   });
 
   @override
@@ -66,6 +68,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             filled: true,
             fillColor: Colors.white,
             labelText: widget.label,
+            prefix: widget.prefix,
             labelStyle: const TextStyle(
               color: Colors.black,
             ),

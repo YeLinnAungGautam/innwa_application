@@ -22,3 +22,13 @@ final class UpdateProfileImagePathEvent extends UserEvent {
 final class LogoutEvent extends UserEvent {
   const LogoutEvent({required super.context});
 }
+
+final class UpdateWishListDataEvent extends UserEvent {
+  const UpdateWishListDataEvent({required super.context, required this.data});
+  final List<int> data;
+}
+
+final class RemoveOrAddWishlistEvent extends UserEvent {
+  const RemoveOrAddWishlistEvent({required super.context, required this.id});
+  final int id;
+}

@@ -77,6 +77,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       emit(state.copyWith(sendStatus: ApiStatus.completed));
       if (resData != null) {
+        final List<int> wishListProduct = (resData["wishlist"]["data"] as List)
+            .map((e) => ((e as Map)["product_id"] as int))
+            .toList();
+
         BlocProvider.of<UserBloc>(event.context)
           ..add(
             UpdateUserDataEvent(
@@ -91,8 +95,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               context: event.context,
               data: resData["profile_image_path"] + "/",
             ),
-          );
-        Future.wait([
+          )
+          ..add(UpdateWishListDataEvent(
+              context: event.context, data: wishListProduct));
+        await Future.wait([
           StorageService.I.storeData(
             data: jsonEncode(UserModel.fromJson(
               resData["customer"],

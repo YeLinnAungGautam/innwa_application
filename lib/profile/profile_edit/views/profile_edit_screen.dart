@@ -298,6 +298,7 @@ class ProfileEditScreen extends StatelessWidget {
                                           });
                                     });
                               }),
+                        
                         ),
                         SliverToBoxAdapter(
                           child: 10.vertical,

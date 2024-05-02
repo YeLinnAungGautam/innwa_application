@@ -7,6 +7,7 @@ import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/storage/storage_service.dart';
+import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/gen/assets.gen.dart';
 import 'package:innwa_mobile_dev/home/home_banner/bloc/home_banner_bloc.dart';
 import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
@@ -30,6 +31,8 @@ class _ApplicationState extends State<Application> {
         .readData(key: StorageService.I.authTokenStoreKey);
     final String? loginData = await StorageService.I
         .readData(key: StorageService.I.loginDataStoreKey);
+    final String? userCart =
+        await StorageService.I.readData(key: StorageService.I.userCart);
     final String? localize = await StorageService.I.readData(key: "localize");
     final String? loginExpireTime =
         await StorageService.I.readData(key: StorageService.I.loginExpireTime);
@@ -48,6 +51,9 @@ class _ApplicationState extends State<Application> {
           StorageService.I.deleteData(
             key: StorageService.I.loginExpireTime,
           ),
+          StorageService.I.deleteData(
+            key: StorageService.I.userCart,
+          ),
         ]);
       }
     }
@@ -63,6 +69,14 @@ class _ApplicationState extends State<Application> {
       BlocProvider.of<AppServiceBloc>(context).api.api.myToken = authToken;
     }
     if (loginData != null) {
+      if (userCart != null) {
+        BlocProvider.of<CartBloc>(context)
+            .add(UpdateUserCartFromStorageEvent(context: context, data: [
+          ...(jsonDecode(userCart) as List)
+              .map((e) => {...(e as Map<String, dynamic>)})
+              .toList()
+        ]));
+      }
       BlocProvider.of<UserBloc>(context)
         ..add(
           UpdateUserDataEvent(

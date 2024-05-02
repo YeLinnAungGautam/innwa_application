@@ -16,14 +16,15 @@ class SelectTownshipUi extends StatelessWidget {
           body: CustomScrollView(
             slivers: [
               LocalizationWidget(
-                  en: "Select Township",
-                  mm: "မြို့နယ်ရွေး",
-                  child: (val) {
-                    return SliverAppBar(
-                      pinned: true,
-                      title: Text(val),
-                    );
-                  }),
+                en: "Select Township",
+                mm: "မြို့နယ်ရွေး",
+                child: (val) {
+                  return SliverAppBar(
+                    pinned: true,
+                    title: Text(val),
+                  );
+                },
+              ),
               SliverToBoxAdapter(
                 child: 15.vertical,
               ),

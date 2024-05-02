@@ -5,7 +5,6 @@ import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
-import 'package:innwa_mobile_dev/util/constants.dart';
 import 'package:innwa_mobile_dev/util/ui/search_product_bar/bloc/product_search_bloc.dart';
 import 'package:innwa_mobile_dev/util/ui/search_product_bar/model/search_product_model.dart';
 
@@ -25,14 +24,15 @@ class ProductSearchAppbar extends StatelessWidget {
         return BlocBuilder<ProductSearchBloc, ProductSearchState>(
           builder: (context, state) {
             return SliverAppBar(
-              expandedHeight: 50,
+              expandedHeight: 30,
               pinned: true,
               floating: true,
               snap: true,
-              surfaceTintColor: Colors.transparent,
+              backgroundColor: Colors.grey.shade100,
+              surfaceTintColor: Colors.grey.shade100,
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(state.searchText.isNotEmpty
-                    ? MediaQuery.of(context).size.height * 0.8
+                    ? MediaQuery.of(context).size.height * 0.62
                     : 70),
                 child: Column(
                   children: [
@@ -58,8 +58,8 @@ class ProductSearchAppbar extends StatelessWidget {
                               controller: productSearchBloc.searchController,
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: searchColor,
-                                focusColor: searchColor,
+                                fillColor: Colors.grey.shade100,
+                                focusColor: Colors.grey.shade100,
                                 border: InputBorder.none,
                                 hintText: val,
                                 prefixIcon: IconButton(
@@ -87,17 +87,18 @@ class ProductSearchAppbar extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.symmetric(horizontal: 10),
-                        height: MediaQuery.of(context).size.height * 0.71,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         decoration: const BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(0, 10),
-                                blurRadius: 30,
-                                spreadRadius: 5,
-                              )
-                            ]),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0, 10),
+                              blurRadius: 30,
+                              spreadRadius: 5,
+                            )
+                          ],
+                        ),
                         child: CustomScrollView(
                           slivers: [
                             PagedSliverGrid(
