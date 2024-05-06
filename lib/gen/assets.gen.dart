@@ -21,6 +21,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/cod.png
   AssetGenImage get cod => const AssetGenImage('assets/images/cod.png');
 
+  /// File path: assets/images/coupon.png
+  AssetGenImage get coupon => const AssetGenImage('assets/images/coupon.png');
+
   /// File path: assets/images/file.png
   AssetGenImage get file => const AssetGenImage('assets/images/file.png');
 
@@ -80,6 +83,7 @@ class $AssetsImagesGen {
         ayapay,
         chevron,
         cod,
+        coupon,
         file,
         googleLogo,
         innwaLogo,

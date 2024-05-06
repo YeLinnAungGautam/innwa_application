@@ -5,6 +5,7 @@ import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
+import 'package:innwa_mobile_dev/gen/assets.gen.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
 
@@ -35,7 +36,7 @@ class UtilityComponent extends StatelessWidget {
                             horizontal: 10.0, vertical: 5.0),
                         child: Icon(
                           FontAwesomeIcons.heart,
-                          size: 18,
+                          size: 22,
                         ),
                       ),
                       LocalizationWidget(
@@ -69,8 +70,8 @@ class UtilityComponent extends StatelessWidget {
                       const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
-                            FontAwesomeIcons.listUl,
-                            size: 20,
+                            Icons.list,
+                            size: 24,
                           )),
                       LocalizationWidget(
                           en: "My Order",
@@ -124,27 +125,38 @@ class UtilityComponent extends StatelessWidget {
               ),
             Padding(
               padding: const EdgeInsets.only(bottom: 15.0, left: 20.0),
-              child: Row(
-                children: [
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                    child: Icon(Icons.document_scanner),
-                  ),
-                  LocalizationWidget(
-                      en: "Coupon",
-                      mm: "ကိုယ်ရေးအချက်အလက်မူဝါဒ",
-                      child: (val) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: RobotoText(
-                            fontSize: 15.0,
-                            fontColor: Colors.black,
-                            text: val,
-                          ),
-                        );
-                      })
-                ],
+              child: GestureDetector(
+                onTap: () async {
+                  Scaffold.of(context).closeDrawer();
+                  await RouterService.of(context)
+                      .push(RouterPath.I.coupons.fullPath);
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 5.0),
+                      child: Image.asset(
+                        Assets.images.coupon.path,
+                        width: 22,
+                        height: 20,
+                      ),
+                    ),
+                    LocalizationWidget(
+                        en: "Coupons",
+                        mm: "ကူပွန်များ",
+                        child: (val) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: RobotoText(
+                              fontSize: 15.0,
+                              fontColor: Colors.black,
+                              text: val,
+                            ),
+                          );
+                        })
+                  ],
+                ),
               ),
             ),
             Padding(

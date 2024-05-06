@@ -2,6 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:innwa_mobile_dev/_application/application.dart";
+import "package:innwa_mobile_dev/_application/coupon/views/coupon_list_screen.dart";
 import "package:innwa_mobile_dev/_application/home_navbar.dart";
 import "package:innwa_mobile_dev/_application/router_service/route_path.dart";
 import "package:innwa_mobile_dev/_application/router_service/router_observer.dart";
@@ -93,6 +94,13 @@ final GoRouter routerConfig = GoRouter(
       path: RouterPath.I.wishList.path,
       builder: (context, state) {
         return const WishList();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.coupons.path,
+      builder: (context, state) {
+        return const CouponScreen();
       },
     ),
     GoRoute(

@@ -36,6 +36,7 @@ class RouterPath {
       _PathMap("/rootProductDetails", fullPath: "/rootProductDetails");
 
   final wishList = _PathMap("/wishlist", fullPath: "/wishlist");
+  final coupons = _PathMap("/coupons", fullPath: "/coupons");
   final services = _PathMap("/services", fullPath: "/services");
   final orderHisotry = _PathMap("/orderHistory", fullPath: "/orderHistory");
   final cartScreen = _PathMap("/cartScreen", fullPath: "/cartScreen");
