@@ -307,87 +307,6 @@ class OrderInfoScreen extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Divider(
-                                        color: dividerColor,
-                                        height: 4,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 10.0),
-                                          child: LocalizationWidget(
-                                              en: "Total",
-                                              mm: "စုစုပေါင်း",
-                                              child: (val) {
-                                                return RobotoText(
-                                                  fontSize: 15.0,
-                                                  fontColor: Colors.grey[700],
-                                                  text: val,
-                                                );
-                                              }),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10.0, right: 10.0),
-                                          child: RobotoText(
-                                            fontSize: 15.0,
-                                            fontColor: Colors.grey[700],
-                                            text:
-                                                "${formatNumber(dbNumber: subTotal + double.parse(state.deliFee?.fee ?? "0"))} MMK",
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (state.coupon == null)
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                              onTap: () {
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    isScrollControlled: true,
-                                                    builder: (context) {
-                                                      return LocalizationWidget(
-                                                          en: "Enter Promo Code",
-                                                          mm: "ပရိုမိုကုဒ်ကို ထည့်ပါ",
-                                                          child: (val) {
-                                                            return CustomBottomSheet(
-                                                                text: val,
-                                                                isPromo: true);
-                                                          });
-                                                    }).then((value) {
-                                                  cartBloc.couponController
-                                                      .text = "";
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 15,
-                                                    right: 10,
-                                                    bottom: 10),
-                                                child: LocalizationWidget(
-                                                    en: "Enter Promo Code",
-                                                    mm: "ပရိုမိုကုဒ်ကို ထည့်ပါ",
-                                                    child: (val) {
-                                                      return RobotoText(
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontColor: Colors.blue,
-                                                        text: val,
-                                                      );
-                                                    }),
-                                              )),
-                                        ],
-                                      ),
                                     if (state.coupon != null)
                                       const Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -408,8 +327,8 @@ class OrderInfoScreen extends StatelessWidget {
                                               Row(
                                                 children: [
                                                   LocalizationWidget(
-                                                    en: "Promo Code",
-                                                    mm: "ပရိုမိုကုဒ်",
+                                                    en: "Coupon Code",
+                                                    mm: "ကူပွန်ကုဒ်",
                                                     child: (val) {
                                                       return Padding(
                                                         padding:
@@ -522,14 +441,95 @@ class OrderInfoScreen extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                    if (state.coupon != null)
-                                      const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Divider(
-                                          color: dividerColor,
-                                          height: 4,
-                                        ),
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Divider(
+                                        color: dividerColor,
+                                        height: 4,
                                       ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 10.0),
+                                          child: LocalizationWidget(
+                                              en: "Total",
+                                              mm: "စုစုပေါင်း",
+                                              child: (val) {
+                                                return RobotoText(
+                                                  fontSize: 15.0,
+                                                  fontColor: Colors.grey[700],
+                                                  text: val,
+                                                );
+                                              }),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0, right: 10.0),
+                                          child: RobotoText(
+                                            fontSize: 15.0,
+                                            fontColor: Colors.grey[700],
+                                            text: "${formatNumber(
+                                              dbNumber: (subTotal +
+                                                  double.parse(
+                                                      state.deliFee?.fee ??
+                                                          "0") -
+                                                  (state.coupon
+                                                          ?.couponDisPrice ??
+                                                      0)),
+                                            )} MMK",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    if (state.coupon == null)
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                              onTap: () {
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    isScrollControlled: true,
+                                                    builder: (context) {
+                                                      return LocalizationWidget(
+                                                          en: "Enter Coupon Code",
+                                                          mm: "ကူပွန် ကုဒ်ကို ထည့်ပါ",
+                                                          child: (val) {
+                                                            return CustomBottomSheet(
+                                                                text: val,
+                                                                isPromo: true);
+                                                          });
+                                                    }).then((value) {
+                                                  cartBloc.couponController
+                                                      .text = "";
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 15,
+                                                    right: 10,
+                                                    bottom: 10),
+                                                child: LocalizationWidget(
+                                                    en: "Enter Coupon Code",
+                                                    mm: "ကူပွန်ကို ထည့်ပါ",
+                                                    child: (val) {
+                                                      return RobotoText(
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontColor: Colors.blue,
+                                                        text: val,
+                                                      );
+                                                    }),
+                                              )),
+                                        ],
+                                      ),
+                                    10.vertical,
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10),
                                       child: LocalizationWidget(
@@ -606,7 +606,6 @@ class OrderInfoScreen extends StatelessWidget {
                                 ],
                               ),
                             )
-                          
                           ],
                         ),
                       );

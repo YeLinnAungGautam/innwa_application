@@ -53,7 +53,7 @@ class CustomBottomSheet extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10),
                 child: LocalizationWidget(
-                    en: "If you have a Wolt promo code or gift card, enter it below to claim your benefits.",
+                    en: "If you have a Wolt coupon code or gift card, enter it below to claim your benefits.",
                     mm: "သင့်တွင် Wolt ပရိုမိုကုဒ် သို့မဟုတ် လက်ဆောင်ကတ်တစ်ခုရှိလျှင် သင့်အကျိုးခံစားခွင့်များကို တောင်းဆိုရန်အတွက် အောက်တွင် ထည့်သွင်းပါ။",
                     child: (val) {
                       return RobotoText(
@@ -72,12 +72,12 @@ class CustomBottomSheet extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 80,
                 child: LocalizationWidget(
-                    en: "Promo Code",
-                    mm: "ပရိုမိုကုဒ်",
+                    en: "Coupon Code",
+                    mm: "ကူပွန်ကုဒ်",
                     child: (val) {
                       return LocalizationWidget(
-                          en: "Enter Promo Code",
-                          mm: "ပရိုမိုကုဒ်ထည့်ပါ",
+                          en: "Enter Coupon Code",
+                          mm: "ကူပွန် ကုဒ်ထည့်ပါ",
                           child: (valText) {
                             return Form(
                               key: cartBloc.couponFormKey,

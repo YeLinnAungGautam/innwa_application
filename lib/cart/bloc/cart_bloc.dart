@@ -87,7 +87,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
       final resData = await _checkCoupon(data: data);
 
-      emit(state.copyWith(checkCouponStatus: ApiStatus.completed));
+      emit(
+        state.copyWith(
+          checkCouponStatus: ApiStatus.completed,
+        ),
+      );
 
       if (resData != null && resData["coupon"] != null) {
         final CouponModel coupon = CouponModel.fromJson(resData["coupon"]);
@@ -101,8 +105,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(state.copyWith(coupon: coupon));
         } else {
           showSnackBar(
-            message: "Invalid Promo Code",
-            title: "Promo Code",
+            message: "Invalid Coupon Code",
+            title: "Coupon Code",
             context: event.context,
             backgroundColor: Colors.amber,
             messageColor: Colors.black,
@@ -113,8 +117,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       } else {
         RouterService.of(event.context).pop();
         showSnackBar(
-          message: "Invalid Promo Code",
-          title: "Promo Code",
+          message: "Invalid Coupon Code",
+          title: "Coupon Code",
           context: event.context,
           backgroundColor: Colors.amber,
           messageColor: Colors.black,

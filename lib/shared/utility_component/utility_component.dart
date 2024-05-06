@@ -132,6 +132,31 @@ class UtilityComponent extends StatelessWidget {
                     child: Icon(Icons.document_scanner),
                   ),
                   LocalizationWidget(
+                      en: "Coupon",
+                      mm: "ကိုယ်ရေးအချက်အလက်မူဝါဒ",
+                      child: (val) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RobotoText(
+                            fontSize: 15.0,
+                            fontColor: Colors.black,
+                            text: val,
+                          ),
+                        );
+                      })
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 15.0, left: 20.0),
+              child: Row(
+                children: [
+                  const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Icon(Icons.document_scanner),
+                  ),
+                  LocalizationWidget(
                       en: "Privacy Policy",
                       mm: "ကိုယ်ရေးအချက်အလက်မူဝါဒ",
                       child: (val) {

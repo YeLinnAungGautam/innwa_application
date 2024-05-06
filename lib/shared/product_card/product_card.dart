@@ -6,7 +6,7 @@ import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/format_number.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
-import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
+import 'package:innwa_mobile_dev/shared/add_to_cart/add_to_cart.dart';
 import 'package:innwa_mobile_dev/shared/discount_banner/discount_banner.dart';
 import 'package:innwa_mobile_dev/shared/price_tag/price_tag.dart';
 import 'package:innwa_mobile_dev/shared/texts/product_title.dart';
@@ -62,7 +62,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, right: 10),
+                      padding: const EdgeInsets.only(top: 6, right: 6),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
@@ -73,6 +73,10 @@ class ProductCard extends StatelessWidget {
                                 child: (val) {
                                   return Container(
                                     padding: const EdgeInsets.all(5),
+                                    constraints: BoxConstraints(
+                                        minWidth:
+                                            MediaQuery.of(context).size.width *
+                                                0.35),
                                     decoration: BoxDecoration(
                                         color: Colors.amber.shade800,
                                         boxShadow: const [
@@ -90,7 +94,7 @@ class ProductCard extends StatelessWidget {
                                             "$val - ${formatNumber(dbNumber: double.parse(product.price.disPrice!))} MMK"),
                                   );
                                 }),
-                          if (product.price.cashback != null) 10.vertical,
+                          if (product.price.cashback != null) 6.vertical,
                           if (product.price.cashback != null)
                             LocalizationWidget(
                                 en: "Cashback",
@@ -98,6 +102,10 @@ class ProductCard extends StatelessWidget {
                                 child: (val) {
                                   return Container(
                                     padding: const EdgeInsets.all(5),
+                                    constraints: BoxConstraints(
+                                        minWidth:
+                                            MediaQuery.of(context).size.width *
+                                                0.35),
                                     decoration: BoxDecoration(
                                         color: const Color(0xFF4C53A5),
                                         boxShadow: const [
@@ -115,7 +123,7 @@ class ProductCard extends StatelessWidget {
                                             "$val - ${formatNumber(dbNumber: double.parse(product.price.cashback!))} MMK"),
                                   );
                                 }),
-                          if (product.price.gift != null) 10.vertical,
+                          if (product.price.gift != null) 6.vertical,
                           if (product.price.gift != null)
                             LocalizationWidget(
                               en: "Gift",
@@ -123,6 +131,10 @@ class ProductCard extends StatelessWidget {
                               child: (val) {
                                 return Container(
                                   padding: const EdgeInsets.all(5),
+                                  constraints: BoxConstraints(
+                                      minWidth:
+                                          MediaQuery.of(context).size.width *
+                                              0.35),
                                   decoration: BoxDecoration(
                                       color: Colors.green,
                                       boxShadow: const [

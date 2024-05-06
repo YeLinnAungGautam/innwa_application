@@ -5,18 +5,16 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
-import 'package:innwa_mobile_dev/_application/service/format_number.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/buy_now_btn.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/product_image_slider.dart';
+import 'package:innwa_mobile_dev/product_details/widgets/product_price_section.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/review.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/review_lists.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/specification.dart';
-import 'package:innwa_mobile_dev/shared/add_to_card/add_to_card.dart';
-import 'package:innwa_mobile_dev/shared/discount_banner/discount_banner.dart';
+import 'package:innwa_mobile_dev/shared/add_to_cart/add_to_cart.dart';
 import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
-import 'package:innwa_mobile_dev/shared/price_tag/price_tag.dart';
 import 'package:innwa_mobile_dev/shared/related_products/related_products.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/shared/top_bar/topbar.dart';
@@ -169,164 +167,10 @@ class ProductDetail extends StatelessWidget {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              ...state
-                                                                  .productDetails!
-                                                                  .price
-                                                                  .map(
-                                                                (p) => Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          bottom:
-                                                                              10),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Row(
-                                                                            children: [
-                                                                              if (p.disPrice != null)
-                                                                                LocalizationWidget(
-                                                                                  en: "Discount",
-                                                                                  mm: "လျှော့စျေး",
-                                                                                  child: (val) {
-                                                                                    return Container(
-                                                                                      padding: const EdgeInsets.all(5),
-                                                                                      decoration: BoxDecoration(
-                                                                                          color: Colors.amber.shade800,
-                                                                                          boxShadow: const [
-                                                                                            BoxShadow(
-                                                                                              offset: Offset(6, 3),
-                                                                                              spreadRadius: -4,
-                                                                                              blurRadius: 10,
-                                                                                              color: Color.fromRGBO(229, 229, 229, 1),
-                                                                                            ),
-                                                                                          ],
-                                                                                          borderRadius: BorderRadius.circular(5)),
-                                                                                      child: DiscountBanner(text: "$val - ${formatNumber(dbNumber: double.parse(p.disPrice!))} MMK"),
-                                                                                    );
-                                                                                  },
-                                                                                ),
-                                                                              if (p.cashback != null)
-                                                                                10.horizontal,
-                                                                              if (p.cashback != null)
-                                                                                LocalizationWidget(
-                                                                                  en: "Cashback",
-                                                                                  mm: "ပြန်အမ်းငွေ",
-                                                                                  child: (val) {
-                                                                                    return Container(
-                                                                                      padding: const EdgeInsets.all(5),
-                                                                                      decoration: BoxDecoration(
-                                                                                          color: const Color(0xFF4C53A5),
-                                                                                          boxShadow: const [
-                                                                                            BoxShadow(
-                                                                                              offset: Offset(6, 3),
-                                                                                              spreadRadius: -4,
-                                                                                              blurRadius: 10,
-                                                                                              color: Color.fromRGBO(229, 229, 229, 1),
-                                                                                            ),
-                                                                                          ],
-                                                                                          borderRadius: BorderRadius.circular(5)),
-                                                                                      child: DiscountBanner(text: "$val - ${formatNumber(dbNumber: double.parse(p.cashback!))} MMK"),
-                                                                                    );
-                                                                                  },
-                                                                                ),
-                                                                            ],
-                                                                          ),
-                                                                          if (p.gift !=
-                                                                              null)
-                                                                            10.vertical,
-                                                                          if (p.gift !=
-                                                                              null)
-                                                                            LocalizationWidget(
-                                                                              en: "Gift",
-                                                                              mm: "လက်ဆောင်",
-                                                                              child: (val) {
-                                                                                return Container(
-                                                                                  padding: const EdgeInsets.all(5),
-                                                                                  decoration: BoxDecoration(
-                                                                                      color: Colors.green,
-                                                                                      boxShadow: const [
-                                                                                        BoxShadow(
-                                                                                          offset: Offset(6, 3),
-                                                                                          spreadRadius: -4,
-                                                                                          blurRadius: 10,
-                                                                                          color: Color.fromRGBO(229, 229, 229, 1),
-                                                                                        ),
-                                                                                      ],
-                                                                                      borderRadius: BorderRadius.circular(5)),
-                                                                                  child: DiscountBanner(
-                                                                                    text: "$val - ${p.gift!}",
-                                                                                  ),
-                                                                                );
-                                                                              },
-                                                                            ),
-                                                                        ],
-                                                                      ),
-                                                                      Container(
-                                                                        padding: const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                6.0,
-                                                                            bottom:
-                                                                                5.0,
-                                                                            top:
-                                                                                10),
-                                                                        alignment:
-                                                                            Alignment.centerLeft,
-                                                                        child:
-                                                                            Row(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.center,
-                                                                          children: [
-                                                                            Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: [
-                                                                                PriceTag(
-                                                                                  haveDiscount: p.disPrice != null,
-                                                                                  text: formatNumber(dbNumber: p.price.toDouble()),
-                                                                                  fontSize: 15,
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                ),
-                                                                                if (p.disPrice != null)
-                                                                                  PriceTag(
-                                                                                    fontSize: 15,
-                                                                                    text: formatNumber(
-                                                                                      dbNumber: p.price.toDouble() -
-                                                                                          double.parse(p.disPrice!) -
-                                                                                          double.parse(
-                                                                                            p.cashback ?? "0",
-                                                                                          ),
-                                                                                    ),
-                                                                                    fontWeight: FontWeight.w600,
-                                                                                  ),
-                                                                              ],
-                                                                            ),
-                                                                            PriceTag(
-                                                                              text: " MMK",
-                                                                              fontSize: 15,
-                                                                              fontWeight: FontWeight.w600,
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
                                                             ],
                                                           ),
                                                         ),
-                                                        // const SizedBox(
-                                                        //   height: 15,
-                                                        // ),
-                                                        // const ProductPromotion(),
+                                                        const ProductPriceSection(),
                                                         Padding(
                                                           padding:
                                                               const EdgeInsets
@@ -348,21 +192,6 @@ class ProductDetail extends StatelessWidget {
                                                             },
                                                           ),
                                                         ),
-                                                        // 10.vertical,
-                                                        // Padding(
-                                                        //   padding:
-                                                        //       const EdgeInsets
-                                                        //           .symmetric(
-                                                        //           horizontal: 10),
-                                                        //   child: RobotoText(
-                                                        //     fontSize: 16.0,
-                                                        //     fontColor:
-                                                        //         Colors.black,
-                                                        //     text:
-                                                        //         "Select Specifications",
-                                                        //   ),
-                                                        // ),
-
                                                         10.vertical,
                                                         Builder(
                                                             builder: (context) {
@@ -430,48 +259,6 @@ class ProductDetail extends StatelessWidget {
                                                             ),
                                                           );
                                                         }),
-
-                                                        // const Divider(
-                                                        //   color: dividerColor,
-                                                        //   height: 5,
-                                                        // ),
-                                                        // Padding(
-                                                        //   padding: const EdgeInsets.only(
-                                                        //       left: 30.0,
-                                                        //       right: 30.0,
-                                                        //       bottom: 10.0,
-                                                        //       top: 13.0),
-                                                        //   child: Row(
-                                                        //     mainAxisAlignment:
-                                                        //         MainAxisAlignment
-                                                        //             .spaceBetween,
-                                                        //     children: [
-                                                        //       RobotoText(
-                                                        //           fontSize: 16.0,
-                                                        //           fontColor: Colors.black,
-                                                        //           text: "Delivery"),
-                                                        //       const SizedBox(
-                                                        //         width: 5,
-                                                        //       ),
-                                                        //       Row(
-                                                        //         children: [
-                                                        //           RobotoText(
-                                                        //               fontSize: 13.0,
-                                                        //               fontColor:
-                                                        //                   Colors.black,
-                                                        //               text:
-                                                        //                   "3 days Delivery"),
-                                                        //           const Icon(
-                                                        //             // <-- Icon
-                                                        //             Icons.delivery_dining,
-                                                        //             color: Colors.black87,
-                                                        //             size: 24.0,
-                                                        //           ),
-                                                        //         ],
-                                                        //       ),
-                                                        //     ],
-                                                        //   ),
-                                                        // ),
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
@@ -485,6 +272,11 @@ class ProductDetail extends StatelessWidget {
                                                                 true) &&
                                                             userState.user !=
                                                                 null)
+                                                          10.vertical,
+                                                        if ((state.canReview ??
+                                                                true) &&
+                                                            userState.user !=
+                                                                null)
                                                           const Review(),
                                                         LocalizationWidget(
                                                             en: "Reviews",
@@ -494,7 +286,6 @@ class ProductDetail extends StatelessWidget {
                                                                 padding:
                                                                     const EdgeInsets
                                                                         .only(
-                                                                  bottom: 10.0,
                                                                   top: 10.0,
                                                                   left: 12,
                                                                 ),
@@ -514,7 +305,6 @@ class ProductDetail extends StatelessWidget {
                                                             }),
                                                         10.vertical,
                                                         const ReviewList(),
-
                                                         Row(
                                                           children: [
                                                             LocalizationWidget(
@@ -563,7 +353,7 @@ class ProductDetail extends StatelessWidget {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    AddToCard(
+                                                    AddToCart(
                                                       width: 150,
                                                       height: 50,
                                                     ),

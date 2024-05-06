@@ -4,10 +4,10 @@ import 'package:innwa_mobile_dev/_application/service/localization/loclaization_
 import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
 import 'package:innwa_mobile_dev/product_details/widgets/spec_select_ui.dart';
 
-class AddToCard extends StatelessWidget {
+class AddToCart extends StatelessWidget {
   double width;
   double height;
-  AddToCard({super.key, required this.width, required this.height});
+  AddToCart({super.key, required this.width, required this.height});
 
   @override
   Widget build(BuildContext context) {
