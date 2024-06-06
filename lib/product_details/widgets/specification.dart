@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
-import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text_padding.dart';
 
 class Specification extends StatelessWidget {
   const Specification({super.key});
@@ -59,46 +59,23 @@ class Specification extends StatelessWidget {
             ),
             body: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
               builder: (context, state) {
-                return Padding(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.25),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        15.vertical,
-                        ...state.specifications.map((spec) => Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 120,
-                                  child: LocalizationWidget(
-                                    en: spec.nameEn,
-                                    mm: spec.naemMm,
-                                    child: (val) {
-                                      return RobotoText(
-                                        fontSize: 15.0,
-                                        fontColor: Colors.black,
-                                        text: val,
-                                        fontWeight: FontWeight.bold,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: RobotoTextPadding(
-                                    padding: 4,
-                                    fontSize: 15.0,
-                                    maxLine: 4,
-                                    fontColor: Colors.black,
-                                    text: spec.specificationValues
-                                        .map((e) => e.value)
-                                        .join(","),
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ],
-                    ),
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: LocalizationWidget(
+                          en: state.productDetails!.enDesc,
+                          mm: state.productDetails!.mmDesc,
+                          child: (desc) {
+                            return HtmlWidget(
+                              desc,
+                            );
+                          },
+                        ),
+                      ),
+                      10.vertical,
+                    ],
                   ),
                 );
               },

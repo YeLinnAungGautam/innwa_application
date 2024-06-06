@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:innwa_mobile_dev/util/ui/search_product_bar/model/search_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'promotion_list_model.g.dart';
@@ -31,8 +32,16 @@ class PromotionListModel extends Equatable {
   final String publishedAt;
 
   @override
-  List<Object?> get props =>
-      [id, enName, mmName, slug, image, enDesc, mmDesc, publishedAt];
+  List<Object?> get props => [
+        id,
+        enName,
+        mmName,
+        slug,
+        image,
+        enDesc,
+        mmDesc,
+        publishedAt,
+      ];
   Map<String, dynamic> toJson() => _$PromotionListModelToJson(this);
 
   factory PromotionListModel.fromJson(Map<String, dynamic> json) =>

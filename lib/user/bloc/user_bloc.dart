@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +22,58 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LogoutEvent>(_logoutEvent);
     on<UpdateWishListDataEvent>(_updateWishListData);
     on<RemoveOrAddWishlistEvent>(_removeOrAddWishlist);
+    on<CheckTokenValidEvent>(_checkTokenValidEvent);
   }
 
   final RestAPI _restAPI;
+
+  Future<void> _checkTokenValidEvent(
+    CheckTokenValidEvent event,
+    Emitter emit,
+  ) async {
+    final resData = await _checkTokenValid(token: event.token);
+    debugPrint(
+        "-----------resDat---------------------$resData--------------------------------");
+    if (resData != null) {
+      event.completer.complete(resData["tonken_valid"] ?? false);
+    } else {
+      event.completer.complete(false);
+    }
+  }
+
+  Future<Map<String, dynamic>?> _checkTokenValid({
+    required String token,
+  }) async {
+    Map<String, dynamic>? resData;
+    final CallBackConfig error = CallBackConfig(
+      allowBoth: true,
+      onCallBack: () async {
+        resData = null;
+      },
+    );
+    await _restAPI.api.query<Map<String, dynamic>>(
+      method: "POST",
+      path: ApiKey.checkToken,
+      error: error,
+      data: {},
+      timeOutError: error,
+      token: token,
+      isAlreadyToken: false,
+      afterValidate: AfterCallBackConfig(
+        allowBoth: true,
+        isAllowDefault: false,
+        onCallBack: (value, result) async {
+          resData = value;
+
+          return true;
+        },
+      ),
+      onSuccess: (value) async {
+        resData = value;
+      },
+    );
+    return resData;
+  }
 
   void _removeOrAddWishlist(RemoveOrAddWishlistEvent event, Emitter emit) {
     final bool contain = state.wishlistProductId.contains(event.id);

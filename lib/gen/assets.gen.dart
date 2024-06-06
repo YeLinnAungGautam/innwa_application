@@ -105,6 +105,10 @@ class $AssetsImagesGen {
 class $AssetsLogoGen {
   const $AssetsLogoGen();
 
+  /// File path: assets/logo/InnwaLogo.png
+  AssetGenImage get innwaLogo =>
+      const AssetGenImage('assets/logo/InnwaLogo.png');
+
   /// File path: assets/logo/google_logo.png
   AssetGenImage get googleLogo =>
       const AssetGenImage('assets/logo/google_logo.png');
@@ -114,7 +118,7 @@ class $AssetsLogoGen {
       const AssetGenImage('assets/logo/logo_innwa.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [googleLogo, logoInnwa];
+  List<AssetGenImage> get values => [innwaLogo, googleLogo, logoInnwa];
 }
 
 class Assets {

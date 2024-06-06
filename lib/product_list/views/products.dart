@@ -48,18 +48,26 @@ class Products extends StatelessWidget {
                     SliverAppBar(
                       leadingWidth: 0,
                       leading: const SizedBox(),
-                      toolbarHeight: 60,
+                      toolbarHeight: 70,
                       pinned: true,
                       centerTitle: true,
                       surfaceTintColor: Colors.transparent,
-                      title: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: FilterButton(
-                          onClick: () {
-                            productListBloc.add(
-                                ShowFilterBottomsheetEvent(context: context));
-                          },
-                        ),
+                      title: Column(
+                        children: [
+                          10.vertical,
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 0, vertical: 20),
+                            width: MediaQuery.of(context).size.width,
+                            child: FilterButton(
+                              onClick: () {
+                                productListBloc.add(ShowFilterBottomsheetEvent(
+                                    context: context));
+                              },
+                            ),
+                          ),
+                          10.vertical,
+                        ],
                       ),
                     ),
                     SliverToBoxAdapter(

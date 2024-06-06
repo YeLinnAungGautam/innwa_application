@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/bloc/promotion_product_bloc.dart';
+import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/view/widgets/horizontal_promotion_list.dart';
 import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
@@ -73,23 +75,18 @@ class _PromotionState extends State<Promotion> {
                     SliverToBoxAdapter(
                       child: 15.vertical,
                     ),
-                    SliverList.list(children: const [
-                      HorizontalPromotionList(),
-                      HorizontalPromotionList(),
-                      HorizontalPromotionList(),
-                    ])
-                    // PagedSliverList(
-                    //   pagingController:
-                    //       BlocProvider.of<PromotionProductBloc>(context)
-                    //           .promotionPagingController,
-                    //   builderDelegate:
-                    //       PagedChildBuilderDelegate<PromotionListModel>(
-                    //           itemBuilder: (context, item, index) {
-                    //     return PromotionItems(
-                    //         imagePrefix: state.promotionImagePath ?? "",
-                    //         promotion: item);
-                    //   }),
-                    // )
+                    PagedSliverList(
+                      pagingController:
+                          BlocProvider.of<PromotionProductBloc>(context)
+                              .promotionPagingController,
+                      builderDelegate:
+                          PagedChildBuilderDelegate<PromotionListModel>(
+                              itemBuilder: (context, item, index) {
+                        return HorizontalPromotionList(
+                          data: item,
+                        );
+                      }),
+                    )
                   ],
                 ),
               ),

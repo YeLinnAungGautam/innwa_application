@@ -12,3 +12,7 @@ sealed class AboutUsEvent extends Equatable {
 final class GetBranchEvent extends AboutUsEvent {
   const GetBranchEvent({required super.context});
 }
+
+final class GetAboutUsEvent extends AboutUsEvent {
+  const GetAboutUsEvent({required super.context});
+}

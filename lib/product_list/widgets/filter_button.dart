@@ -31,7 +31,7 @@ class _FilterButtonState extends State<FilterButton> {
               color: Color.fromRGBO(200, 199, 199, 1),
             )
           ],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(50),
           color: Colors.white,
         ),
         child: Center(

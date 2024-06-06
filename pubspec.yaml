@@ -57,6 +57,7 @@ dependencies:
   youtube_player_flutter: ^9.0.0
   url_launcher: ^6.2.5
   marqueer: ^1.4.4
+  loading_animation_widget: ^1.2.1
   coupon_uikit: ^0.2.1
   flutter_svg: ^2.0.0
   flutter_secure_storage: ^8.0.0
@@ -139,7 +140,7 @@ flutter_native_splash:
   ios: true
   web: false
   color: "#ffffff"
-  image: assets/logo/logo_innwa.png
+  image: assets/logo/InnwaLogo.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

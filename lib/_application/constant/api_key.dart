@@ -40,6 +40,8 @@ class ApiKey {
   static const checkCoupon = "/check-coupon";
   static const paymentMethod = "/get-payment";
   static const order = "/customer/order";
+  static const checkToken = "/customer/checkToken";
+  static const aboutUs = "/about-us";
 }
 
 enum ApiStatus {

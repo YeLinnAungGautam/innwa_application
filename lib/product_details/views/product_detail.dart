@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
@@ -51,19 +50,15 @@ class ProductDetail extends StatelessWidget {
                         return SafeArea(
                           child: Scaffold(
                             appBar: TopBar(
-                              needBackButton: false,
-                              needMenu: true,
+                              needBackButton: true,
+                              needMenu: false,
+                              title: details,
+                              showAction: true,
                             ),
                             drawer: CustomDrawerWidget(
                               onDrawerTap: () {},
                             ),
                             body: Scaffold(
-                                appBar: TopBar(
-                                  needBackButton: true,
-                                  needMenu: false,
-                                  title: details,
-                                  showAction: false,
-                                ),
                                 resizeToAvoidBottomInset: true,
                                 body: state.apiStatus == ApiStatus.processing
                                     ? const Center(
@@ -156,7 +151,9 @@ class ProductDetail extends StatelessWidget {
                                                                                 },
                                                                           icon:
                                                                               Icon(
-                                                                            CupertinoIcons.heart_fill,
+                                                                            isContain
+                                                                                ? CupertinoIcons.heart_fill
+                                                                                : CupertinoIcons.heart,
                                                                             color: isContain
                                                                                 ? Colors.red
                                                                                 : Colors.black,
@@ -171,28 +168,6 @@ class ProductDetail extends StatelessWidget {
                                                           ),
                                                         ),
                                                         const ProductPriceSection(),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      10),
-                                                          child:
-                                                              LocalizationWidget(
-                                                            en: state
-                                                                .productDetails!
-                                                                .enDesc,
-                                                            mm: state
-                                                                .productDetails!
-                                                                .mmDesc,
-                                                            child: (desc) {
-                                                              return HtmlWidget(
-                                                                desc,
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                        10.vertical,
                                                         Builder(
                                                             builder: (context) {
                                                           return Padding(

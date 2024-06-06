@@ -45,7 +45,8 @@ class PaymentSelectBloc extends Bloc<PaymentSelectEvent, PaymentSelectState> {
                 double.parse(price.disPrice ?? "0.0") -
                 double.parse(
                   price.cashback ?? "0",
-                )) *
+                ) -
+                (cartBloc.state.coupon?.couponDisPrice ?? 0)) *
             cart["quantity"];
       }
 

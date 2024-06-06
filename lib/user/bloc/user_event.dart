@@ -32,3 +32,10 @@ final class RemoveOrAddWishlistEvent extends UserEvent {
   const RemoveOrAddWishlistEvent({required super.context, required this.id});
   final int id;
 }
+
+final class CheckTokenValidEvent extends UserEvent {
+  const CheckTokenValidEvent(
+      {required super.context, required this.token, required this.completer});
+  final String token;
+  final Completer<bool> completer;
+}

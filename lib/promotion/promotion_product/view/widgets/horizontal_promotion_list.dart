@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
+import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
+import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/view/widgets/view_more_promotion.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
 class HorizontalPromotionList extends StatelessWidget {
-  const HorizontalPromotionList({super.key});
+  const HorizontalPromotionList({required this.data, super.key});
+  final PromotionListModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,22 @@ class HorizontalPromotionList extends StatelessWidget {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.76,
-                child: RobotoText(
-                  fontSize: 17,
-                  fontColor: null,
-                  fontWeight: FontWeight.bold,
-                  text: "Happy Summer Promotion  (April 20th - 12 th May)",
-                  maxLine: 3,
-                ),
+                child: LocalizationWidget(
+                    en: data.enName,
+                    mm: data.mmName,
+                    child: (val) {
+                      return RobotoText(
+                        fontSize: 17,
+                        fontColor: null,
+                        fontWeight: FontWeight.bold,
+                        text: val,
+                        maxLine: 3,
+                      );
+                    }),
               ),
               GestureDetector(
                 onTap: () async {
-                 await RouterService.of(context).push(
+                  await RouterService.of(context).push(
                       "${RouterPath.I.promotionsDertails.fullPath}?slug=test");
                 },
                 child: const Icon(

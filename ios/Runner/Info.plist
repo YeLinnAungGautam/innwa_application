@@ -50,7 +50,7 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string> upload profile from photo.</string>
+		<string>upload profile from photo.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>take profile photo.</string>
 	</dict>

@@ -5,7 +5,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
-import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
 
 part 'promotion_product_event.dart';
@@ -42,6 +41,11 @@ class PromotionProductBloc
         ));
       }
       final jsonData = resData["promotions"]["data"] as List;
+      for (var element in jsonData) {
+        final test = PromotionListModel.fromJson(element);
+        debugPrint(
+            "-----------Complete---------------------${test.id}--------------------------------");
+      }
       final List<PromotionListModel> data =
           jsonData.map((e) => PromotionListModel.fromJson(e)).toList();
       if (state.nextPageUrl == null) {
@@ -53,8 +57,6 @@ class PromotionProductBloc
       promotionPagingController.error = "Error";
     }
   }
-
- 
 
   Future<Map<String, dynamic>?> _getPromotions({String? params}) async {
     Map<String, dynamic>? resData;
