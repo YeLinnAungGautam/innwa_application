@@ -91,6 +91,8 @@ class ProductPriceSection extends StatelessWidget {
                               mm: "လက်ဆောင်",
                               child: (val) {
                                 return Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   padding: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       color: Colors.green,

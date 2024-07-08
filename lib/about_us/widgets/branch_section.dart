@@ -4,9 +4,10 @@ import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/about_us/bloc/about_us_bloc.dart';
-import 'package:innwa_mobile_dev/about_us/widgets/branch_card.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/util/ui/error_retry.dart';
+
+import 'branches_widget.dart';
 
 class BranchSection extends StatelessWidget {
   const BranchSection({super.key});
@@ -46,31 +47,20 @@ class BranchSection extends StatelessWidget {
               ),
             if (state.branchStatus == ApiStatus.completed)
               Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RobotoText(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    fontColor: null,
-                    text: "Yangon",
-                  ),
-                  12.vertical,
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...List.generate(
-                          100,
-                          (index) => const BranchCard(),
-                        ),
-                      ],
-                    ),
-                  ),
+                  ...state.branches
+                      .map((branch) => BranchesWidget(
+                            branches: branch,
+                          ))
+                      ,
                 ],
-              ),
+              )
           ],
         );
       },
     );
   }
 }
+

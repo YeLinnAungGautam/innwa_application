@@ -19,6 +19,7 @@ class RouterService {
   static RouterService of(BuildContext context) {
     return RouterService(context: context);
   }
+
   Future<void> push<T extends Bloc>(
     String fullPath, {
     T? provider,
@@ -58,6 +59,7 @@ class RouterService {
       );
     }
   }
+
   Future<void> pushMultiBloc(
     String fullPath, {
     List<SingleChildWidget> providers = const [],
@@ -97,15 +99,18 @@ class RouterService {
       );
     }
   }
+
   void pop<T extends Object?>({BuildContext? context, T? result}) {
     Navigator.of(context ?? _context).pop(result);
   }
+
   T firstProvider<T extends Bloc>() {
     final arguments = GoRouterState.of(_context).extra! as Map<String, dynamic>;
 
     final provider = arguments[_providerKey] as List<Bloc>;
     return provider[0] as T;
   }
+
   List<SingleChildWidget> allProviders() {
     final arguments = GoRouterState.of(_context).extra! as Map<String, dynamic>;
 

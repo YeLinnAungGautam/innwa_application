@@ -13,7 +13,7 @@ class Stars extends StatelessWidget {
         scrollDirection: Axis.horizontal,        
         itemCount: count,
         itemBuilder: (BuildContext context, index){
-          return Icon(Icons.star,size: 15,color: Colors.amber,);
+          return const Icon(Icons.star,size: 15,color: Colors.amber,);
         }
         ),
     );

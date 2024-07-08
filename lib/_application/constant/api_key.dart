@@ -32,7 +32,7 @@ class ApiKey {
   static const getServices = "/get-services";
   static const bookAppointment = "/book-appointment";
   static const customerOrder = "/customer/my-order";
-  static const branches = "/get-branches";
+  static const branches = "/branches";
   static const forgetPassword = "/forget-password";
   static const orderFilter = "/customer/order-filter";
   static const deliFee = "/get-deli-fee";

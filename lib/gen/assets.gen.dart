@@ -12,6 +12,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/InnwaLogo.png
+  AssetGenImage get innwaLogoPng =>
+      const AssetGenImage('assets/images/InnwaLogo.png');
+
+  /// File path: assets/images/innwa_logo.png
+  AssetGenImage get innwaLogoPng_ =>
+      const AssetGenImage('assets/images/innwa_logo.png');
+
   /// File path: assets/images/ayapay.png
   AssetGenImage get ayapay => const AssetGenImage('assets/images/ayapay.png');
 
@@ -31,10 +39,6 @@ class $AssetsImagesGen {
   AssetGenImage get googleLogo =>
       const AssetGenImage('assets/images/google_logo.png');
 
-  /// File path: assets/images/innwa_logo.png
-  AssetGenImage get innwaLogo =>
-      const AssetGenImage('assets/images/innwa_logo.png');
-
   /// File path: assets/images/logo_innwa.png
   AssetGenImage get logoInnwa =>
       const AssetGenImage('assets/images/logo_innwa.png');
@@ -52,6 +56,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/order-delivery.png
   AssetGenImage get orderDelivery =>
       const AssetGenImage('assets/images/order-delivery.png');
+
+  /// File path: assets/images/place_holder_image.png
+  AssetGenImage get placeHolderImage =>
+      const AssetGenImage('assets/images/place_holder_image.png');
 
   /// File path: assets/images/settings.png
   AssetGenImage get settings =>
@@ -80,18 +88,20 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        innwaLogoPng,
+        innwaLogoPng_,
         ayapay,
         chevron,
         cod,
         coupon,
         file,
         googleLogo,
-        innwaLogo,
         logoInnwa,
         mmFlag,
         mpu,
         noInternet,
         orderDelivery,
+        placeHolderImage,
         settings,
         shopping,
         usFlag,
@@ -129,9 +139,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
+
+  final Size? size;
 
   Image image({
     Key? key,

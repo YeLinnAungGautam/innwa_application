@@ -23,7 +23,7 @@ Map<String, dynamic> _$SiteModelToJson(SiteModel instance) => <String, dynamic>{
 
 SiteSettingModel _$SiteSettingModelFromJson(Map<String, dynamic> json) =>
     SiteSettingModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       titleEn: json['site_title_en'] as String,
       titleMm: json['site_title_mm'] as String,
     );

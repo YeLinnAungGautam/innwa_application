@@ -12,9 +12,9 @@ class CartHeading extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.arrow_back_rounded),
+          const Icon(Icons.arrow_back_rounded),
           RobotoText(fontSize: 20.0, fontColor: Colors.indigo, text: "My Cart", fontWeight: FontWeight.w800,),
-          Icon(Icons.refresh_rounded)
+          const Icon(Icons.refresh_rounded)
         ],
       ),
     );

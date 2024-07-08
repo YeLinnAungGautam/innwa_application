@@ -9,7 +9,7 @@ class CustomTextFormField extends StatefulWidget {
   final String label;
   final bool pass;
   final bool needBackground;
-  CustomTextFormField({super.key,required this.onSaved,this.onChanged,required this.label,required this.pass,required this.needBackground});
+  const CustomTextFormField({super.key,required this.onSaved,this.onChanged,required this.label,required this.pass,required this.needBackground});
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -34,7 +34,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: TextFormField(
         controller: _controller,
         obscureText: widget.pass ? _isObscure : false,

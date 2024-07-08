@@ -82,11 +82,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     if (contain) {
       debugPrint(
-          "-----------contain---------------------${state.wishlistProductId}-${event.id}-------------------------------");
+          "-----------$contain---------------------${state.wishlistProductId}-${event.id}-------------------------------");
       final List<int> newList = [...state.wishlistProductId];
       newList.removeWhere((element) => element == event.id);
       debugPrint(
           "-----------contain---------------------$newList--------------------------------");
+      print('this is newListID ===> $newList');
       emit(state.copyWith(wishlistProductId: newList));
     } else {
       emit(state

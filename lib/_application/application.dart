@@ -24,6 +24,7 @@ class Application extends StatefulWidget {
 
 class _ApplicationState extends State<Application> {
   bool haveError = false;
+
   Future<void> getDataInitState() async {
     final Completer<bool> sliderCompleter = Completer();
     final Completer<bool> siteCompleter = Completer();
@@ -76,7 +77,7 @@ class _ApplicationState extends State<Application> {
                 .add(UpdateUserCartFromStorageEvent(context: context, data: [
               ...(jsonDecode(userCart) as List)
                   .map((e) => {...(e as Map<String, dynamic>)})
-                  .toList()
+                  
             ]));
           }
           BlocProvider.of<UserBloc>(context)
@@ -108,9 +109,11 @@ class _ApplicationState extends State<Application> {
         ]);
       }
       if (value[0] && value[1]) {
-        setState(() {
-          haveError = false;
-        });
+        setState(
+          () {
+            haveError = false;
+          },
+        );
         await RouterService.of(context)
             .push(RouterPath.I.home.fullPath, redirect: true);
       } else {

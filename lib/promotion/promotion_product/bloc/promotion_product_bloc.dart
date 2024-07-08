@@ -5,7 +5,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
-import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
+import 'package:innwa_mobile_dev/promotion/promotion_product/response/promotions_response.dart';
+
+import '../response/vos/data_vo/data_vo.dart';
 
 part 'promotion_product_event.dart';
 part 'promotion_product_state.dart';
@@ -15,43 +17,43 @@ class PromotionProductBloc
   PromotionProductBloc(this._restAPI) : super(PromotionProductState()) {
     on<GetPromotionEvent>(_getPromotionEvent);
   }
+
   final RestAPI _restAPI;
 
-  PagingController<int, PromotionListModel> promotionPagingController =
+  PagingController<int, Data> promotionPagingController =
       PagingController(firstPageKey: 1);
 
   Future<void> _getPromotionEvent(GetPromotionEvent event, Emitter emit) async {
     final resData = await _getPromotions(
         params: state.nextPageUrl != null
             ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}"
-            : "");
+            : "?page=1");
 
-    if (resData != null) {
+    final PromotionsResponse promotionsResponse =
+        PromotionsResponse.fromJson(resData ?? {});
+    print("promotions list data ==> ${promotionsResponse.status}");
+
+    if (resData != null && promotionsResponse.status == "success") {
       emit(state.copyWith(
-        promotionImagePath: resData["feature_image_path"],
-        nextPageUrl: resData["promotions"]["next_page_url"],
+        promotionImagePath: promotionsResponse.featureImagePath,
+        productImagePath: promotionsResponse.productFeatureImagePath,
+        // nextPageUrl: promotionsResponse.promotions?.nextPageUrl,
       ));
 
-      if (resData["promotions"]["next_page_url"] == null ||
-          resData["promotions"]["next_page_url"] == "null") {
+      if (promotionsResponse.featureImagePath == null ||
+          promotionsResponse.promotions?.nextPageUrl == "null") {
         emit(state.clearNextPageUrl());
       } else {
         emit(state.copyWith(
-          nextPageUrl: resData["promotions"]["next_page_url"],
+          nextPageUrl: promotionsResponse.promotions?.nextPageUrl,
         ));
       }
-      final jsonData = resData["promotions"]["data"] as List;
-      for (var element in jsonData) {
-        final test = PromotionListModel.fromJson(element);
-        debugPrint(
-            "-----------Complete---------------------${test.id}--------------------------------");
-      }
-      final List<PromotionListModel> data =
-          jsonData.map((e) => PromotionListModel.fromJson(e)).toList();
+
+      final List<Data>? listData = promotionsResponse.promotions?.data;
       if (state.nextPageUrl == null) {
-        promotionPagingController.appendLastPage(data);
+        promotionPagingController.appendLastPage(listData ?? []);
       } else {
-        promotionPagingController.appendPage(data, event.pageKey + 1);
+        promotionPagingController.appendPage(listData ?? [], event.pageKey + 1);
       }
     } else {
       promotionPagingController.error = "Error";
@@ -87,7 +89,7 @@ class PromotionProductBloc
     return resData;
   }
 
-  void listenPromtionPagingController({required BuildContext context}) async {
+  void listenPromotionPagingController({required BuildContext context}) async {
     if (!promotionPagingController.hasListeners) {
       promotionPagingController.addPageRequestListener((pageKey) {
         add(GetPromotionEvent(context: context, pageKey: pageKey));

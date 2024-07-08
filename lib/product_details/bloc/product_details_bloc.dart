@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
@@ -8,6 +9,8 @@ import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
+import 'package:innwa_mobile_dev/_application/service/persistent/favorite_dao/favorite_dao.dart';
+import 'package:innwa_mobile_dev/_application/service/persistent/favorite_dao/favorite_dao_impl.dart';
 import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/product_details/model/product_details_model.dart';
@@ -15,22 +18,30 @@ import 'package:innwa_mobile_dev/product_details/model/review_model.dart';
 import 'package:innwa_mobile_dev/product_details/model/select_specification_model.dart';
 import 'package:innwa_mobile_dev/user/bloc/user_bloc.dart';
 import 'package:innwa_mobile_dev/util/ui/snack_bar.dart';
+import 'package:innwa_mobile_dev/wishlist/bloc/wishlist_bloc.dart';
+
+import '../../util/ui/search_product_bar/model/search_product_model.dart';
 
 part 'product_details_event.dart';
 part 'product_details_state.dart';
 
 class ProductDetailsBloc
     extends Bloc<ProductDetailsEvent, ProductDetailsState> {
-  ProductDetailsBloc(this._restAPI) : super(const ProductDetailsState()) {
+  ProductDetailsBloc(this._restAPI, this.wishlistBloc)
+      : super(ProductDetailsState()) {
     on<GetProductDetailsEvent>(_getProductDetailsEvent);
     on<UpdateRatingEvent>(_updateRating);
     on<ClickAddReviewEvent>(_clickAddReviewEvent);
     on<ClickWishlistBtnEvent>(_wishListBtnClick);
     on<SelectSpecEvent>(_selectSpec);
     on<ClickSpecConfirmEvent>(_clickSpecConfirm);
+    // on<ToggleFavoriteEvent>(_toggleFavorite);
   }
 
   final RestAPI _restAPI;
+  WishlistBloc wishlistBloc;
+  BuildContext? context;
+
   final TextEditingController ratingTextController = TextEditingController();
   final GlobalKey<FormState> ratingForm = GlobalKey();
 
@@ -121,14 +132,23 @@ class ProductDetailsBloc
     }
   }
 
+  // Future<void> _toggleFavorite(ToggleFavoriteEvent event, Emitter emit) async {
+  //   emit(state.copyWith(isFavorite: event.isFavorite));
+  // }
+
   Future<void> _wishListBtnClick(
       ClickWishlistBtnEvent event, Emitter emit) async {
     emit(state.copyWith(wishlistApiStatus: ApiStatus.processing));
+    print("this is favorite before click ====> ${state.isFavorite}");
+    bool isFavorite = !state.isFavorite;
     final resData =
         await _addRemoveWishList(productId: state.productDetails!.id);
     emit(state.copyWith(wishlistApiStatus: ApiStatus.completed));
-    BlocProvider.of<UserBloc>(event.context).add(RemoveOrAddWishlistEvent(
-        context: event.context, id: state.productDetails!.id));
+    BlocProvider.of<UserBloc>(event.context).add(
+      RemoveOrAddWishlistEvent(
+          context: event.context, id: state.productDetails!.id),
+    );
+
     if (resData != null) {
       showSnackBar(
         message: resData["message"],
@@ -139,6 +159,15 @@ class ProductDetailsBloc
         messageColor: Colors.white,
       );
     }
+    emit(state.copyWith(isFavorite: isFavorite));
+    print("this is favorite after click====> ${state.isFavorite}");
+  }
+
+  bool checkInWishList(List<SearchProductModel> list, int productId) {
+    bool isToggleFavorite = list.any(
+      (element) => element.id == productId,
+    );
+    return isToggleFavorite;
   }
 
   Future<Map<String, dynamic>?> _addRemoveWishList({
@@ -250,11 +279,16 @@ class ProductDetailsBloc
     if (resData != null) {
       final jsonReview = resData["reviews"] as List;
       final jsonSpecs = resData["productSpecification"] as List;
+
       List<SelectSpecificationModel> selectSpecs =
           jsonSpecs.map((e) => SelectSpecificationModel.fromJson(e)).toList();
+
       final List<ReviewModel> data =
           jsonReview.map((e) => ReviewModel.fromJson(e)).toList();
+
       final product = ProductDetailsModel.fromJson(resData["product"]);
+
+      print("this is product specifications data ==> ${product.enDesc}");
 
       //! When Backend Response Fix , Need To Fix This -> :)
       selectSpecs = selectSpecs.map((specType) {
@@ -280,8 +314,14 @@ class ProductDetailsBloc
         return specType;
       }).toList();
 
+      print(
+          " wish list state wish list data :  ${wishlistBloc.state.wishListData}");
+      print("event slug ===> ${event.slug}");
+      final isFavorite = wishlistBloc.state.favoritesSlug?.contains(event.slug);
+      print(" wish list state product fav :  $isFavorite");
       emit(
         state.copyWith(
+          isFavorite: isFavorite,
           apiStatus: ApiStatus.completed,
           productImagepath: resData["product_image_path"],
           disImagePath: resData["dis_image_path"],

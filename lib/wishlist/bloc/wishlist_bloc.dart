@@ -21,16 +21,19 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   final RestAPI _restAPI;
 
   Future<void> _getProductEvent(GetWishlistEvent event, Emitter emit) async {
+    emit(state.copyWith(apiStatus: ApiStatus.processing));
     final resData = await _getWishlist(
       params: state.nextPageUrl != null
           ? "?page=${Uri.parse(state.nextPageUrl!).queryParameters["page"]}"
           : "?page=1",
     );
 
+    print("this is wishlist ---> ${resData?['status']}");
     if (resData != null) {
       emit(state.copyWith(
+        apiStatus: ApiStatus.completed,
         imagePath: resData["image_path"],
-        nextPageUrl: resData["wishlist"]["next_page_url"],
+        message: resData['msg'],
       ));
 
       if (resData["wishlist"]["next_page_url"] == null ||
@@ -42,15 +45,40 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         ));
       }
       final jsonData = resData["wishlist"]["data"] as List;
-      final List<SearchProductModel> data = jsonData
+
+      final List<SearchProductModel> wishListDataList = jsonData
           .map((e) => SearchProductModel.fromJson(e["product"]))
           .toList();
+
+      print(
+          "----- wishList is calling -------wishListData ==> $wishListDataList");
+      if (wishListDataList.isNotEmpty) {
+        final List<String> wishlistSlug = wishListDataList
+            .map(
+              (e) => e.slug,
+            )
+            .toList();
+        print(
+            "----- wishList is calling -------wishList slug from model==> $wishlistSlug");
+        emit(state.copyWith(
+          wishListData: wishListDataList,
+          favoritesSlug: wishlistSlug,
+        ));
+
+        // print(
+        //     "----- wishList state is calling -------wishList slug from wishlist state ==>${state.favoritesSlug}");
+        // print(
+        //     "----- wishList state is calling -------wishList apiStatus from wishlist state ==>${state.apiStatus}");
+      }
+
       if (state.nextPageUrl == null) {
-        produtPagingController.appendLastPage(data);
+        produtPagingController.appendLastPage(wishListDataList);
       } else {
-        produtPagingController.appendPage(data, event.pageKey + 1);
+        produtPagingController.appendPage(
+            wishListDataList, (event.pageKey ?? 0) + 1);
       }
     } else {
+      emit(state.copyWith(apiStatus: ApiStatus.failure));
       produtPagingController.error = "Error";
     }
   }

@@ -7,8 +7,8 @@ part of 'slider_model.dart';
 // **************************************************************************
 
 SliderModel _$SliderModelFromJson(Map<String, dynamic> json) => SliderModel(
-      id: json['id'] as int,
-      serialNumber: json['serial_no'] as int,
+      id: (json['id'] as num).toInt(),
+      serialNumber: (json['serial_no'] as num).toInt(),
       link: json['data'] as String,
       type: json['type'] as String,
     );

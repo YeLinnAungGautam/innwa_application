@@ -8,7 +8,7 @@ part of 'filter_spec_model.dart';
 
 SpecTypeModel _$SpecTypeModelFromJson(Map<String, dynamic> json) =>
     SpecTypeModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       specificationValue: (json['specification_value'] as List<dynamic>)
           .map((e) =>
@@ -28,8 +28,8 @@ Map<String, dynamic> _$SpecTypeModelToJson(SpecTypeModel instance) =>
 SpecificationValueModel _$SpecificationValueModelFromJson(
         Map<String, dynamic> json) =>
     SpecificationValueModel(
-      id: json['id'] as int,
-      typeId: json['specification_type_id'] as int,
+      id: (json['id'] as num).toInt(),
+      typeId: (json['specification_type_id'] as num).toInt(),
       value: json['value'] as String,
       mmName: json['name_mm'] as String?,
       enName: json['name_en'] as String?,

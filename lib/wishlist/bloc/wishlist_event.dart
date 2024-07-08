@@ -10,6 +10,6 @@ sealed class WishlistEvent extends Equatable {
 }
 
 final class GetWishlistEvent extends WishlistEvent {
-  const GetWishlistEvent({required super.context, required this.pageKey});
-  final int pageKey;
+  const GetWishlistEvent({required super.context, this.pageKey});
+  final int? pageKey;
 }

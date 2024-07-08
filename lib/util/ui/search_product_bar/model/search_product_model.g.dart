@@ -8,7 +8,7 @@ part of 'search_product_model.dart';
 
 SearchProductModel _$SearchProductModelFromJson(Map<String, dynamic> json) =>
     SearchProductModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String?,
       price: PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),

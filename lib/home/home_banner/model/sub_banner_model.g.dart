@@ -8,7 +8,7 @@ part of 'sub_banner_model.dart';
 
 SubBannerModel _$SubBannerModelFromJson(Map<String, dynamic> json) =>
     SubBannerModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       image: json['image'] as String,
       bannerLocation: json['banner_location'] as String,
       link: json['link'] as String?,

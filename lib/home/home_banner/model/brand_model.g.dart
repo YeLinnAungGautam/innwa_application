@@ -7,7 +7,7 @@ part of 'brand_model.dart';
 // **************************************************************************
 
 BrandModel _$BrandModelFromJson(Map<String, dynamic> json) => BrandModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String,
       image: json['image'] as String?,

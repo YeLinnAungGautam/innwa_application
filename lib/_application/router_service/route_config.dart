@@ -21,10 +21,11 @@ import "package:innwa_mobile_dev/payment_select/view/payment_select_screen.dart"
 import "package:innwa_mobile_dev/product_details/views/product_detail.dart";
 import "package:innwa_mobile_dev/product_list/views/products.dart";
 import "package:innwa_mobile_dev/profile/profile_edit/views/profile_edit_screen.dart";
-import "package:innwa_mobile_dev/promotion/promotion_details/view/promotion_details_screen.dart";
 import "package:innwa_mobile_dev/promotion/promotion_product/view/promotion.dart";
 import "package:innwa_mobile_dev/services/view/service_screen.dart";
 import "package:innwa_mobile_dev/wishlist/whishlist.dart";
+
+import "../../promotion/promotion_details/view/promotion_details_screen.dart";
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "root");
@@ -202,7 +203,7 @@ final GoRouter routerConfig = GoRouter(
                 GoRoute(
                   path: RouterPath.I.productDetails.path,
                   builder: (context, state) => ProductDetail(
-                    slug: state.uri.queryParameters["slug"]!,
+                    slug: state.uri.queryParameters["slug"] ?? '',
                   ),
                   routes: const [],
                 ),

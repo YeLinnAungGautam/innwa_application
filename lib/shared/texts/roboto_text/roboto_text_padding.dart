@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RobotoTextPadding extends StatelessWidget {
   double? fontSize;
@@ -20,7 +19,7 @@ class RobotoTextPadding extends StatelessWidget {
             fontSize: fontSize,
             color: fontColor,
             fontWeight: fontWeight),
-        maxLines: this.maxLine ?? 1,
+        maxLines: maxLine ?? 1,
         overflow: TextOverflow.ellipsis)
     );
   }

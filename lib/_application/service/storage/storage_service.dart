@@ -13,6 +13,7 @@ class StorageService {
   final String profileImagePath = "ProfileImagePath";
   final String loginExpireTime = "LoginExpire";
   final String userCart = "UserCart";
+  final String favorite = "FAVORITE";
 
   StorageService._();
 

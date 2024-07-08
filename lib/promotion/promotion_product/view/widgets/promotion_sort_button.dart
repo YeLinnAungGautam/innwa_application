@@ -75,7 +75,7 @@ class _PromotionSortButtonState extends State<PromotionSortButton> {
       onTap: _showMyDialog,
       child: Container(
         width: 150,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           boxShadow: [
           BoxShadow(
@@ -89,7 +89,7 @@ class _PromotionSortButtonState extends State<PromotionSortButton> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Icon(Icons.sort,color: Colors.indigo,size: 30,),
+              const Icon(Icons.sort,color: Colors.indigo,size: 30,),
               Padding(
                 padding: const EdgeInsets.only(left :15.0),
                 child: Column(

@@ -8,7 +8,7 @@ class PromotionThumbnail extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 200,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
             'https://innwa.com.mm/public//images/slide/slide4.webp',

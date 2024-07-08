@@ -16,71 +16,80 @@ class WishList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          WishlistBloc(BlocProvider.of<AppServiceBloc>(context).api)
-            ..listenFilterPagingController(context: context),
-      child: Builder(builder: (context) {
-        final WishlistBloc wishlistBloc =
-            BlocProvider.of<WishlistBloc>(context);
-        return BlocBuilder<WishlistBloc, WishlistState>(
-          builder: (context, state) {
-            return Container(
-              color: backgroundColorLight,
-              child: LocalizationWidget(
+      create: (context) => WishlistBloc(
+        BlocProvider.of<AppServiceBloc>(context).api,
+      )..listenFilterPagingController(context: context),
+      child: Builder(
+        builder: (context) {
+          final WishlistBloc wishlistBloc =
+              BlocProvider.of<WishlistBloc>(context);
+          return BlocBuilder<WishlistBloc, WishlistState>(
+            builder: (context, state) {
+              print(
+                  "this is wishlist state from wishlist screen ===> ${state.wishListData}");
+              return Container(
+                color: backgroundColorLight,
+                child: LocalizationWidget(
                   en: "Wishlists",
                   mm: "ဆန္ဒစာရင်းများ",
                   child: (wishlist) {
                     return SafeArea(
                       child: Scaffold(
-                          appBar: TopBar(
-                            needBackButton: true,
-                            needMenu: false,
-                            title: wishlist,
-                          ),
-                          drawer: CustomDrawerWidget(onDrawerTap: () {
-                            FocusScopeNode currentFocus =
-                                FocusScope.of(context);
+                        appBar: TopBar(
+                          needBackButton: true,
+                          needMenu: false,
+                          title: wishlist,
+                        ),
+                        drawer: CustomDrawerWidget(onDrawerTap: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
 
-                            if (!currentFocus.hasPrimaryFocus &&
-                                currentFocus.hasFocus) {
-                              currentFocus.unfocus();
-                            }
-                          }),
-                          body: CustomScrollView(
-                            slivers: [
-                              PagedSliverGrid(
-                                pagingController:
-                                    wishlistBloc.produtPagingController,
-                                builderDelegate: PagedChildBuilderDelegate<
-                                    SearchProductModel>(
-                                  itemBuilder: (context, item, index) {
-                                    return ProductCard(
-                                      product: item,
-                                      imagePath: "${state.imagePath}/",
-                                      isRoot: true,
-                                    );
-                                  },
-                                ),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio:
-                                      MediaQuery.of(context).size.width <= 600
-                                          ? 0.6
-                                          : 0.65,
-                                  crossAxisCount:
-                                      MediaQuery.of(context).size.width <= 600
-                                          ? 2
-                                          : 3,
-                                ),
-                              ),
-                            ],
-                          )),
+                          if (!currentFocus.hasPrimaryFocus &&
+                              currentFocus.hasFocus) {
+                            currentFocus.unfocus();
+                          }
+                        }),
+                        body: state.message == "null"
+                            ? CustomScrollView(
+                                slivers: [
+                                  PagedSliverGrid(
+                                    pagingController:
+                                        wishlistBloc.produtPagingController,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio:
+                                          MediaQuery.of(context).size.width <=
+                                                  600
+                                              ? 0.6
+                                              : 0.65,
+                                      crossAxisCount:
+                                          MediaQuery.of(context).size.width <=
+                                                  600
+                                              ? 2
+                                              : 3,
+                                    ),
+                                    builderDelegate: PagedChildBuilderDelegate<
+                                        SearchProductModel>(
+                                      itemBuilder: (context, item, index) {
+                                        return ProductCard(
+                                          product: item,
+                                          imagePath: "${state.imagePath}/",
+                                          isRoot: true,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Center(child: Text(state.message)),
+                      ),
                     );
-                  }),
-            );
-          },
-        );
-      }),
+                  },
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

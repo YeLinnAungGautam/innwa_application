@@ -5,12 +5,13 @@ import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/bloc/promotion_product_bloc.dart';
-import 'package:innwa_mobile_dev/promotion/promotion_product/model/promotion_list_model.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/view/widgets/horizontal_promotion_list.dart';
 import 'package:innwa_mobile_dev/shared/drawer/drawer.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/shared/top_bar/topbar.dart';
 import 'package:innwa_mobile_dev/util/ui/search_product_bar/view/product_search_app_bar.dart';
+
+import '../response/vos/data_vo/data_vo.dart';
 
 class Promotion extends StatefulWidget {
   const Promotion({super.key});
@@ -28,9 +29,11 @@ class _PromotionState extends State<Promotion> {
       ),
       child: Builder(builder: (context) {
         BlocProvider.of<PromotionProductBloc>(context)
-            .listenPromtionPagingController(context: context);
+            .listenPromotionPagingController(context: context);
+
         return BlocBuilder<PromotionProductBloc, PromotionProductState>(
           builder: (context, state) {
+            final path = state.productImagePath ?? '';
             return Scaffold(
               appBar: TopBar(
                 needBackButton: false,
@@ -79,11 +82,11 @@ class _PromotionState extends State<Promotion> {
                       pagingController:
                           BlocProvider.of<PromotionProductBloc>(context)
                               .promotionPagingController,
-                      builderDelegate:
-                          PagedChildBuilderDelegate<PromotionListModel>(
-                              itemBuilder: (context, item, index) {
+                      builderDelegate: PagedChildBuilderDelegate<Data>(
+                          itemBuilder: (context, item, index) {
                         return HorizontalPromotionList(
                           data: item,
+                          path: path,
                         );
                       }),
                     )

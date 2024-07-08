@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:innwa_mobile_dev/shared/avatar/avatar.dart';
 import 'package:innwa_mobile_dev/shared/image_container/image_container.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
@@ -53,7 +52,7 @@ class PendingCartItem extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: RobotoText(
                       fontSize: 13.0,
-                      fontColor: Color.fromRGBO(226, 176, 48, 1),
+                      fontColor: const Color.fromRGBO(226, 176, 48, 1),
                       text: "Order Status : Pending"),
                 ),
               ],
@@ -61,12 +60,12 @@ class PendingCartItem extends StatelessWidget {
             // ItemCountrol(),
 
             isDelete
-                ? Icon(
+                ? const Icon(
                     Icons.delete_forever,
                     color: Colors.red,
                     size: 30,
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),

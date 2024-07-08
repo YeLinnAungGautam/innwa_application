@@ -9,7 +9,7 @@ part of 'promotion_details_model.dart';
 PromotionDetailsModel _$PromotionDetailsModelFromJson(
         Map<String, dynamic> json) =>
     PromotionDetailsModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String,
       slug: json['slug'] as String,

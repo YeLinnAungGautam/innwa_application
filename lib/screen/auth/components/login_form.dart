@@ -3,6 +3,8 @@ import 'package:innwa_mobile_dev/util/constants.dart';
 
 
 class LogInForm extends StatefulWidget {
+  const LogInForm({super.key});
+
   @override
   _LogInFormState createState() => _LogInFormState();
 }
@@ -21,15 +23,15 @@ class _LogInFormState extends State<LogInForm> {
 
   Padding buildInputForm(String label, bool pass) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
         obscureText: pass ? _isObscure : false,
         decoration: InputDecoration(
             labelText: label,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               color: kTextFieldColor,
             ),
-            focusedBorder: UnderlineInputBorder(
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: kPrimaryColor),
             ),
             suffixIcon: pass
@@ -40,11 +42,11 @@ class _LogInFormState extends State<LogInForm> {
                       });
                     },
                     icon: _isObscure
-                        ? Icon(
+                        ? const Icon(
                             Icons.visibility_off,
                             color: kTextFieldColor,
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.visibility,
                             color: kPrimaryColor,
                           ),

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:innwa_mobile_dev/util/ui/search_product_bar/model/search_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'promotion_list_model.g.dart';

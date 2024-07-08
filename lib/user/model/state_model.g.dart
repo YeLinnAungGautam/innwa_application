@@ -7,7 +7,7 @@ part of 'state_model.dart';
 // **************************************************************************
 
 StateModel _$StateModelFromJson(Map<String, dynamic> json) => StateModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String?,
     );

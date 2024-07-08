@@ -9,7 +9,8 @@ part 'product_details_model.g.dart';
 
 @JsonSerializable()
 class ProductDetailsModel extends Equatable {
-  const ProductDetailsModel({
+  const ProductDetailsModel(
+    this.slug, {
     required this.id,
     required this.enName,
     this.mmName,
@@ -26,6 +27,9 @@ class ProductDetailsModel extends Equatable {
   final String enName;
   @JsonKey(name: "name_mm")
   final String? mmName;
+
+  @JsonKey(name: "slug")
+  final String? slug;
   @JsonKey(name: "feature_image")
   final String? image;
   @JsonKey(name: "description_en")
@@ -41,6 +45,7 @@ class ProductDetailsModel extends Equatable {
         id,
         enName,
         mmName,
+        slug,
         image,
         enDesc,
         mmDesc,
@@ -73,13 +78,13 @@ class ProductDetailsPriceModel extends Equatable {
       this.cashback,
       this.disImage});
 
-  final int id;
+  final int? id;
   @JsonKey(name: "product_id")
-  final int productId;
+  final int? productId;
   @JsonKey(name: "stock_status")
-  final String stockStatus;
+  final String? stockStatus;
   @JsonKey(name: "stock_qty")
-  final String stockQty;
+  final String? stockQty;
   final String? sku;
   @JsonKey(name: "dis_start_date")
   final String? disStartDate;
@@ -97,6 +102,7 @@ class ProductDetailsPriceModel extends Equatable {
   final List<ProductSpecificationModel> productSpecifications;
   @JsonKey(name: "product_image")
   final List<ProductImageModel> productImage;
+
   @override
   List<Object?> get props => [
         id,

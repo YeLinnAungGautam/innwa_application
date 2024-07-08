@@ -9,7 +9,7 @@ part of 'select_specification_model.dart';
 SelectSpecificationModel _$SelectSpecificationModelFromJson(
         Map<String, dynamic> json) =>
     SelectSpecificationModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       nameEn: json['name_en'] as String,
       specificationValues: (json['specification_value'] as List<dynamic>)
           .map((e) =>
@@ -30,11 +30,11 @@ Map<String, dynamic> _$SelectSpecificationModelToJson(
 SpecificationvalueModel _$SpecificationvalueModelFromJson(
         Map<String, dynamic> json) =>
     SpecificationvalueModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       value: json['value'] as String,
-      specificationTypeId: json['specification_type_id'] as int,
+      specificationTypeId: (json['specification_type_id'] as num).toInt(),
       productPrice: (json['productPrice'] as List<dynamic>?)
-          ?.map((e) => e as int)
+          ?.map((e) => (e as num).toInt())
           .toList(),
       colorCode: json['color_code'] as String?,
     );

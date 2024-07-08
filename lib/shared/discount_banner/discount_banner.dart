@@ -11,6 +11,8 @@ class DiscountBanner extends StatelessWidget {
       style: const TextStyle(
           fontFamily: "SanFrancisco", color: Colors.white, fontSize: 10.0),
       textAlign: TextAlign.center,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

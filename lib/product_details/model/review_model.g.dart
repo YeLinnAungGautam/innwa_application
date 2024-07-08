@@ -7,10 +7,10 @@ part of 'review_model.dart';
 // **************************************************************************
 
 ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => ReviewModel(
-      id: json['id'] as int,
-      productId: json['product_id'] as int,
-      customerId: json['customer_id'] as int,
-      star: json['star'] as int,
+      id: (json['id'] as num).toInt(),
+      productId: (json['product_id'] as num).toInt(),
+      customerId: (json['customer_id'] as num).toInt(),
+      star: (json['star'] as num).toInt(),
       msg: json['msg'] as String,
     );
 

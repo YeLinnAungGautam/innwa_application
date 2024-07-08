@@ -7,7 +7,7 @@ part of 'branch_model.dart';
 // **************************************************************************
 
 BranchModel _$BranchModelFromJson(Map<String, dynamic> json) => BranchModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       branch: (json['branch'] as List<dynamic>)
           .map((e) => SubBranchModel.fromJson(e as Map<String, dynamic>))
@@ -25,12 +25,12 @@ Map<String, dynamic> _$BranchModelToJson(BranchModel instance) =>
 
 SubBranchModel _$SubBranchModelFromJson(Map<String, dynamic> json) =>
     SubBranchModel(
-      id: json['id'] as int,
-      enName: json['name_en'] as String,
-      image: json['image'] as String,
-      enAddress: json['address_en'] as String,
-      phone: json['phone'] as String,
-      servicePhone: json['service_phone'] as String,
+      id: (json['id'] as num).toInt(),
+      enName: json['name_en'] as String?,
+      image: json['image'] as String?,
+      enAddress: json['address_en'] as String?,
+      phone: json['phone'] as String?,
+      servicePhone: json['service_phone'] as String?,
       mmName: json['name_mm'] as String?,
       mmAddress: json['address_mm'] as String?,
     );

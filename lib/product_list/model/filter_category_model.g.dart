@@ -8,7 +8,7 @@ part of 'filter_category_model.dart';
 
 FilterCategoryModel _$FilterCategoryModelFromJson(Map<String, dynamic> json) =>
     FilterCategoryModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       childCategories: (json['child_category'] as List<dynamic>)
           .map((e) => ChildCategoryModel.fromJson(e as Map<String, dynamic>))
@@ -27,8 +27,8 @@ Map<String, dynamic> _$FilterCategoryModelToJson(
 
 ChildCategoryModel _$ChildCategoryModelFromJson(Map<String, dynamic> json) =>
     ChildCategoryModel(
-      id: json['id'] as int,
-      parentId: json['parent_category_id'] as int,
+      id: (json['id'] as num).toInt(),
+      parentId: (json['parent_category_id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String?,
     );

@@ -7,12 +7,12 @@ part of 'coupon_model.dart';
 // **************************************************************************
 
 CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => CouponModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       couponCode: json['coupon_code'] as String,
       startDate: json['start_date'] as String,
       endDate: json['end_date'] as String,
-      isActive: json['is_active'] as int,
-      numberOfCoupon: json['number_of_coupon'] as int,
+      isActive: (json['is_active'] as num).toInt(),
+      numberOfCoupon: (json['number_of_coupon'] as num).toInt(),
       couponDisPrice: (json['coupon_dis_price'] as num?)?.toDouble(),
       gift: json['gift'] as String?,
     );

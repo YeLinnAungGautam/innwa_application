@@ -11,7 +11,7 @@ import 'package:innwa_mobile_dev/util/constants.dart';
 
 class AddCard extends StatefulWidget {
   final String text;
-  AddCard({super.key,required this.text});
+  const AddCard({super.key,required this.text});
 
   @override
   State<AddCard> createState() => _AddCardState();
@@ -30,7 +30,7 @@ class _AddCardState extends State<AddCard> {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Success or Fail Message'),
-        content:  SingleChildScrollView(
+        content:  const SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
               Text('This is a demo alert dialog.'),
@@ -113,7 +113,7 @@ class _AddCardState extends State<AddCard> {
                                       RobotoText(
                                           fontSize: 15.0,
                                           fontColor: Colors.white,
-                                          text: "EXP : "+exp)
+                                          text: "EXP : $exp")
                                     ],
                                   ),
                                 ),

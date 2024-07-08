@@ -9,11 +9,11 @@ part of 'product_specification_model.dart';
 ProductSpecificationModel _$ProductSpecificationModelFromJson(
         Map<String, dynamic> json) =>
     ProductSpecificationModel(
-      id: json['id'] as int,
-      productId: json['product_id'] as int,
-      productPriceId: json['product_price_id'] as int,
-      specificationTypeId: json['specification_type_id'] as int,
-      specificationValueId: json['specification_value_id'] as int,
+      id: (json['id'] as num).toInt(),
+      productId: (json['product_id'] as num).toInt(),
+      productPriceId: (json['product_price_id'] as num).toInt(),
+      specificationTypeId: (json['specification_type_id'] as num).toInt(),
+      specificationValueId: (json['specification_value_id'] as num).toInt(),
       specificationType: SpecificationTypeModel.fromJson(
           json['specification_type'] as Map<String, dynamic>),
       specificationValue: SpecificationValueModel.fromJson(
@@ -35,7 +35,7 @@ Map<String, dynamic> _$ProductSpecificationModelToJson(
 SpecificationTypeModel _$SpecificationTypeModelFromJson(
         Map<String, dynamic> json) =>
     SpecificationTypeModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       mmName: json['name_mm'] as String,
       enName: json['name_en'] as String,
     );
@@ -51,7 +51,7 @@ Map<String, dynamic> _$SpecificationTypeModelToJson(
 SpecificationValueModel _$SpecificationValueModelFromJson(
         Map<String, dynamic> json) =>
     SpecificationValueModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       value: json['value'] as String,
       colorCode: json['color_code'] as String?,
     );

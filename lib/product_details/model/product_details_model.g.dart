@@ -8,7 +8,8 @@ part of 'product_details_model.dart';
 
 ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
     ProductDetailsModel(
-      id: json['id'] as int,
+      json['slug'] as String?,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String?,
       enDesc: json['description_en'] as String?,
@@ -29,6 +30,7 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
       'id': instance.id,
       'name_en': instance.enName,
       'name_mm': instance.mmName,
+      'slug': instance.slug,
       'feature_image': instance.image,
       'description_en': instance.enDesc,
       'description_mm': instance.mmDesc,
@@ -40,11 +42,11 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
 ProductDetailsPriceModel _$ProductDetailsPriceModelFromJson(
         Map<String, dynamic> json) =>
     ProductDetailsPriceModel(
-      id: json['id'] as int,
-      productId: json['product_id'] as int,
-      stockStatus: json['stock_status'] as String,
-      stockQty: json['stock_qty'] as String,
-      price: json['price_mmk'] as int,
+      id: (json['id'] as num?)?.toInt(),
+      productId: (json['product_id'] as num?)?.toInt(),
+      stockStatus: json['stock_status'] as String?,
+      stockQty: json['stock_qty'] as String?,
+      price: (json['price_mmk'] as num).toInt(),
       productSpecifications: (json['product_specification'] as List<dynamic>)
           .map((e) =>
               ProductSpecificationModel.fromJson(e as Map<String, dynamic>))

@@ -1,7 +1,7 @@
 part of 'product_details_bloc.dart';
 
 class ProductDetailsState extends Equatable {
-  const ProductDetailsState({
+  ProductDetailsState({
     this.apiStatus = ApiStatus.processing,
     this.productImagepath = "",
     this.disImagePath = "",
@@ -17,6 +17,8 @@ class ProductDetailsState extends Equatable {
     this.specifications = const [],
     this.selectedSpec = const [],
     this.selectedPriceId,
+    this.isFavorite = false,
+    this.favoriteProductsIdList,
   });
 
   final ApiStatus apiStatus;
@@ -38,6 +40,10 @@ class ProductDetailsState extends Equatable {
   final ApiStatus wishlistApiStatus;
 
   final String featureImagePath;
+
+  bool isFavorite;
+  final List<int>? favoriteProductsIdList;
+
   @override
   List<Object?> get props => [
         apiStatus,
@@ -55,6 +61,8 @@ class ProductDetailsState extends Equatable {
         wishlistApiStatus,
         specifications,
         selectedPriceId,
+        isFavorite,
+        favoriteProductsIdList,
       ];
 
   ProductDetailsState copyWith({
@@ -73,6 +81,8 @@ class ProductDetailsState extends Equatable {
     ApiStatus? wishlistApiStatus,
     List<SelectSpecificationModel>? specifications,
     int? selectedPriceId,
+    bool? isFavorite,
+    List<int>? favoriteProductsIdList,
   }) {
     return ProductDetailsState(
       apiStatus: apiStatus ?? this.apiStatus,
@@ -91,6 +101,9 @@ class ProductDetailsState extends Equatable {
       wishlistApiStatus: wishlistApiStatus ?? this.wishlistApiStatus,
       specifications: specifications ?? this.specifications,
       selectedPriceId: selectedPriceId ?? this.selectedPriceId,
+      isFavorite: isFavorite ?? this.isFavorite,
+      favoriteProductsIdList:
+          favoriteProductsIdList ?? this.favoriteProductsIdList,
     );
   }
 }

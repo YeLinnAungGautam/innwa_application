@@ -20,7 +20,7 @@ class ProductPromotion extends StatelessWidget {
           children: [
             Badge(
               label: Text(
-                price.stockStatus,
+                price.stockStatus ?? '',
               ),
               backgroundColor: Theme.of(context).colorScheme.primary,
             ),

@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 
+import '../../_application/service/localization/loclaization_view.dart';
+import '../../constant/api_constant.dart';
+import '../model/branch_model.dart';
+
 class BranchCard extends StatelessWidget {
-  const BranchCard({super.key});
+  final SubBranchModel branch;
+
+  const BranchCard({super.key, required this.branch});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,8 @@ class BranchCard extends StatelessWidget {
         child: Column(
           children: [
             CachedNetworkImage(
-              imageUrl:
-                  "https://shop.innwa.com.mm/storage/branch/202304260941innwa_merchant_shop.webp",
-              height: MediaQuery.of(context).size.height * 0.15,
+              imageUrl: "$kBranchesImageBaseUrl${branch.image ?? ''}",
+              height: MediaQuery.of(context).size.height * 0.16,
               width: MediaQuery.of(context).size.width * 0.7,
               fit: BoxFit.cover,
             ),
@@ -29,31 +34,51 @@ class BranchCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RobotoText(
-                    fontSize: 17,
-                    fontColor: null,
-                    text: "Innwa Merchat Road",
-                    fontWeight: FontWeight.bold,
+                  LocalizationWidget(
+                    en: branch.enName,
+                    mm: (branch.mmName == null && branch.mmName == "null")
+                        ? "Not Available"
+                        : branch.mmName,
+                    child: (val) {
+                      return RobotoText(
+                        fontSize: 17,
+                        fontColor: null,
+                        text: val,
+                        fontWeight: FontWeight.bold,
+                      );
+                    },
                   ),
                   10.vertical,
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Icon(Icons.location_pin),
                       8.horizontal,
                       Flexible(
-                        child: RobotoText(
-                          fontSize: 14,
-                          fontColor: null,
-                          fontWeight: FontWeight.w600,
-                          maxLine: 10,
-                          text:
-                              "Lorem Ipsum took a galley of type and scrambled it to make a type specimen book.",
+                        child: LocalizationWidget(
+                          en: branch.enAddress,
+                          mm: (branch.mmAddress == null &&
+                                  branch.mmAddress == "null")
+                              ? "Not Available"
+                              : branch.mmAddress,
+                          child: (val) {
+                            return RobotoText(
+                              fontSize: 14,
+                              fontColor: null,
+                              text: val,
+                              maxLine: 3,
+                              fontWeight: FontWeight.w600,
+                            );
+                          },
                         ),
                       )
                     ],
                   ),
                   12.vertical,
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Icon(Icons.phone),
                       8.horizontal,
@@ -62,24 +87,27 @@ class BranchCard extends StatelessWidget {
                           fontSize: 14,
                           fontColor: null,
                           fontWeight: FontWeight.w600,
-                          maxLine: 10,
-                          text: "09 780 136579",
+                          maxLine: 2,
+                          text: branch.phone,
                         ),
                       )
                     ],
                   ),
                   12.vertical,
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Icon(Icons.headset_mic),
                       8.horizontal,
                       Flexible(
+
                         child: RobotoText(
                           fontSize: 14,
                           fontColor: null,
                           fontWeight: FontWeight.w600,
-                          maxLine: 10,
-                          text: "09 780 136579 , 09 780 136579",
+                          maxLine: 2,
+                          text: branch.servicePhone,
                         ),
                       )
                     ],

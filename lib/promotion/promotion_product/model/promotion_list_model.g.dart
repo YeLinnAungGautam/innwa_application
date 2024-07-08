@@ -8,13 +8,10 @@ part of 'promotion_list_model.dart';
 
 PromotionListModel _$PromotionListModelFromJson(Map<String, dynamic> json) =>
     PromotionListModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       slug: json['slug'] as String,
       image: json['featured_image'] as String,
-      promotionProducts: (json['promotion_product'] as List<dynamic>)
-          .map((e) => SearchProductModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       enDesc: json['description_en'] as String?,
       publishedAt: json['published_date'] as String,
       mmName: json['name_mm'] as String?,
@@ -31,5 +28,4 @@ Map<String, dynamic> _$PromotionListModelToJson(PromotionListModel instance) =>
       'description_en': instance.enDesc,
       'description_mm': instance.mmDesc,
       'published_date': instance.publishedAt,
-      'promotion_product': instance.promotionProducts,
     };

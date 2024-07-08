@@ -39,17 +39,17 @@ class SubBranchModel extends Equatable {
 
   final int id;
   @JsonKey(name: "name_en")
-  final String enName;
+  final String? enName;
   @JsonKey(name: "name_mm")
   final String? mmName;
-  final String image;
+  final String? image;
   @JsonKey(name: "address_en")
-  final String enAddress;
+  final String? enAddress;
   @JsonKey(name: "address_mm")
   final String? mmAddress;
-  final String phone;
+  final String? phone;
   @JsonKey(name: "service_phone")
-  final String servicePhone;
+  final String? servicePhone;
 
   @override
   List<Object?> get props =>

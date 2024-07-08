@@ -7,7 +7,7 @@ part of 'service_model.dart';
 // **************************************************************************
 
 ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) => ServiceModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       enName: json['name_en'] as String,
       mmName: json['name_mm'] as String,
     );

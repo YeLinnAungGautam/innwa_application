@@ -11,12 +11,12 @@ class Index extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height/1.5,
             child: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, index) {
-                return CreditCard();
+                return const CreditCard();
               },
               ),
           ),

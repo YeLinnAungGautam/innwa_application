@@ -8,9 +8,9 @@ part of 'order_history_model.dart';
 
 OrderHistoryModel _$OrderHistoryModelFromJson(Map<String, dynamic> json) =>
     OrderHistoryModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       orderNo: json['order_no'] as String,
-      subTotal: json['sub_total'] as int,
+      subTotal: (json['sub_total'] as num).toInt(),
       orderStatus: json['order_status'] as String,
       paymentStatus: json['payment_status'] as String,
       orderAt: json['ordered_at'] as String,

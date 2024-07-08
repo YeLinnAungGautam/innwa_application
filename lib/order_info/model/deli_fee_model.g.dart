@@ -7,7 +7,7 @@ part of 'deli_fee_model.dart';
 // **************************************************************************
 
 DeliFeeModel _$DeliFeeModelFromJson(Map<String, dynamic> json) => DeliFeeModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       fee: json['fee'] as String,
     );
 

@@ -8,9 +8,9 @@ part of 'product_image_model.dart';
 
 ProductImageModel _$ProductImageModelFromJson(Map<String, dynamic> json) =>
     ProductImageModel(
-      id: json['id'] as int,
-      productId: json['product_id'] as int,
-      productPriceId: json['product_price_id'] as int,
+      id: (json['id'] as num).toInt(),
+      productId: (json['product_id'] as num).toInt(),
+      productPriceId: (json['product_price_id'] as num).toInt(),
       image: json['image'] as String,
     );
 

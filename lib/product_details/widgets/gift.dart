@@ -7,7 +7,7 @@ class Gifts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> gifts = ["Powerbank","Earbuds"];
-    return Container(
+    return SizedBox(
             width: 250,
             height: 50,
             child: ListView.builder(

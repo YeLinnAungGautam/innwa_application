@@ -68,7 +68,7 @@ class ProductRow extends StatelessWidget {
                 ),
               )
               :
-              SizedBox(),
+              const SizedBox(),
             ],
           ),
           isIcon
@@ -77,8 +77,8 @@ class ProductRow extends StatelessWidget {
                   color: Colors.blue[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Icon(Icons.favorite),
                 ),
               )

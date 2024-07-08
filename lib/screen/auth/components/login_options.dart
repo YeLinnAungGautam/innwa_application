@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LoginOption extends StatelessWidget {
+  const LoginOption({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BuildButton(
@@ -30,7 +32,7 @@ class LoginOption extends StatelessWidget {
 class BuildButton extends StatelessWidget {
   final Image iconImage;
   final String textButton;
-  BuildButton({required this.iconImage, required this.textButton});
+  const BuildButton({super.key, required this.iconImage, required this.textButton});
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context).size;
@@ -44,7 +46,7 @@ class BuildButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           iconImage,
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(textButton),
