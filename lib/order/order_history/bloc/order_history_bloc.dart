@@ -170,10 +170,15 @@ class OrderHistoryBloc extends Bloc<OrderHistoryEvent, OrderHistoryState> {
     return resData;
   }
 
-  Future<void> _updateSelectedTab(
-      UpdateSelectedTabEvent event, Emitter emit) async {
+  _updateSelectedTab(UpdateSelectedTabEvent event, Emitter emit) async {
     if (event.selectedTab == 1 && state.selectedTab == 1) {
       await showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
         context: event.context,
         builder: (ctx) {
           return BlocProvider.value(

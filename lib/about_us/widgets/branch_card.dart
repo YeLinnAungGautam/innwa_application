@@ -20,18 +20,25 @@ class BranchCard extends StatelessWidget {
         surfaceTintColor: Colors.white,
         child: Column(
           children: [
-            CachedNetworkImage(
-              imageUrl: "$kBranchesImageBaseUrl${branch.image ?? ''}",
-              height: MediaQuery.of(context).size.height * 0.16,
-              width: MediaQuery.of(context).size.width * 0.7,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: "$kBranchesImageBaseUrl${branch.image ?? ''}",
+                height: MediaQuery.of(context).size.height * 0.16,
+                width: MediaQuery.of(context).size.width * 0.7,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.65,
               constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height * 0.16),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 12),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   LocalizationWidget(
@@ -101,12 +108,11 @@ class BranchCard extends StatelessWidget {
                       const Icon(Icons.headset_mic),
                       8.horizontal,
                       Flexible(
-
                         child: RobotoText(
                           fontSize: 14,
                           fontColor: null,
-                          fontWeight: FontWeight.w600,
                           maxLine: 2,
+                          fontWeight: FontWeight.w600,
                           text: branch.servicePhone,
                         ),
                       )

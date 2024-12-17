@@ -10,6 +10,8 @@ class CustomTextFormField extends StatefulWidget {
   final bool needBackground;
   final String? initialData;
   final Widget? prefix;
+  final TextStyle? textStyle;
+  final TextInputType? textInputType;
   const CustomTextFormField({
     super.key,
     required this.onSaved,
@@ -20,6 +22,8 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.initialData,
     this.prefix,
+    this.textInputType,
+    this.textStyle,
   });
 
   @override
@@ -64,14 +68,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: _controller,
         validator: widget.validator,
         obscureText: widget.pass ? _isObscure : false,
+        keyboardType: widget.textInputType,
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
             labelText: widget.label,
             prefix: widget.prefix,
-            labelStyle: const TextStyle(
-              color: Colors.black,
-            ),
+            labelStyle: widget.textStyle ??
+                const TextStyle(
+                  color: Colors.black,
+                ),
             enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(

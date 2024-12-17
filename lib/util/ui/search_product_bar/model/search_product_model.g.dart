@@ -8,12 +8,14 @@ part of 'search_product_model.dart';
 
 SearchProductModel _$SearchProductModelFromJson(Map<String, dynamic> json) =>
     SearchProductModel(
-      id: (json['id'] as num).toInt(),
-      enName: json['name_en'] as String,
+      id: (json['id'] as num?)?.toInt(),
+      enName: json['name_en'] as String?,
       mmName: json['name_mm'] as String?,
-      price: PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),
-      image: json['feature_image'] as String,
-      slug: json['slug'] as String,
+      price: json['first_price'] == null
+          ? null
+          : PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),
+      image: json['feature_image'] as String?,
+      slug: json['slug'] as String?,
       category: json['category'] == null
           ? null
           : CategoryModel.fromJson(json['category'] as Map<String, dynamic>),

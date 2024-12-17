@@ -43,4 +43,5 @@ class RouterPath {
   final deliveryInfo = _PathMap("/deliveryInfo", fullPath: "/deliveryInfo");
   final orderInfoScreen = _PathMap("/orderInfo", fullPath: "/orderInfo");
   final paymentSelect = _PathMap("/paymentSelect", fullPath: "/paymentSelect");
+  final paymentStatus = _PathMap("/paymentStatus", fullPath: "/paymentStatus");
 }

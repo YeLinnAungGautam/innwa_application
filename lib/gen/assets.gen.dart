@@ -39,6 +39,9 @@ class $AssetsImagesGen {
   AssetGenImage get googleLogo =>
       const AssetGenImage('assets/images/google_logo.png');
 
+  /// File path: assets/images/kpay.jpg
+  AssetGenImage get kpay => const AssetGenImage('assets/images/kpay.jpg');
+
   /// File path: assets/images/logo_innwa.png
   AssetGenImage get logoInnwa =>
       const AssetGenImage('assets/images/logo_innwa.png');
@@ -96,6 +99,7 @@ class $AssetsImagesGen {
         coupon,
         file,
         googleLogo,
+        kpay,
         logoInnwa,
         mmFlag,
         mpu,
@@ -139,11 +143,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

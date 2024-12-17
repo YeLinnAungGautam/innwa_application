@@ -38,8 +38,6 @@ class BranchesWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: branches.branch.length,
               itemBuilder: (context, index) {
-                // debugPrint(
-                //     "--------branches length => ${branches.branch.length}-------");
                 return BranchCard(branch: branches.branch[index]);
               },
             ),

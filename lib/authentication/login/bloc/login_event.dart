@@ -20,3 +20,7 @@ final class UpdateLoginPasswordEvent extends LoginEvent {
   const UpdateLoginPasswordEvent({required super.context, this.data});
   final String? data;
 }
+
+final class GoogleLoginEvent extends LoginEvent {
+  const GoogleLoginEvent({required super.context});
+}

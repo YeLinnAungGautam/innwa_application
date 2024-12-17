@@ -7,12 +7,14 @@ part of 'product_model.dart';
 // **************************************************************************
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
-      id: (json['id'] as num).toInt(),
-      enName: json['name_en'] as String,
+      id: (json['id'] as num?)?.toInt(),
+      enName: json['name_en'] as String?,
       mmName: json['name_mm'] as String?,
-      price: PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),
-      image: json['feature_image'] as String,
-      slug: json['slug'] as String,
+      price: json['first_price'] == null
+          ? null
+          : PriceModel.fromJson(json['first_price'] as Map<String, dynamic>),
+      image: json['feature_image'] as String?,
+      slug: json['slug'] as String?,
     );
 
 Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
@@ -26,8 +28,8 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
     };
 
 PriceModel _$PriceModelFromJson(Map<String, dynamic> json) => PriceModel(
-      productId: (json['product_id'] as num).toInt(),
-      amount: (json['price_mmk'] as num).toDouble(),
+      productId: (json['product_id'] as num?)?.toInt(),
+      amount: (json['price_mmk'] as num?)?.toDouble(),
       disPrice: json['dis_price'] as String?,
       disStartDate: json['dis_start_date'] as String?,
       disEndDate: json['dis_end_date'] as String?,

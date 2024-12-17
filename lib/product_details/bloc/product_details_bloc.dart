@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/constant/api_key.dart';
@@ -9,8 +8,6 @@ import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
-import 'package:innwa_mobile_dev/_application/service/persistent/favorite_dao/favorite_dao.dart';
-import 'package:innwa_mobile_dev/_application/service/persistent/favorite_dao/favorite_dao_impl.dart';
 import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/home/latest_phone/model/product_model.dart';
 import 'package:innwa_mobile_dev/product_details/model/product_details_model.dart';
@@ -219,7 +216,7 @@ class ProductDetailsBloc
               id: Random().nextInt(9999),
               productId: state.productDetails!.id,
               customerId:
-                  BlocProvider.of<UserBloc>(event.context).state.user!.id,
+                  BlocProvider.of<UserBloc>(event.context).state.user!.id ?? 0,
               star: int.parse(state.rating.toString().split(".")[0]),
               msg: ratingTextController.text),
         ]));

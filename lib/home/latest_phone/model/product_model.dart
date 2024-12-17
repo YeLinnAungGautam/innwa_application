@@ -14,16 +14,21 @@ class ProductModel extends Equatable {
     required this.slug,
   });
 
-  final int id;
+  final int? id;
+
   @JsonKey(name: "name_en")
-  final String enName;
+  final String? enName;
+
   @JsonKey(name: "name_mm")
   final String? mmName;
+
   @JsonKey(name: "first_price")
-  final PriceModel price;
+  final PriceModel? price;
+
   @JsonKey(name: "feature_image")
-  final String image;
-  final String slug;
+  final String? image;
+
+  final String? slug;
 
   @override
   List<Object?> get props => [id, enName, mmName, price, image, slug];
@@ -65,17 +70,23 @@ class PriceModel extends Equatable {
   });
 
   @JsonKey(name: "product_id")
-  final int productId;
+  final int? productId;
+
   @JsonKey(name: "dis_price")
   final String? disPrice;
+
   @JsonKey(name: "price_mmk")
-  final double amount;
+  final double? amount;
+
   @JsonKey(name: "dis_start_date")
   final String? disStartDate;
+
   @JsonKey(name: "dis_end_date")
   final String? disEndDate;
+
   @JsonKey(name: "cashback")
   final String? cashback;
+
   final String? gift;
 
   @override

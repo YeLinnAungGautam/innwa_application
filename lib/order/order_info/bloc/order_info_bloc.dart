@@ -7,8 +7,9 @@ import 'package:innwa_mobile_dev/_application/router_service/router.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/model.dart';
 import 'package:innwa_mobile_dev/_application/service/api_service/rest_api.dart';
 import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
-import 'package:innwa_mobile_dev/order_info/model/deli_fee_model.dart';
 import 'package:innwa_mobile_dev/util/ui/snack_bar.dart';
+
+import '../model/deli_fee_model.dart';
 
 part 'order_info_event.dart';
 part 'order_info_state.dart';

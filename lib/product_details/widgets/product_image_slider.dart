@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:innwa_mobile_dev/constant/api_constant.dart';
 import 'package:innwa_mobile_dev/product_details/bloc/product_details_bloc.dart';
 
 class ProductImageSlider extends StatelessWidget {
@@ -13,12 +12,11 @@ class ProductImageSlider extends StatelessWidget {
       builder: (context, state) {
         final List<String> images = [];
         if (state.productDetails!.image != null) {
-          images.add(
-              kBaseUrl + state.featureImagePath + state.productDetails!.image!);
+          images.add(state.featureImagePath + state.productDetails!.image!);
         }
         for (var price in state.productDetails!.price) {
           for (var image in price.productImage) {
-            images.add(kBaseUrl + state.productImagepath + image.image);
+            images.add(state.productImagepath + image.image);
           }
         }
         return SizedBox(

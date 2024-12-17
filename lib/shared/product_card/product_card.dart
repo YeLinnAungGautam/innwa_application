@@ -94,7 +94,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       if (productDisPrice != null ||
                           productDisPrice != "null" ||
-                          product?.price.disPrice != null)
+                          product?.price?.disPrice != null)
                         LocalizationWidget(
                             en: "Discount",
                             mm: "လျှော့စျေး",
@@ -121,15 +121,15 @@ class ProductCard extends StatelessWidget {
                                   dbNumber: isPromotionProduct
                                       ? double.parse(productDisPrice ?? "0")
                                       : double.parse(
-                                          product?.price.disPrice ?? '0'),
+                                          product?.price?.disPrice ?? '0'),
                                 )} MMK"),
                               );
                             }),
                       if (productCashBack != null ||
-                          product?.price.cashback != null)
+                          product?.price?.cashback != null)
                         6.vertical,
                       if (productCashBack != null ||
-                          product?.price.cashback != null)
+                          product?.price?.cashback != null)
                         LocalizationWidget(
                             en: "Cashback",
                             mm: "ပြန်အမ်းငွေ",
@@ -155,14 +155,14 @@ class ProductCard extends StatelessWidget {
                                     text: "$val - ${formatNumber(
                                   dbNumber: double.parse((isPromotionProduct
                                           ? productCashBack
-                                          : product?.price.cashback!) ??
+                                          : product?.price?.cashback!) ??
                                       ""),
                                 )} MMK"),
                               );
                             }),
-                      if (gift != null || product?.price.gift != null)
+                      if (gift != null || product?.price?.gift != null)
                         6.vertical,
-                      if (gift != null || product?.price.gift != null)
+                      if (gift != null || product?.price?.gift != null)
                         LocalizationWidget(
                           en: "Gift",
                           mm: "လက်ဆောင်",
@@ -186,7 +186,7 @@ class ProductCard extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5)),
                               child: DiscountBanner(
                                 text:
-                                    "$val - ${isPromotionProduct ? gift : (product?.price.gift!)}",
+                                    "$val - ${isPromotionProduct ? gift : (product?.price?.gift!)}",
                               ),
                             );
                           },
@@ -249,14 +249,14 @@ class ProductCard extends StatelessWidget {
                                 children: [
                                   PriceTag(
                                     haveDiscount: productDisPrice != null ||
-                                        product?.price.disPrice != null,
+                                        product?.price?.disPrice != null,
                                     text: formatNumber(
                                       dbNumber: isPromotionProduct
                                           ? (productPrice?.toDouble() ?? 0)
-                                          : product?.price.amount,
+                                          : product?.price?.amount,
                                     ),
                                   ),
-                                  if (product?.price.disPrice != null ||
+                                  if (product?.price?.disPrice != null ||
                                       productDisPrice != null)
                                     PriceTag(
                                       text: isPromotionProduct
@@ -269,14 +269,17 @@ class ProductCard extends StatelessWidget {
                                                   double.parse(
                                                       productCashBack ?? "0"))
                                           : formatNumber(
-                                              dbNumber: (product
-                                                          ?.price.amount ??
-                                                      0) -
-                                                  double.parse(
-                                                      product?.price.disPrice ??
+                                              dbNumber:
+                                                  (product
+                                                              ?.price?.amount ??
+                                                          0) -
+                                                      double.parse(product
+                                                              ?.price
+                                                              ?.disPrice ??
                                                           '0') -
-                                                  double.parse(
-                                                      product?.price.cashback ??
+                                                      double.parse(product
+                                                              ?.price
+                                                              ?.cashback ??
                                                           "0")),
                                     ),
                                 ],

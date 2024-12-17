@@ -1,7 +1,6 @@
 import "package:innwa_mobile_dev/_application/service/api_service/model.dart";
 import "package:innwa_mobile_dev/_application/service/api_service/util.dart";
 
-
 Future<bool> checkBeforeValidate({
   required BeforeCallBackConfig<bool?> beforeValidate,
   CallBackWithReturn? oldBeforeValidate,

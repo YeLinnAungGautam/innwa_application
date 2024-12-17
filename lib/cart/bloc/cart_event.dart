@@ -11,11 +11,13 @@ sealed class CartEvent extends Equatable {
 
 class UpdateCartStateEvent extends CartEvent {
   const UpdateCartStateEvent({required super.context, required this.data});
+
   final StateModel data;
 }
 
 class UpdateCartTownshipEvent extends CartEvent {
   const UpdateCartTownshipEvent({required super.context, required this.data});
+
   final TownshipModel data;
 }
 
@@ -25,18 +27,21 @@ class ClearCartTownshipEvent extends CartEvent {
 
 class UpdateUserCartEvent extends CartEvent {
   const UpdateUserCartEvent({required super.context, required this.data});
+
   final Map<String, dynamic> data;
 }
 
 class UpdateUserCartFromStorageEvent extends CartEvent {
   const UpdateUserCartFromStorageEvent(
       {required super.context, required this.data});
+
   final List<Map<String, dynamic>> data;
 }
 
 final class DeleteUserCartEvent extends CartEvent {
   const DeleteUserCartEvent(
       {required super.context, required this.productId, required this.priceId});
+
   final int productId;
   final int priceId;
 }
@@ -44,6 +49,7 @@ final class DeleteUserCartEvent extends CartEvent {
 final class AddQuantityEvent extends CartEvent {
   const AddQuantityEvent(
       {required super.context, required this.productId, required this.priceId});
+
   final int productId;
   final int priceId;
 }
@@ -54,12 +60,14 @@ final class ReduceQuantityEvent extends CartEvent {
     required this.productId,
     required this.priceId,
   });
+
   final int productId;
   final int priceId;
 }
 
 final class UpdateDeliFeeEvent extends CartEvent {
   const UpdateDeliFeeEvent({required super.context, required this.deliFee});
+
   final DeliFeeModel deliFee;
 }
 
@@ -72,8 +80,11 @@ final class ClearCouponEvent extends CartEvent {
 }
 
 final class SelectPaymentMethodEvent extends CartEvent {
-  const SelectPaymentMethodEvent(
-      {required super.context, required this.payment});
+  const SelectPaymentMethodEvent({
+    required super.context,
+    required this.payment,
+  });
+
   final PaymentModel? payment;
 }
 

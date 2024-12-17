@@ -23,7 +23,10 @@ class OrderPending extends StatelessWidget {
           return state.pendingStatus == ApiStatus.completed
               ? state.orderPending.isNotEmpty
                   ? SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                       sliver: SliverList.builder(
                         itemCount: state.orderPending.length,
                         itemBuilder: (context, index) {
@@ -47,6 +50,7 @@ class OrderPending extends StatelessWidget {
                                 isHistory: false,
                                 orderNo: order.orderNo,
                                 subTotal: order.subTotal,
+                                paymentStatus: order.paymentStatus,
                                 orderStatus: order.orderStatus,
                               ),
                             ],

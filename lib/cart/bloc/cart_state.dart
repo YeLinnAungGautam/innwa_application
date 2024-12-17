@@ -12,6 +12,7 @@ class CartState extends Equatable {
     this.coupon,
     this.changeCoupon = false,
     this.payment,
+    this.paymentMethodType = PaymentMethodType.initial,
   });
   StateModel? selectedState;
   TownshipModel? selectedTownship;
@@ -23,6 +24,7 @@ class CartState extends Equatable {
   CouponModel? coupon;
   final bool changeCoupon;
   PaymentModel? payment;
+  PaymentMethodType paymentMethodType;
 
   CartState clearCoupon() {
     coupon = null;
@@ -46,6 +48,7 @@ class CartState extends Equatable {
         coupon,
         changeCoupon,
         payment,
+        paymentMethodType
       ];
 
   CartState clearState() {
@@ -69,6 +72,7 @@ class CartState extends Equatable {
     CouponModel? coupon,
     bool? changeCoupon,
     PaymentModel? payment,
+    PaymentMethodType? paymentMethodType,
   }) {
     return CartState(
       selectedState: selectedState ?? this.selectedState,
@@ -81,6 +85,7 @@ class CartState extends Equatable {
       coupon: coupon ?? this.coupon,
       changeCoupon: changeCoupon ?? this.changeCoupon,
       payment: payment ?? this.payment,
+      paymentMethodType: paymentMethodType ?? this.paymentMethodType,
     );
   }
 }

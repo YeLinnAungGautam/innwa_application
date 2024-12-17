@@ -8,13 +8,14 @@ import 'package:innwa_mobile_dev/_application/service/format_number.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
 import 'package:innwa_mobile_dev/cart/bloc/cart_bloc.dart';
 import 'package:innwa_mobile_dev/cart/widgets/cart_item.dart';
-import 'package:innwa_mobile_dev/order_info/bloc/order_info_bloc.dart';
-import 'package:innwa_mobile_dev/order_info/widgets/deli_info.dart';
 import 'package:innwa_mobile_dev/product_details/model/product_details_model.dart';
 import 'package:innwa_mobile_dev/shared/bottom_sheet/bottom_sheet.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
 import 'package:innwa_mobile_dev/shared/top_bar/topbar.dart';
 import 'package:innwa_mobile_dev/util/constants.dart';
+
+import '../bloc/order_info_bloc.dart';
+import '../widgets/deli_info.dart';
 
 class OrderInfoScreen extends StatelessWidget {
   const OrderInfoScreen({super.key});
@@ -119,8 +120,10 @@ class OrderInfoScreen extends StatelessWidget {
                                       mm: 'ပြည်နယ်',
                                       child: (val) {
                                         return LocalizationWidget(
-                                            en: state.selectedState!.enName,
-                                            mm: state.selectedState!.mmName,
+                                            en: state.selectedState?.enName ??
+                                                '',
+                                            mm: state.selectedState?.mmName ??
+                                                '',
                                             child: (state) {
                                               return DeliInfo(
                                                   leftText: val,
@@ -134,8 +137,12 @@ class OrderInfoScreen extends StatelessWidget {
                                       mm: 'မြို့နယ်',
                                       child: (val) {
                                         return LocalizationWidget(
-                                            en: state.selectedTownship!.enName,
-                                            mm: state.selectedTownship!.mmName,
+                                            en: state
+                                                    .selectedTownship?.enName ??
+                                                '',
+                                            mm: state
+                                                    .selectedTownship?.mmName ??
+                                                '',
                                             child: (township) {
                                               return DeliInfo(
                                                 leftText: val,

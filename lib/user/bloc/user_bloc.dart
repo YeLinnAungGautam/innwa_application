@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:innwa_mobile_dev/_application/bloc/app_service_bloc.dart';
@@ -26,6 +27,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   final RestAPI _restAPI;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<void> _checkTokenValidEvent(
     CheckTokenValidEvent event,
@@ -111,6 +113,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         key: StorageService.I.loginExpireTime,
       ),
     ]);
+    if (!event.context.mounted) return;
     BlocProvider.of<UserBloc>(event.context).add(UpdateUserDataEvent(
       context: event.context,
       user: null,
@@ -119,6 +122,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state
         .copyWith(logoutStatus: ApiStatus.processing, wishlistProductId: []));
     final resData = await _logout();
+    await _firebaseAuth.signOut();
     emit(state.copyWith(
       logoutStatus: ApiStatus.completed,
     ));

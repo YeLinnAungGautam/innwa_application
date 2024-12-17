@@ -16,7 +16,6 @@ import "package:innwa_mobile_dev/cart/view/cart_screen.dart";
 import "package:innwa_mobile_dev/delivery_info/view/delivery_info_screen.dart";
 import 'package:innwa_mobile_dev/home/home/home.dart';
 import "package:innwa_mobile_dev/order/order_history/view/order_history_screen.dart";
-import "package:innwa_mobile_dev/order_info/view/order_info_screen.dart";
 import "package:innwa_mobile_dev/payment_select/view/payment_select_screen.dart";
 import "package:innwa_mobile_dev/product_details/views/product_detail.dart";
 import "package:innwa_mobile_dev/product_list/views/products.dart";
@@ -25,6 +24,8 @@ import "package:innwa_mobile_dev/promotion/promotion_product/view/promotion.dart
 import "package:innwa_mobile_dev/services/view/service_screen.dart";
 import "package:innwa_mobile_dev/wishlist/whishlist.dart";
 
+import "../../order/order_info/view/order_info_screen.dart";
+import "../../payment_select/view/payment_status_checking.dart";
 import "../../promotion/promotion_details/view/promotion_details_screen.dart";
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -156,6 +157,12 @@ final GoRouter routerConfig = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       path: RouterPath.I.paymentSelect.path,
       builder: (context, state) => const PaymentSelectScreen(),
+      routes: const [],
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: RouterPath.I.paymentStatus.path,
+      builder: (context, state) => const PaymentStatusCheckingScreen(),
       routes: const [],
     ),
     StatefulShellRoute.indexedStack(

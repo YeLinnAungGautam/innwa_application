@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "463933182416",
+    "project_id": "innwa-production",
+    "storage_bucket": "innwa-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463933182416:android:d1304112b6c39c2a7769d5",
+        "android_client_info": {
+          "package_name": "com.hanindustriesxneptune.zdotcom.innwa.innwa_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463933182416-c4i2k1d779oacsuq37did8siosel0imv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanindustriesxneptune.zdotcom.innwa.innwa_mobile",
+            "certificate_hash": "37ad812d2ebfcdc08b0c4200c860bae31099761e"
+          }
+        },
+        {
+          "client_id": "463933182416-3otaeb74m1scageeqntdupg5qdb1k37a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBor3lhwSDvMlxIFiylti93h_HeMuSVdX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463933182416-3otaeb74m1scageeqntdupg5qdb1k37a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "463933182416-nj3pt6361q7pno3v91cstj7usdf3h3ni.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hanindustriesxneptune.zdotcom.innwa.innwaMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

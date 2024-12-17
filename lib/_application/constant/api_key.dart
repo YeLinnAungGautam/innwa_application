@@ -22,6 +22,7 @@ class ApiKey {
   static const shop = "/shop";
   static const register = "/customer/register";
   static const login = "/customer/login";
+  static const googleLogin = "/customer/googlelogin";
   static const logout = "/customer/logout";
   static const states = "/states";
   static const township = "/get-township";
@@ -42,6 +43,8 @@ class ApiKey {
   static const order = "/customer/order";
   static const checkToken = "/customer/checkToken";
   static const aboutUs = "/about-us";
+  static const makePayment = "/customer/makepayment";
+  static const checkPaymentStatus = "/customer/checkpaymentstatus";
 }
 
 enum ApiStatus {
@@ -50,8 +53,17 @@ enum ApiStatus {
   failure,
 }
 
+enum PaymentMethod {
+  initial,
+  cod,
+  ayaPayPin,
+  ayaPayQr,
+  mpu,
+}
+
 class ApiState extends Equatable {
   const ApiState({this.apiStatus = ApiStatus.processing});
+
   final ApiStatus apiStatus;
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +74,14 @@ class AboutUsBloc extends Bloc<AboutUsEvent, AboutUsState> {
     final BranchesResponse branchesResponse =
         BranchesResponse.fromJson(json ?? {});
 
-    print(" this is branch data ====> $branchesResponse");
+    log(" this is branch data ====> $branchesResponse");
 
     emit(state.copyWith(
       branchStatus: ApiStatus.completed,
       branchImagePath: branchesResponse.branchImagePath,
       branches: branchesResponse.branches,
     ));
-    }
+  }
 
   Future<Map<String, dynamic>?> _getBranches() async {
     Map<String, dynamic>? resData;

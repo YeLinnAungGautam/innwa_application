@@ -291,7 +291,7 @@ class Profile extends StatelessWidget {
                             fontColor: Colors.black,
                             text: DateFormat.yMMMMd().format(
                               DateTime.parse(
-                                state.user!.registeredAt,
+                                state.user!.registeredAt ?? '',
                               ),
                             ),
                           )

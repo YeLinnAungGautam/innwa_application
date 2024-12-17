@@ -18,18 +18,30 @@ class UserModel extends Equatable {
     this.township,
     required this.registeredAt,
   });
+  @JsonKey(name: "id")
+  final int? id;
 
-  final int id;
-  final String name;
+  @JsonKey(name: "name")
+  final String? name;
+
+  @JsonKey(name: "image")
   final String? image;
-  final String email;
+
+  @JsonKey(name: "email")
+  final String? email;
+
   @JsonKey(name: "address_detail")
   final String? addressDetail;
+
+  @JsonKey(name: "phone")
   final String? phone;
+
   final StateModel? state;
+
   final TownshipModel? township;
+
   @JsonKey(name: "registered_at")
-  final String registeredAt;
+  final String? registeredAt;
 
   @override
   List<Object?> get props => [

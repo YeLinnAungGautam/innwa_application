@@ -246,42 +246,48 @@ class _LoginState extends State<Login> {
                                         }),
                                   ),
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                                //   child: Text(
-                                //     "or",
-                                //     style: GoogleFonts.roboto(
-                                //         color: Colors.black54, fontSize: 18.0),
-                                //   ),
-                                // ),
-                                // GestureDetector(
-                                //   onTap: () {},
-                                //   child: Container(
-                                //     width: 300,
-                                //     height: 50,
-                                //     decoration: BoxDecoration(
-                                //       borderRadius: BorderRadius.circular(50),
-                                //       color: Colors.white,
-                                //     ),
-                                //     child: Row(
-                                //       mainAxisAlignment: MainAxisAlignment.center,
-                                //       children: [
-                                //         ImageContainer(
-                                //             isUrl: false,
-                                //             width: 50,
-                                //             height: 50,
-                                //             url: imaPath.path('google_logo.png')),
-                                //         Text(
-                                //           'Login In with Google',
-                                //           style: GoogleFonts.roboto(
-                                //               fontSize: 18.0,
-                                //               color: Colors.black87,
-                                //               fontWeight: FontWeight.w600),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
-                                // ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 15.0),
+                                  child: Text(
+                                    "or",
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.black54, fontSize: 18.0),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    loginBloc.add(
+                                        GoogleLoginEvent(context: context));
+                                  },
+                                  child: Container(
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: Colors.white,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ImageContainer(
+                                            isUrl: false,
+                                            width: 50,
+                                            height: 50,
+                                            url: imaPath
+                                                .path('google_logo.png')),
+                                        Text(
+                                          'Login In with Google',
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 18.0,
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0,
@@ -328,7 +334,7 @@ class _LoginState extends State<Login> {
                                       ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),

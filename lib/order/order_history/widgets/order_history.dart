@@ -46,6 +46,7 @@ class OrderHistory extends StatelessWidget {
                               OrderItem(
                                 isHistory: true,
                                 orderNo: order.orderNo,
+                                orderStatus: order.orderStatus,
                                 subTotal: order.subTotal,
                               ),
                             ],

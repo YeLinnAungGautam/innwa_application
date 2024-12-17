@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>463933182416-nj3pt6361q7pno3v91cstj7usdf3h3ni.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.463933182416-nj3pt6361q7pno3v91cstj7usdf3h3ni</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>463933182416-c4i2k1d779oacsuq37did8siosel0imv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDRMI7qaC4gOLD02nQS6V09lv056zKU2OM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>463933182416</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hanindustriesxneptune.zdotcom.innwa.innwaMobile</string>
+	<key>PROJECT_ID</key>
+	<string>innwa-production</string>
+	<key>STORAGE_BUCKET</key>
+	<string>innwa-production.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:463933182416:ios:ed6550d5c6769afd7769d5</string>
+</dict>
+</plist>

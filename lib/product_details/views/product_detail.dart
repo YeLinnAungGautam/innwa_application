@@ -58,10 +58,11 @@ class ProductDetail extends StatelessWidget {
               builder: (context, state) {
                 return BlocBuilder<UserBloc, UserState>(
                   builder: (context, userState) {
-                    print(" product detail slug ===> $slug");
-                    print(
+                    debugPrint(" product detail slug ===> $slug");
+                    debugPrint(
                         "product detail id ===> ${state.productDetails?.id ?? 0}");
-                    print("product detail toggle state => ${state.isFavorite}");
+                    debugPrint(
+                        "product detail toggle state => ${state.isFavorite}");
 
                     return Container(
                       color: backgroundColorLight,
@@ -169,7 +170,7 @@ class ProductDetail extends StatelessWidget {
                             BlocBuilder<ProductDetailsBloc,
                                 ProductDetailsState>(
                               builder: (context, subDetailState) {
-                                print(
+                                debugPrint(
                                     "detail sub detail toggle state => ${subDetailState.isFavorite}");
                                 return CircleAvatar(
                                   radius: 20,
@@ -195,10 +196,10 @@ class ProductDetail extends StatelessWidget {
                                             // ));
                                           },
                                     icon: Icon(
-                                      subDetailState.isFavorite ?? false
+                                      subDetailState.isFavorite
                                           ? CupertinoIcons.heart_fill
                                           : CupertinoIcons.heart,
-                                      color: subDetailState.isFavorite ?? false
+                                      color: subDetailState.isFavorite
                                           ? Colors.red
                                           : Colors.black,
                                     ),

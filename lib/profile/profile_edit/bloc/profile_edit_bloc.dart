@@ -54,7 +54,7 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
       final UserBloc userBloc = BlocProvider.of<UserBloc>(event.context);
       emit(state.copyWith(sendStatus: ApiStatus.processing));
       final resData = await _updateUser(
-        userId: userBloc.state.user!.id,
+        userId: userBloc.state.user!.id ?? 0,
         data: {
           "name": nameController.text,
           "email": emailController.text,
@@ -301,8 +301,8 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
   void _profileInitial(ProfileInitialEvent event, Emitter emit) {
     final UserState userState = BlocProvider.of<UserBloc>(event.context).state;
 
-    emailController.text = userState.user!.email;
-    nameController.text = userState.user!.name;
+    emailController.text = userState.user!.email ?? '';
+    nameController.text = userState.user!.name ?? '';
     addressController.text = userState.user!.addressDetail ?? "";
     if (userState.user!.phone != null) {
       List<String> tempPhone = userState.user!.phone!.split("");

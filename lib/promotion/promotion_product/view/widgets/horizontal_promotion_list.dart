@@ -4,7 +4,6 @@ import 'package:innwa_mobile_dev/_application/extension/sb_extension.dart';
 import 'package:innwa_mobile_dev/_application/router_service/route_path.dart';
 import 'package:innwa_mobile_dev/_application/router_service/router_service.dart';
 import 'package:innwa_mobile_dev/_application/service/localization/loclaization_view.dart';
-import 'package:innwa_mobile_dev/constant/api_constant.dart';
 import 'package:innwa_mobile_dev/promotion/promotion_product/view/widgets/view_more_promotion.dart';
 import 'package:innwa_mobile_dev/shared/product_card/product_card.dart';
 import 'package:innwa_mobile_dev/shared/texts/roboto_text/roboto_text.dart';
@@ -91,7 +90,7 @@ class HorizontalPromotionList extends StatelessWidget {
                   );
                 }
                 return ProductCard(
-                  imagePath: kBaseUrl + path,
+                  imagePath: path,
                   isPromotionProduct: true,
                   productEnName: product?.nameEn,
                   productMmName: product?.nameMm,

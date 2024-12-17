@@ -28,7 +28,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           : "?page=1",
     );
 
-    print("this is wishlist ---> ${resData?['status']}");
+    debugPrint("this is wishlist ---> ${resData?['status']}");
     if (resData != null) {
       emit(state.copyWith(
         apiStatus: ApiStatus.completed,
@@ -50,24 +50,24 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           .map((e) => SearchProductModel.fromJson(e["product"]))
           .toList();
 
-      print(
+      debugPrint(
           "----- wishList is calling -------wishListData ==> $wishListDataList");
       if (wishListDataList.isNotEmpty) {
         final List<String> wishlistSlug = wishListDataList
             .map(
-              (e) => e.slug,
+              (e) => e.slug ?? '',
             )
             .toList();
-        print(
+        debugPrint(
             "----- wishList is calling -------wishList slug from model==> $wishlistSlug");
         emit(state.copyWith(
           wishListData: wishListDataList,
           favoritesSlug: wishlistSlug,
         ));
 
-        // print(
+        // debugPrint(
         //     "----- wishList state is calling -------wishList slug from wishlist state ==>${state.favoritesSlug}");
-        // print(
+        // debugPrint(
         //     "----- wishList state is calling -------wishList apiStatus from wishlist state ==>${state.apiStatus}");
       }
 
